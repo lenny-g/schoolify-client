@@ -2,10 +2,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 import {Link as RouterLink} from 'react-router-dom'
 import { useForm } from 'react-hook-form';
-import Typography from '@mui/material/Typography';
-
 
 
 
@@ -30,7 +29,7 @@ export const LoginForm = () =>{
         <Link component={RouterLink} variant="body2" to="/sign-up" underline='none'>
             Dont have an account? Signup
         </Link>
-        { ValidateForm(errors) && (<Typography variant="subtitle2" gutterBottom component="div" sx={{mt: 1, textAlign: "center", color: "#d32f2f"}}>
+        { ValidateForm(errors) && (<Typography variant="subtitle2" gutterBottom component="div" sx={{mt: 2, textAlign: "center", color: "#d32f2f"}}>
         Failed to login, please enter valid email or password.
       </Typography>)}
     </Box>
