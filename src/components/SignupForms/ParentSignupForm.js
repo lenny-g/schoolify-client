@@ -1,4 +1,6 @@
 import React from "react";
+import { gql, useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -9,11 +11,24 @@ import MenuItem from "@mui/material/MenuItem";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 
-const titleOptions = [
-  "Mr", "Mrs", "Miss", "Ms", "Dr"
-]
+const SIGNUP = gql`
+  mutation Mutation($input: SignupInput) {
+    parentSignUp(input: $input) {
+      id
+      firstName
+      lastName
+      email
+      title
+    }
+  }
+`;
+
+const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Dr"];
 
 export const ParentSignupForm = () => {
+  const [executeSignUp, { data, loading, error }] = useMutation(SIGNUP);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -21,7 +36,8 @@ export const ParentSignupForm = () => {
     setError,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
+
+  const onSubmit = async (data) => {
     console.log(data);
 
     if (data.password !== data.confirmPassword) {
@@ -29,7 +45,27 @@ export const ParentSignupForm = () => {
         type: "manual",
         message: "Passwords do not match",
       });
-      console.log("OOPS");
+    }
+
+    await executeSignUp({
+      variables: {
+        input: {
+          title: data.title,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phoneNumber: data.phoneNumber,
+          email: data.personalEmail,
+          password: data.password,
+          houseNumber: data.houseNumber,
+          street: data.street,
+          city: data.city,
+          postCode: data.postCode,
+        },
+      },
+    });
+
+    if (data) {
+      navigate("/login", { replace: true });
     }
   };
 
@@ -55,10 +91,13 @@ export const ParentSignupForm = () => {
             {...register("title")}
             defaultValue="Mr"
           >
-           
-{titleOptions.map((title)=>{
-  return <MenuItem value={title}>{title}</MenuItem>
-})}
+            {titleOptions.map((title, index) => {
+              return (
+                <MenuItem key={index} value={title}>
+                  {title}
+                </MenuItem>
+              );
+            })}
           </Select>
           {errors.title && "Please select your title"}
         </FormControl>
