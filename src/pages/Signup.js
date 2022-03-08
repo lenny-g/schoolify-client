@@ -1,7 +1,6 @@
-import { SignupForm } from '../components/SignupForm';
+import { ParentSignupForm, SignupForm } from '../components/SignupForms/ParentSignupForm';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { SignupFormChild } from '../components/SignupFormChild';
 
 export const Signup = () => {
 	return (
@@ -13,8 +12,7 @@ export const Signup = () => {
 				sx={{ textAlign: 'center' }}>
 				SignUp
 			</Typography>
-			<SignupForm />
-			{/* <SignupFormChild /> */}
+			<ParentSignupForm />
 		</Container>
 	);
 };

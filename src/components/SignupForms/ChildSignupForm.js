@@ -7,7 +7,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as React from 'react';
 import { Grid } from '@mui/material';
@@ -15,7 +14,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export const SignupFormChild = () => {
+export const ChildSignupForm = () => {
 	const [yearGroup, setYearGroup] = React.useState('');
 	const [relationship, setRelationship] = React.useState('');
 	const [checked, setChecked] = React.useState(false);
