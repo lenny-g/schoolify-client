@@ -9,7 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 
+const titleOptions = [
+  "Mr", "Mrs", "Miss", "Ms", "Dr"
+]
+
 export const ParentSignupForm = () => {
+
   const {
     register,
     handleSubmit,
@@ -48,13 +53,12 @@ export const ParentSignupForm = () => {
             id="title"
             label="Title"
             {...register("title")}
-            defaultValue="mr"
+            defaultValue="Mr"
           >
-            <MenuItem value="mr">Mr</MenuItem>
-            <MenuItem value="mrs">Mrs</MenuItem>
-            <MenuItem value="miss">Miss</MenuItem>
-            <MenuItem value="ms">Ms</MenuItem>
-            <MenuItem value="dr">Dr</MenuItem>
+           
+{titleOptions.map((title)=>{
+  return <MenuItem value={title}>{title}</MenuItem>
+})}
           </Select>
           {errors.title && "Please select your title"}
         </FormControl>
