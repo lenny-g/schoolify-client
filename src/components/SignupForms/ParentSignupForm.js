@@ -26,7 +26,7 @@ const SIGNUP = gql`
 const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Dr"];
 
 export const ParentSignupForm = () => {
-  const [executeSignUp, { data, loading, error }] = useMutation(SIGNUP);
+  const [executeSignUp] = useMutation(SIGNUP);
 
   const navigate = useNavigate();
 
@@ -37,35 +37,34 @@ export const ParentSignupForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
-
-    if (data.password !== data.confirmPassword) {
+  const onSubmit = async (formData) => {
+    if (formData.password !== formData.confirmPassword) {
+      console.log("oops");
       setError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match",
       });
-    }
-
-    await executeSignUp({
-      variables: {
-        input: {
-          title: data.title,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          phoneNumber: data.phoneNumber,
-          email: data.personalEmail,
-          password: data.password,
-          houseNumber: data.houseNumber,
-          street: data.street,
-          city: data.city,
-          postCode: data.postCode,
+    } else {
+      const { data, error } = await executeSignUp({
+        variables: {
+          input: {
+            title: formData.title,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            phoneNumber: formData.phoneNumber,
+            email: formData.personalEmail,
+            password: formData.password,
+            houseNumber: formData.houseNumber,
+            street: formData.street,
+            city: formData.city,
+            postCode: formData.postCode,
+          },
         },
-      },
-    });
+      });
 
-    if (data) {
-      navigate("/login", { replace: true });
+      if (data) {
+        navigate("/login", { replace: true });
+      }
     }
   };
 
@@ -164,7 +163,7 @@ export const ParentSignupForm = () => {
           label="Confirm Password"
           variant="outlined"
           name="confirmPassword"
-          type="confirmPassword"
+          type="password"
           autoFocus
           fullWidth
           {...register("confirmPassword", { required: true })}
