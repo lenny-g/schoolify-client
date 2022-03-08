@@ -41,6 +41,8 @@ export const SignupForm = () => {
 							<MenuItem value='ms'>Ms</MenuItem>
 							<MenuItem value='dr'>Dr</MenuItem>
 						</Select>
+            {errors.title && "Please select your title"}
+
 					</FormControl>
 					<TextField
 						margin='normal'
@@ -52,6 +54,8 @@ export const SignupForm = () => {
 						fullWidth
             {...register("firstName", { required: true })}
 					/>
+           {errors.firstName && "First name is required"}
+
 					<TextField
 						margin='normal'
 						id='lastName'
@@ -62,6 +66,8 @@ export const SignupForm = () => {
 						fullWidth
             {...register("lastName", { required: true })}
 					/>
+           {errors.lastName && "Last name is required"}
+
 					<TextField
 						margin='normal'
 						id='personalEmail'
@@ -70,8 +76,10 @@ export const SignupForm = () => {
 						name='personalEmail'
 						autoFocus
 						fullWidth
-            {...register("personalEmail", { required: true })}
+            {...register("personalEmail", { required: true }, { pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ })}
 					/>
+           {errors.personalEmail && "Please enter a valid email"}
+
 					<TextField
 						margin='normal'
 						id='password'
@@ -81,8 +89,10 @@ export const SignupForm = () => {
 						type='password'
 						autoFocus
 						fullWidth
-            {...register("password", { required: true })}
+            {...register("password", { required: true }, { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })}
 					/>
+           {errors.password && "Password must be 8 characters, and include both lower and uppercase characters, with 1 special character required"}
+
 					<TextField
 						margin='normal'
 						id='confirmPassword'
@@ -94,6 +104,8 @@ export const SignupForm = () => {
 						fullWidth
             {...register("confirmPassword", { required: true })}
 					/>
+            
+
 				</Grid>
         <Button type="submit" variant="contained" sx={{mt:3, mb:2}}>Next</Button>
 
