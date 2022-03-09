@@ -1,3 +1,5 @@
+import { gql, useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,10 +16,29 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
+const ADDSTUDENT = gql`
+  mutation AddStudent($input: StudentInputDetails) {
+    addStudent(input: $input) {
+      id
+      firstName
+      lastName
+      dob
+    }
+  }
+`;
+
+const relationshipOptions = ["Mother", "Father", "Guardian"];
+
+const yearGroupOptions = ["3", "4", "5", "6"];
+
 export const AddChild = () => {
-  const [yearGroup, setYearGroup] = React.useState("");
-  const [relationship, setRelationship] = React.useState("");
-  const [checked, setChecked] = React.useState(false);
+  const [executeSignUp] = useMutation(ADDSTUDENT);
+
+  const navigate = useNavigate();
+
+  // const [yearGroup, setYearGroup] = React.useState("");
+  // const [relationship, setRelationship] = React.useState("");
+  // const [checked, setChecked] = React.useState(false);
 
   const {
     register,
@@ -25,16 +46,34 @@ export const AddChild = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = () => {
-    console.log("form submitted");
+  const onSubmit = async (studentData) => {
+    console.log(studentData);
+    const { data, error } = await executeSignUp({
+      variables: {
+        input: {
+          firstName: studentData.childFirstName,
+          lastName: studentData.childLastName,
+          dob: studentData.dob,
+          // yearGroup: studentData.yearGroup,
+          // relationship: studentData.relationship,
+        },
+      },
+    });
+
+    console.log(data);
+
+    if (data) {
+      navigate("/dashboard", { replace: true });
+    }
   };
 
-  const handleChange = (event) => {
-    setYearGroup(event.target.value);
-    setRelationship(event.target.value);
-    setChecked(event.target.checked);
-  };
-  console.log(yearGroup);
+  // const handleChange = (event) => {
+  //   setYearGroup(event.target.value);
+  //   setRelationship(event.target.value);
+  //   setChecked(event.target.checked);
+
+  //   console.log(yearGroup);
+  // };
 
   const ValidateForm = (formErrors) => {
     return (
@@ -98,16 +137,20 @@ export const AddChild = () => {
           <Select
             labelId="yearGroup"
             id="yearGroup"
-            value={yearGroup}
-            onChange={handleChange}
+            // value={yearGroup}
+            // onChange={handleChange}
             fullWidth
+            defaultValue="3"
             label="Year Group"
             {...register("yearGroup")}
           >
-            <MenuItem value="3">3</MenuItem>
-            <MenuItem value="4">4</MenuItem>
-            <MenuItem value="5">5</MenuItem>
-            <MenuItem value="5">6</MenuItem>
+            {yearGroupOptions.map((yearGroup, index) => {
+              return (
+                <MenuItem key={index} value={yearGroup}>
+                  {yearGroup}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
         <FormControl sx={{ width: 420, mt: 2 }} error={!!errors.relationship}>
@@ -115,15 +158,20 @@ export const AddChild = () => {
           <Select
             labelId="relationship"
             id="relationship"
-            value={relationship}
-            onChange={handleChange}
+            // value={relationship}
+            // onChange={handleChange}
             fullWidth
+            defaultValue="Mother"
             label="Relationship"
             {...register("relationship")}
           >
-            <MenuItem value="mother">Mother</MenuItem>
-            <MenuItem value="father">Father</MenuItem>
-            <MenuItem value="guardian">Guardian</MenuItem>
+            {relationshipOptions.map((relationship, index) => {
+              return (
+                <MenuItem key={index} value={relationship}>
+                  {relationship}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
 
