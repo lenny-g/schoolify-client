@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { useAuth } from "../../context/AppProvider";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -24,9 +25,11 @@ const LOGIN = gql`
 `;
 
 export const LoginForm = () => {
-  const [executeLogin, {  loading, error }] = useMutation(LOGIN);
+  const [executeLogin] = useMutation(LOGIN);
 
   const navigate = useNavigate();
+
+  const { setIsLoggedIn, setUser } = useAuth();
 
   const {
     register,
@@ -34,10 +37,8 @@ export const LoginForm = () => {
     handleSubmit,
   } = useForm();
 
- 
-
   const onSubmit = async (user) => {
- const {data} =await executeLogin({
+    const { data } = await executeLogin({
       variables: {
         input: {
           email: user.email,
@@ -45,15 +46,16 @@ export const LoginForm = () => {
         },
       },
     });
-    if(data){
-      console.log(data);
+    if (data) {
       const { token, parent } = data.parentLogin;
-      console.log(token, parent);
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(parent));
-      navigate("/dashboard", {replace:true});
-    }
+      setIsLoggedIn(true);
+      setUser(parent);
 
+      navigate("/dashboard", { replace: true });
+    }
   };
 
   const ValidateForm = (formErrors) => {
@@ -89,7 +91,6 @@ export const LoginForm = () => {
         variant="outlined"
         name="password"
         type="password"
-        autoFocus
         fullWidth
         {...register("password", { required: true })}
         error={!!errors.password}

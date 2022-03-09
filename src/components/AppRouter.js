@@ -7,14 +7,15 @@ import { AddChild } from "../pages/AddChild";
 
 export const AppRouter = () => {
   const { isLoggedIn } = useAuth();
+
   return (
     <Routes>
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/addChild" element={<AddChild />} />
       {isLoggedIn ? (
         <>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/addChild" element={<AddChild />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />

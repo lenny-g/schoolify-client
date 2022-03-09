@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
@@ -16,13 +17,22 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+
 const ADD_STUDENT = gql`
-  mutation AddStudent($input: StudentInputDetails) {
+  mutation Mutation($input: StudentInputDetails!) {
     addStudent(input: $input) {
       id
       firstName
       lastName
       dob
+      yearGroup {
+        id
+        title
+        subjects
+      }
     }
   }
 `;
@@ -36,159 +46,149 @@ const GET_YEAR_GROUP_DATA = gql`
   }
 `;
 
-const relationshipOptions = ["Mother", "Father", "Guardian"];
-
 export const AddChildForm = () => {
-  const [executeSignUp] = useMutation(ADD_STUDENT);
   const { loading, error, data } = useQuery(GET_YEAR_GROUP_DATA);
-
-  console.log(data);
+  const [executeAddStudent] = useMutation(ADD_STUDENT);
+  const [dateOfBirth, setDateOfBirth] = useState();
 
   const navigate = useNavigate();
-
-  // const [yearGroup, setYearGroup] = React.useState("");
-  // const [relationship, setRelationship] = React.useState("");
-  // const [checked, setChecked] = React.useState(false);
 
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
+    getValues,
   } = useForm();
 
+  const value = getValues("enrollDate");
+
+  useEffect(() => {
+    register("dob");
+  }, [register]);
+
+  useEffect(() => {
+    setDateOfBirth(value || null);
+  }, [setDateOfBirth, value]);
+
   const onSubmit = async (studentData) => {
-    console.log(studentData);
-    const { data, error } = await executeSignUp({
+    const { data, error } = await executeAddStudent({
       variables: {
         input: {
           firstName: studentData.childFirstName,
           lastName: studentData.childLastName,
           dob: studentData.dob,
-          // yearGroup: studentData.yearGroup,
-          // relationship: studentData.relationship,
+          yearGroup: studentData.yearGroup,
         },
       },
     });
 
-    console.log(data);
+    // navigate("/dashboard", { replace: true });
 
-    if (data) {
-      navigate("/dashboard", { replace: true });
-    }
+    console.log(data);
   };
 
-  // const handleChange = (event) => {
-  //   setYearGroup(event.target.value);
-  //   setRelationship(event.target.value);
-  //   setChecked(event.target.checked);
-
-  //   console.log(yearGroup);
+  // const validateForm = (formErrors) => {
+  //   return (
+  //     !!formErrors.dob ||
+  //     !!formErrors.yearGroup ||
+  //     !!formErrors.childFirstName ||
+  //     !!formErrors.childLastName ||
+  //     !!formErrors.relationship
+  //   );
   // };
 
-  const ValidateForm = (formErrors) => {
-    return (
-      !!formErrors.dob ||
-      !!formErrors.yearGroup ||
-      !!formErrors.childFirstName ||
-      !!formErrors.childLastName ||
-      !!formErrors.relationship
-    );
-  };
+  if (error) {
+    return <div>ERROR</div>;
+  }
 
   return (
-    <Box
-      component="form"
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-      spacing={2}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Grid container spacing={2}>
-        <TextField
-          margin="normal"
-          id="childFirstName"
-          label="Child's First Name"
-          variant="outlined"
-          name="childFirstNAme"
-          autoFocus
-          fullWidth
-          {...register("childFirstName", { required: true })}
-          error={!!errors.childFirstName}
-        />
-        <TextField
-          margin="normal"
-          id="childLastName"
-          label="Child's Last Name"
-          variant="outlined"
-          name="childLastName"
-          autoFocus
-          fullWidth
-          {...register("childLastName", { required: true })}
-          error={!!errors.childLastName}
-        />
-        <TextField
-          margin="normal"
-          id="dob"
-          label="Date of Birth"
-          variant="outlined"
-          name="dob"
-          type="dob"
-          autoFocus
-          fullWidth
-          {...register("dob", { required: true })}
-          error={!!errors.dob}
-        />
-        <FormControl sx={{ width: 420, mt: 2 }} error={!!errors.yearGroup}>
-          <InputLabel id="yearGroup">Year Group</InputLabel>
-          <Select
-            labelId="yearGroup"
-            id="yearGroup"
-            // value={yearGroup}
-            // onChange={handleChange}
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Box
+        component="form"
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+        spacing={2}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Grid container spacing={2}>
+          <TextField
+            autoFocus
+            margin="normal"
+            id="childFirstName"
+            label="Child's First Name"
+            variant="outlined"
+            name="childFirstName"
             fullWidth
-            defaultValue=""
-            label="Year Group"
-            {...register("yearGroup")}
-          >
-            {data?.yearGroups.map((yearGroupObj, index) => {
-              return (
-                <MenuItem key={index} value={yearGroupObj.id}>
-                  {yearGroupObj.title}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ width: 420, mt: 2 }} error={!!errors.relationship}>
-          <InputLabel id="relationship">Relationship</InputLabel>
-          <Select
-            labelId="relationship"
-            id="relationship"
-            // value={relationship}
-            // onChange={handleChange}
+            {...register("childFirstName", { required: true })}
+            error={!!errors.childFirstName}
+          />
+          <TextField
+            margin="normal"
+            id="childLastName"
+            label="Child's Last Name"
+            variant="outlined"
+            name="childLastName"
             fullWidth
-            defaultValue="Mother"
-            label="Relationship"
-            {...register("relationship")}
-          >
-            {relationshipOptions.map((relationship, index) => {
-              return (
-                <MenuItem key={index} value={relationship}>
-                  {relationship}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+            {...register("childLastName", { required: true })}
+            error={!!errors.childLastName}
+          />
 
-        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-          Complete
-        </Button>
-        {ValidateForm(errors) && (
+          <DesktopDatePicker
+            label="Date of Birth"
+            inputFormat="MM/dd/yyyy"
+            value={dateOfBirth}
+            onChange={(value) => {
+              setDateOfBirth(value);
+              setValue("dob", value, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                {...register("dob", { required: true })}
+                margin="normal"
+                id="dob"
+                variant="outlined"
+                name="dob"
+                fullWidth
+                error={!!errors.dob}
+              />
+            )}
+          />
+
+          <FormControl sx={{ width: 420, mt: 2 }} error={!!errors.yearGroup}>
+            <InputLabel id="yearGroup">Year Group</InputLabel>
+            <Select
+              labelId="yearGroup"
+              id="yearGroup"
+              // value={yearGroup}
+              // onChange={handleChange}
+              fullWidth
+              defaultValue=""
+              label="Year Group"
+              {...register("yearGroup")}
+            >
+              {data?.yearGroups?.map((yearGroupObj, index) => {
+                return (
+                  <MenuItem key={index} value={yearGroupObj.id}>
+                    {yearGroupObj.title}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+
+          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            Complete
+          </Button>
+          {/* {validateForm(errors) && (
           <Typography
             variant="subtitle2"
             gutterBottom
@@ -197,8 +197,9 @@ export const AddChildForm = () => {
           >
             Form incomplete. All fields are required*
           </Typography>
-        )}
-      </Grid>
-    </Box>
+        )} */}
+        </Grid>
+      </Box>
+    </LocalizationProvider>
   );
 };
