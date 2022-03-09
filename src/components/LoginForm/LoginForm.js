@@ -24,7 +24,7 @@ const LOGIN = gql`
 `;
 
 export const LoginForm = () => {
-  const [executeLogin, { data, loading, error }] = useMutation(LOGIN);
+  const [executeLogin, {  loading, error }] = useMutation(LOGIN);
 
   const navigate = useNavigate();
 
@@ -34,24 +34,26 @@ export const LoginForm = () => {
     handleSubmit,
   } = useForm();
 
-  useEffect(() => {
-    if (data) {
+ 
+
+  const onSubmit = async (user) => {
+ const {data} =await executeLogin({
+      variables: {
+        input: {
+          email: user.email,
+          password: user.password,
+        },
+      },
+    });
+    if(data){
+      console.log(data);
       const { token, parent } = data.parentLogin;
       console.log(token, parent);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(parent));
+      navigate("/dashboard", {replace:true});
     }
-  }, [data]);
 
-  const onSubmit = async (data) => {
-    await executeLogin({
-      variables: {
-        input: {
-          email: data.email,
-          password: data.password,
-        },
-      },
-    });
   };
 
   const ValidateForm = (formErrors) => {
