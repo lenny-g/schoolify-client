@@ -16,7 +16,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-const ADDSTUDENT = gql`
+const ADD_STUDENT = gql`
   mutation AddStudent($input: StudentInputDetails) {
     addStudent(input: $input) {
       id
@@ -31,8 +31,8 @@ const relationshipOptions = ["Mother", "Father", "Guardian"];
 
 const yearGroupOptions = ["3", "4", "5", "6"];
 
-export const AddChild = () => {
-  const [executeSignUp] = useMutation(ADDSTUDENT);
+export const AddChildForm = () => {
+  const [executeSignUp] = useMutation(ADD_STUDENT);
 
   const navigate = useNavigate();
 
