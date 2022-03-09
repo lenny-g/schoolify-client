@@ -11,6 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 import { AppRouter } from "./components/AppRouter";
+import { AppProvider } from "./context/AppProvider";
 
 const link = createHttpLink({
   uri: "http://localhost:4000/",
@@ -36,9 +37,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <AppProvider>
+
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>
+      </AppProvider>
     </ApolloProvider>
   );
 }
