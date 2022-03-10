@@ -175,7 +175,7 @@ export const ParentNavBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Welcome Mrs Smith!
+            SCHOOLIFY{" "}
           </Typography>
         </Toolbar>
       </AppBar>

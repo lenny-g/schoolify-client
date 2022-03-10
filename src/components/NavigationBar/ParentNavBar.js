@@ -166,7 +166,7 @@ export const ParentNavBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Welcome Mrs Smith!
+            SCHOOLIFY
           </Typography>
         </Toolbar>
       </AppBar>
@@ -185,7 +185,6 @@ export const ParentNavBar = () => {
             "https://img.freepik.com/free-vector/profile-placeholder-female-avatar-blue-tones_116137-3342.jpg"
           }
         />
-
         <Divider />
         <List
           sx={{
