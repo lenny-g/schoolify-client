@@ -11,13 +11,13 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      <Route path="/sign-up" element={<Signup/>} />
+      <Route path="/sign-up" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/appointment" element={<Appointment />} />
       {isLoggedIn ? (
         <>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/addChild" element={<AddChild />} />
+          <Route path="/children/new" element={<AddChild />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />
