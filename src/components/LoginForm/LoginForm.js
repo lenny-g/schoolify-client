@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AppProvider";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import { Link as RouterLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 const LOGIN = gql`
   mutation Mutation($input: ParentLoginInput) {
@@ -24,9 +25,11 @@ const LOGIN = gql`
 `;
 
 export const LoginForm = () => {
-  const [executeLogin, { data, loading, error }] = useMutation(LOGIN);
+  const [executeLogin, { loading, error }] = useMutation(LOGIN);
 
   const navigate = useNavigate();
+
+  const { setIsLoggedIn, setUser } = useAuth();
 
   const {
     register,
@@ -34,28 +37,25 @@ export const LoginForm = () => {
     handleSubmit,
   } = useForm();
 
-  useEffect(() => {
-    if (data) {
-      const { token, parent } = data.parentLogin;
-      console.log(token, parent);
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(parent));
-    }
-  }, [data]);
-
-  const onSubmit = async (data) => {
-    await executeLogin({
+  const onSubmit = async (user) => {
+    const { data } = await executeLogin({
       variables: {
         input: {
-          email: data.email,
-          password: data.password,
+          email: user.email,
+          password: user.password,
         },
       },
     });
-  };
+    if (data) {
+      const { token, parent } = data.parentLogin;
 
-  const ValidateForm = (formErrors) => {
-    return !!formErrors.email || !!formErrors.password;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(parent));
+      setIsLoggedIn(true);
+      setUser(parent);
+
+      navigate("/dashboard", { replace: true });
+    }
   };
 
   return (
@@ -77,6 +77,7 @@ export const LoginForm = () => {
         name="email"
         autoFocus
         fullWidth
+        disabled={loading}
         {...register("email", { required: true })}
         error={!!errors.email}
       />
@@ -87,8 +88,8 @@ export const LoginForm = () => {
         variant="outlined"
         name="password"
         type="password"
-        autoFocus
         fullWidth
+        disabled={loading}
         {...register("password", { required: true })}
         error={!!errors.password}
       />
@@ -103,7 +104,8 @@ export const LoginForm = () => {
       >
         Dont have an account? Signup
       </Link>
-      {ValidateForm(errors) && (
+
+      {!!error && (
         <Typography
           variant="subtitle2"
           gutterBottom
