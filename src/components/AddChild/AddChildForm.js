@@ -16,6 +16,8 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
+import { forms } from "../../styles";
+
 const ADD_STUDENT = gql`
   mutation Mutation($input: StudentInputDetails!) {
     addStudent(input: $input) {
@@ -103,12 +105,7 @@ export const AddChildForm = () => {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box
         component="form"
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
+        sx={forms.container}
         spacing={2}
         onSubmit={handleSubmit(onSubmit)}
       >

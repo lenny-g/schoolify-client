@@ -1,31 +1,19 @@
-import React, { useEffect } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AppProvider";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-const LOGIN = gql`
-  mutation Mutation($input: ParentLoginInput) {
-    parentLogin(input: $input) {
-      token
-      parent {
-        title
-        firstName
-        lastName
-        email
-      }
-    }
-  }
-`;
+import { useAuth } from "../../context/AppProvider";
+import { PARENT_LOGIN } from "../../graphql/mutations";
+import { forms } from "../../styles";
 
 export const LoginForm = () => {
-  const [executeLogin, { loading, error }] = useMutation(LOGIN);
+  const [executeLogin, { loading, error }] = useMutation(PARENT_LOGIN);
 
   const navigate = useNavigate();
 
@@ -33,24 +21,23 @@ export const LoginForm = () => {
 
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
   } = useForm();
 
-  const onSubmit = async (user) => {
+  const onSubmit = async (formData) => {
     const { data } = await executeLogin({
       variables: {
-        input: {
-          email: user.email,
-          password: user.password,
-        },
+        input: formData,
       },
     });
-    if (data) {
+
+    if (data?.parentLogin) {
       const { token, parent } = data.parentLogin;
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(parent));
+
       setIsLoggedIn(true);
       setUser(parent);
 
@@ -61,14 +48,17 @@ export const LoginForm = () => {
   return (
     <Box
       component="form"
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+      sx={forms.container}
       onSubmit={handleSubmit(onSubmit)}
     >
+      <Typography
+        variant="h3"
+        gutterBottom
+        component="div"
+        sx={{ textAlign: "center" }}
+      >
+        Login
+      </Typography>
       <TextField
         margin="normal"
         id="email"
@@ -93,26 +83,32 @@ export const LoginForm = () => {
         {...register("password", { required: true })}
         error={!!errors.password}
       />
-      <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+      <LoadingButton
+        loading={loading}
+        disabled={loading}
+        fullWidth
+        type="submit"
+        variant="contained"
+        sx={forms.loadingButton}
+      >
         Login
-      </Button>
+      </LoadingButton>
       <Link
         component={RouterLink}
         variant="body2"
         to="/sign-up"
         underline="none"
       >
-        Dont have an account? Signup
+        Don't have an account? Sign up
       </Link>
-
       {!!error && (
         <Typography
           variant="subtitle2"
           gutterBottom
           component="div"
-          sx={{ mt: 2, textAlign: "center", color: "#d32f2f" }}
+          sx={forms.errorContainer}
         >
-          Failed to login, please enter valid email or password.
+          Failed to login, please enter a valid email address or password.
         </Typography>
       )}
     </Box>
