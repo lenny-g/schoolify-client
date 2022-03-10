@@ -12,11 +12,14 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItemButton from "@mui/material/ListItemButton";
+import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import Link from "@mui/material/Link";
+import NumbersIcon from "@mui/icons-material/Numbers";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 240;
 
@@ -40,6 +43,63 @@ const closedMixin = (theme) => ({
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
+
+const navigationOptions = [
+  {
+    id: 1,
+    icon: <NumbersIcon />,
+    path: "/period-one",
+    title: "Period One",
+  },
+  {
+    id: 2,
+    icon: <NumbersIcon />,
+    path: "/period-two",
+    title: "Period Two",
+  },
+  {
+    id: 3,
+    icon: <NumbersIcon />,
+    path: "/period-three",
+    title: "Period Three",
+  },
+  {
+    id: 4,
+    icon: <NumbersIcon />,
+    path: "/period-four",
+    title: "Period Four",
+  },
+  {
+    id: 5,
+    icon: <NumbersIcon />,
+    path: "/period-five",
+    title: "Period Five",
+  },
+  {
+    id: 6,
+    icon: <NumbersIcon />,
+    path: "/period-six",
+    title: "Period Six",
+  },
+  {
+    id: 7,
+    icon: <AccessTimeIcon />,
+    path: "/appointments",
+    title: "Appointments",
+  },
+  {
+    id: 8,
+    icon: <MailIcon />,
+    path: "/messages",
+    title: "Messages",
+  },
+  {
+    id: 9,
+    icon: <LogoutIcon />,
+    path: "/logout",
+    title: "Logout",
+  },
+];
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -115,7 +175,7 @@ export const ParentNavBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Welcome Mrs Jones!
+            Welcome Mrs Smith!
           </Typography>
         </Toolbar>
       </AppBar>
@@ -131,38 +191,38 @@ export const ParentNavBar = () => {
         </DrawerHeader>
 
         <Divider />
-        <List>
-          {[
-            "Dashboard",
-            "Period 1",
-            "Period 2",
-            "Period 3",
-            "Period 4",
-            "Period 5",
-            "Period 6",
-            "Appointments",
-            "Message",
-            "Logout",
-          ].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+        <List
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "100%",
+            margin: "2rem 0rem",
+          }}
+        >
+          {navigationOptions.map((navigationOption, key) => (
+            <ListItem
+              button
+              key={navigationOption.id}
+              component={Link}
+              href={navigationOption.path}
             >
               <ListItemIcon
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  color: "#979DAC",
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {navigationOption.icon}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+              <ListItemText
+                disableTypography={true}
+                sx={{
+                  color: "#979DAC",
+                  fontFamily: "Arial",
+                }}
+                primary={navigationOption.title}
+              />
+            </ListItem>
           ))}
         </List>
       </Drawer>

@@ -12,11 +12,17 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItemButton from "@mui/material/ListItemButton";
+import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import Link from "@mui/material/Link";
+import GridViewIcon from "@mui/icons-material/GridView";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
+import CurrencyPoundIcon from "@mui/icons-material/CurrencyPound";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 240;
 
@@ -40,6 +46,51 @@ const closedMixin = (theme) => ({
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
+
+const navigationOptions = [
+  {
+    id: 1,
+    icon: <GridViewIcon />,
+    path: "/dashboard",
+    title: "Dashboard",
+  },
+  {
+    id: 2,
+    icon: <AccessTimeIcon />,
+    path: "/appointments",
+    title: "Appointments",
+  },
+  {
+    id: 3,
+    icon: <MailIcon />,
+    path: "/messages",
+    title: "Messages",
+  },
+  {
+    id: 4,
+    icon: <HealthAndSafetyIcon />,
+    path: "/safe-guarding",
+    title: "Safe Guarding",
+  },
+  {
+    id: 5,
+    icon: <CurrencyPoundIcon />,
+    path: "/parent-pay",
+    title: "ParentPay",
+  },
+  {
+    id: 6,
+    icon: <ConnectWithoutContactIcon />,
+    path: "/contact",
+    title: "Contact",
+  },
+  {
+    id: 7,
+    icon: <LogoutIcon />,
+    path: "/logout",
+    title: "Logout",
+  },
+];
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -136,36 +187,38 @@ export const ParentNavBar = () => {
         />
 
         <Divider />
-        <List>
-          {[
-            "Dashboard",
-            "Appointments",
-            "Messages",
-            "Safeguarding",
-            "ParentPay",
-            "Contact",
-
-            "Logout",
-          ].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
+        <List
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "100%",
+            margin: "2rem 0rem",
+          }}
+        >
+          {navigationOptions.map((navigationOption, key) => (
+            <ListItem
+              button
+              key={navigationOption.id}
+              component={Link}
+              href={navigationOption.path}
             >
               <ListItemIcon
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  color: "#979DAC",
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {navigationOption.icon}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
+              <ListItemText
+                disableTypography={true}
+                sx={{
+                  color: "#979DAC",
+                  fontFamily: "Arial",
+                }}
+                primary={navigationOption.title}
+              />
+            </ListItem>
           ))}
         </List>
       </Drawer>
