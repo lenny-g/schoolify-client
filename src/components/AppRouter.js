@@ -5,6 +5,8 @@ import { Signup } from "../pages/Signup";
 import { Appointment } from "../pages/Appointment";
 import { Dashboard } from "../pages/Dashboard";
 import { AddChild } from "../pages/AddChild";
+import { ViewChildren } from "../pages/ViewChildren";
+import { ViewAppointments } from "../pages/ViewAppointments";
 
 export const AppRouter = () => {
   const { isLoggedIn } = useAuth();
@@ -13,11 +15,13 @@ export const AppRouter = () => {
     <Routes>
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/appointment" element={<Appointment />} />
       {isLoggedIn ? (
         <>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/children/new" element={<AddChild />} />
+          <Route path="/children/view" element={<ViewChildren />} />
+          <Route path="/appointment/new" element={<Appointment />} />
+          <Route path="/appointment/view" element={<ViewAppointments />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />

@@ -1,13 +1,13 @@
-import { AppointmentForm } from "../components/AppointmentForm/AppointmentForm"
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import Container from "@mui/material/Container";
 
+import { AppointmentForm } from "../components/AppointmentForm/AppointmentForm";
+import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
 
-export const Appointment = () =>{
-    return <Container component="main" maxWidth="md">
-         <Typography variant="h3" gutterBottom component="div" sx={{textAlign:"center"}}>
-        Appointments
-      </Typography>
-        <AppointmentForm/>
+export const Appointment = () => {
+  return (
+    <Container component="main" maxWidth="md">
+      <ParentNavBar />
+      <AppointmentForm />
     </Container>
-}
+  );
+};

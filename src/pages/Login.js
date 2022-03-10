@@ -1,12 +1,14 @@
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-
 import { LoginForm } from "../components/LoginForm/LoginForm";
+import Container from "@mui/material/Container";
+import { PublicNavBar } from "../components/NavigationBar/PublicNavBar";
 
 export const Login = () => {
   return (
-    <Container component="main" maxWidth="xs">
-      <LoginForm />
+    <Container>
+      <PublicNavBar />
+      <Container component="main" maxWidth="xs">
+        <LoginForm />
+      </Container>
     </Container>
   );
 };
