@@ -1,24 +1,25 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import { useForm } from "react-hook-form";
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const SIGNUP = gql`
   mutation Mutation($input: SignupInput) {
     parentSignUp(input: $input) {
       id
+      title
       firstName
       lastName
       email
-      title
     }
   }
 `;
@@ -26,7 +27,7 @@ const SIGNUP = gql`
 const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Dr"];
 
 export const ParentSignupForm = () => {
-  const [executeSignUp] = useMutation(SIGNUP);
+  const [executeSignUp, { loading, error }] = useMutation(SIGNUP);
 
   const navigate = useNavigate();
 
@@ -39,7 +40,6 @@ export const ParentSignupForm = () => {
 
   const onSubmit = async (formData) => {
     if (formData.password !== formData.confirmPassword) {
-      console.log("oops");
       setError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match",
@@ -48,16 +48,16 @@ export const ParentSignupForm = () => {
       const { data, error } = await executeSignUp({
         variables: {
           input: {
-            title: formData.title,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            phoneNumber: formData.phoneNumber,
-            email: formData.personalEmail,
-            password: formData.password,
-            houseNumber: formData.houseNumber,
-            street: formData.street,
-            city: formData.city,
             postCode: formData.postCode,
+            city: formData.city,
+            street: formData.street,
+            houseNumber: formData.houseNumber,
+            password: formData.password,
+            email: formData.personalEmail,
+            phoneNumber: formData.phoneNumber,
+            lastName: formData.lastName,
+            firstName: formData.firstName,
+            title: formData.title,
           },
         },
       });
@@ -67,6 +67,19 @@ export const ParentSignupForm = () => {
       }
     }
   };
+
+  const styles = {
+    loadingButton: { marginTop: 3, marginBottom: 2 },
+    errorContainer: {
+      marginTop: 2,
+      color: "#d32f2f",
+      textAlign: "center",
+    },
+  };
+
+  if (error) {
+    return <div>ERROR</div>;
+  }
 
   return (
     <Box
@@ -89,6 +102,8 @@ export const ParentSignupForm = () => {
             label="Title"
             {...register("title")}
             defaultValue="Mr"
+            autoFocus
+            disabled={loading}
           >
             {titleOptions.map((title, index) => {
               return (
@@ -106,11 +121,11 @@ export const ParentSignupForm = () => {
           label="First Name"
           variant="outlined"
           name="firstName"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("firstName", { required: true })}
+          error={!!errors.firstName}
         />
-        {errors.firstName && "First name is required"}
 
         <TextField
           margin="normal"
@@ -118,11 +133,11 @@ export const ParentSignupForm = () => {
           label="Last Name"
           variant="outlined"
           name="lastName"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("lastName", { required: true })}
+          error={!!errors.lastName}
         />
-        {errors.lastName && "Last name is required"}
 
         <TextField
           margin="normal"
@@ -130,14 +145,14 @@ export const ParentSignupForm = () => {
           label="Personal Email"
           variant="outlined"
           name="personalEmail"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("personalEmail", {
             required: true,
             pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
           })}
+          error={!!errors.personalEmail}
         />
-        {errors.personalEmail && "Please enter a valid email"}
 
         <TextField
           margin="normal"
@@ -146,13 +161,14 @@ export const ParentSignupForm = () => {
           variant="outlined"
           name="password"
           type="password"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("password", {
             required: true,
             pattern:
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
           })}
+          error={!!errors.password}
         />
         {errors.password &&
           "Password must be 8 characters, and include both lower and uppercase characters, with 1 special character required"}
@@ -164,9 +180,10 @@ export const ParentSignupForm = () => {
           variant="outlined"
           name="confirmPassword"
           type="password"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("confirmPassword", { required: true })}
+          error={!!errors.confirmPassword}
         />
         {errors?.confirmPassword?.message}
 
@@ -176,59 +193,71 @@ export const ParentSignupForm = () => {
           label="House Number"
           variant="outlined"
           name="houseNumber"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("houseNumber", { required: true })}
+          error={!!errors.houseNumber}
         />
-        {errors.houseNumber && "Please enter your house number"}
+
         <TextField
           margin="normal"
           id="street"
           label="Street Name"
           variant="outlined"
           name="street"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("street", { required: true })}
+          error={!!errors.street}
         />
-        {errors.street && "Please enter your street name"}
         <TextField
           margin="normal"
           id="city"
           label="City"
           variant="outlined"
           name="city"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("city", { required: true })}
+          error={!!errors.city}
         />
-        {errors.city && "Please enter your city"}
+
         <TextField
           margin="normal"
           id="postCode"
           label="Post Code"
           variant="outlined"
           name="postCode"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("postCode", { required: true })}
+          error={!!errors.postCode}
         />
-        {errors.postCode && "Please enter a valid post code"}
+
         <TextField
           margin="normal"
           id="phoneNumber"
           label="Phone Number"
           variant="outlined"
           name="phoneNumber"
-          autoFocus
           fullWidth
+          disabled={loading}
           {...register("phoneNumber", { required: true })}
+          error={!!errors.phoneNumber}
         />
-        {errors.phoneNumber && "Telephone number is required"}
 
-        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-          Next
-        </Button>
+        <LoadingButton
+          loading={loading}
+          loadingIndicator="Loading..."
+          variant="contained"
+          fullWidth
+          type="submit"
+          sx={styles.loadingButton}
+          startIcon={error && <ErrorIcon />}
+          color={error ? "error" : "primary"}
+        >
+          Sign Up
+        </LoadingButton>
       </Grid>
     </Box>
   );

@@ -1,25 +1,20 @@
 import { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useForm } from "react-hook-form";
-import * as React from "react";
-import { Grid } from "@mui/material";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import LoadingButton from "@mui/lab/LoadingButton";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const ADD_STUDENT = gql`
   mutation Mutation($input: StudentInputDetails!) {
@@ -48,7 +43,12 @@ const GET_YEAR_GROUP_DATA = gql`
 
 export const AddChildForm = () => {
   const { loading, error, data } = useQuery(GET_YEAR_GROUP_DATA);
-  const [executeAddStudent] = useMutation(ADD_STUDENT);
+
+  const [
+    executeAddStudent,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(ADD_STUDENT);
+
   const [dateOfBirth, setDateOfBirth] = useState();
 
   const navigate = useNavigate();
@@ -83,20 +83,17 @@ export const AddChildForm = () => {
       },
     });
 
-    // navigate("/dashboard", { replace: true });
-
-    console.log(data);
+    navigate("/dashboard", { replace: true });
   };
 
-  // const validateForm = (formErrors) => {
-  //   return (
-  //     !!formErrors.dob ||
-  //     !!formErrors.yearGroup ||
-  //     !!formErrors.childFirstName ||
-  //     !!formErrors.childLastName ||
-  //     !!formErrors.relationship
-  //   );
-  // };
+  const styles = {
+    loadingButton: { marginTop: 3, marginBottom: 2 },
+    errorContainer: {
+      marginTop: 2,
+      color: "#d32f2f",
+      textAlign: "center",
+    },
+  };
 
   if (error) {
     return <div>ERROR</div>;
@@ -153,12 +150,12 @@ export const AddChildForm = () => {
               <TextField
                 {...params}
                 {...register("dob", { required: true })}
+                error={!!errors.dob}
                 margin="normal"
                 id="dob"
                 variant="outlined"
                 name="dob"
                 fullWidth
-                error={!!errors.dob}
               />
             )}
           />
@@ -168,8 +165,6 @@ export const AddChildForm = () => {
             <Select
               labelId="yearGroup"
               id="yearGroup"
-              // value={yearGroup}
-              // onChange={handleChange}
               fullWidth
               defaultValue=""
               label="Year Group"
@@ -184,20 +179,29 @@ export const AddChildForm = () => {
               })}
             </Select>
           </FormControl>
-
-          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Complete
-          </Button>
-          {/* {validateForm(errors) && (
-          <Typography
-            variant="subtitle2"
-            gutterBottom
-            component="div"
-            sx={{ mt: 2, color: "#d32f2f" }}
+          <LoadingButton
+            loading={mutationLoading}
+            loadingIndicator="Loading..."
+            variant="contained"
+            fullWidth
+            type="submit"
+            sx={styles.loadingButton}
+            startIcon={mutationError && <ErrorIcon />}
+            color={mutationError ? "error" : "primary"}
           >
-            Form incomplete. All fields are required*
-          </Typography>
-        )} */}
+            Add Child
+          </LoadingButton>
+
+          {!!mutationError && (
+            <Typography
+              variant="subtitle2"
+              gutterBottom
+              component="div"
+              sx={{ mt: 2, textAlign: "center", color: "#d32f2f" }}
+            >
+              Failed to add child.
+            </Typography>
+          )}
         </Grid>
       </Box>
     </LocalizationProvider>

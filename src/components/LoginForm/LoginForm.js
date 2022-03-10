@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { useAuth } from "../../context/AppProvider";
 import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AppProvider";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import { Link as RouterLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 const LOGIN = gql`
   mutation Mutation($input: ParentLoginInput) {
@@ -25,7 +25,7 @@ const LOGIN = gql`
 `;
 
 export const LoginForm = () => {
-  const [executeLogin] = useMutation(LOGIN);
+  const [executeLogin, { loading, error }] = useMutation(LOGIN);
 
   const navigate = useNavigate();
 
@@ -58,10 +58,6 @@ export const LoginForm = () => {
     }
   };
 
-  const ValidateForm = (formErrors) => {
-    return !!formErrors.email || !!formErrors.password;
-  };
-
   return (
     <Box
       component="form"
@@ -81,6 +77,7 @@ export const LoginForm = () => {
         name="email"
         autoFocus
         fullWidth
+        disabled={loading}
         {...register("email", { required: true })}
         error={!!errors.email}
       />
@@ -92,6 +89,7 @@ export const LoginForm = () => {
         name="password"
         type="password"
         fullWidth
+        disabled={loading}
         {...register("password", { required: true })}
         error={!!errors.password}
       />
@@ -106,7 +104,8 @@ export const LoginForm = () => {
       >
         Dont have an account? Signup
       </Link>
-      {ValidateForm(errors) && (
+
+      {!!error && (
         <Typography
           variant="subtitle2"
           gutterBottom
