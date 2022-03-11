@@ -14,15 +14,9 @@ import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import Link from "@mui/material/Link";
 import GridViewIcon from "@mui/icons-material/GridView";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
-import CurrencyPoundIcon from "@mui/icons-material/CurrencyPound";
-import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import FaceIcon from "@mui/icons-material/Face";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import NumbersIcon from "@mui/icons-material/Numbers";
 
 const drawerWidth = 240;
 
@@ -46,51 +40,6 @@ const closedMixin = (theme) => ({
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
-
-const navigationOptions = [
-  {
-    id: 1,
-    icon: <GridViewIcon />,
-    path: "/dashboard",
-    title: "Dashboard",
-  },
-  {
-    id: 2,
-    icon: <AccessTimeIcon />,
-    path: "/appointments",
-    title: "Appointments",
-  },
-  {
-    id: 3,
-    icon: <MailIcon />,
-    path: "/messages",
-    title: "Messages",
-  },
-  {
-    id: 4,
-    icon: <HealthAndSafetyIcon />,
-    path: "/safe-guarding",
-    title: "Safe Guarding",
-  },
-  {
-    id: 5,
-    icon: <CurrencyPoundIcon />,
-    path: "/parent-pay",
-    title: "ParentPay",
-  },
-  {
-    id: 6,
-    icon: <ConnectWithoutContactIcon />,
-    path: "/contact",
-    title: "Contact",
-  },
-  {
-    id: 7,
-    icon: <LogoutIcon />,
-    path: "/logout",
-    title: "Logout",
-  },
-];
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -162,13 +111,13 @@ export const ParentNavBar = () => {
             />
           </ListItem>
           <Divider />
-          <ListItem button component={Link} href="/children/view">
+          <ListItem button component={Link} href="/period/one">
             <ListItemIcon
               sx={{
                 color: "#979DAC",
               }}
             >
-              <FaceIcon />
+              <NumbersIcon />
             </ListItemIcon>
             <ListItemText
               disableTypography={true}
@@ -176,16 +125,16 @@ export const ParentNavBar = () => {
                 color: "#979DAC",
                 fontFamily: "Arial",
               }}
-              primary="My Children"
+              primary="Period One"
             />
           </ListItem>
-          <ListItem button component={Link} href="/children/new">
+          <ListItem button component={Link} href="/period/two">
             <ListItemIcon
               sx={{
                 color: "#979DAC",
               }}
             >
-              <PersonAddIcon />
+              <NumbersIcon />
             </ListItemIcon>
             <ListItemText
               disableTypography={true}
@@ -193,11 +142,79 @@ export const ParentNavBar = () => {
                 color: "#979DAC",
                 fontFamily: "Arial",
               }}
-              primary="Add Child"
+              primary="Period Two"
             />
           </ListItem>
           <Divider />
-          <ListItem button component={Link} href="/appointment/view">
+          <ListItem button component={Link} href="/period/three">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <NumbersIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Period Three"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="/period/four">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <NumbersIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Period Four"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="/period/five">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <NumbersIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Period Five"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="/period/six">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <NumbersIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Period Six"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="/appointments">
             <ListItemIcon
               sx={{
                 color: "#979DAC",
@@ -211,16 +228,16 @@ export const ParentNavBar = () => {
                 color: "#979DAC",
                 fontFamily: "Arial",
               }}
-              primary="My Appointments"
+              primary="View Appointments"
             />
           </ListItem>
-          <ListItem button component={Link} href="/appointment/new">
+          <ListItem button component={Link} href="/messages">
             <ListItemIcon
               sx={{
                 color: "#979DAC",
               }}
             >
-              <EventAvailableIcon />
+              <MailIcon />
             </ListItemIcon>
             <ListItemText
               disableTypography={true}
@@ -228,7 +245,24 @@ export const ParentNavBar = () => {
                 color: "#979DAC",
                 fontFamily: "Arial",
               }}
-              primary="Add Appointment"
+              primary="My Messages"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="/logout">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Logout"
             />
           </ListItem>
         </List>

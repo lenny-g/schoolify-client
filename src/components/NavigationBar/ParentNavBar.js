@@ -231,6 +231,23 @@ export const ParentNavBar = () => {
               primary="Add Appointment"
             />
           </ListItem>
+          <ListItem button component={Link} href="/logout">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Logout"
+            />
+          </ListItem>
         </List>
       </Drawer>
     </Box>
