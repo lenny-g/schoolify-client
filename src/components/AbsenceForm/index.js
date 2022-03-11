@@ -30,7 +30,7 @@ export const AbsenceForm = () => {
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(MAKE_AN_ABSENCE_REQUEST);
 
-  const [absenceDate, setAbsenceDate] = useState();
+  const [absenceDate, setAbsenceDate] = useState(null);
 
   const {
     register,
@@ -41,7 +41,7 @@ export const AbsenceForm = () => {
     control,
   } = useForm();
 
-  const value = getValues("enrollDate");
+  const value = getValues("absenceDate");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +56,7 @@ export const AbsenceForm = () => {
   const [selectedStudent, setSelectedStudent] = useState("");
 
   const onSubmit = async (formData) => {
+    console.log(formData);
     await executeAbsenceRequest({
       variables: {
         input: {
@@ -68,7 +69,7 @@ export const AbsenceForm = () => {
       },
     });
 
-    navigate("/dashboard", { replace: true });
+    // navigate("/dashboard", { replace: true });
   };
 
   if (error) {
@@ -96,13 +97,13 @@ export const AbsenceForm = () => {
             labelId="student"
             id="student"
             label="Select Student"
-            defaultValue=""
+            defaultValue={undefined}
             autoFocus
             disabled={mutationLoading}
-            onChange={(event) => {
-              setSelectedStudent(event.target.value);
-              console.log(event.target.defaultValue);
-            }}
+            // onChange={(event) => {
+            //   setSelectedStudent(event.target.value);
+            //   console.log(event.target.defaultValue);
+            // }}
             {...register("student")}
             error={!!errors.student}
           >
