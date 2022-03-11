@@ -7,6 +7,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { AddChild } from "../pages/AddChild";
 import { ViewChildren } from "../pages/ViewChildren";
 import { ViewAppointments } from "../pages/ViewAppointments";
+import { AbsenceRequest } from "../pages/AbsenceRequest";
 
 export const AppRouter = () => {
   const { isLoggedIn } = useAuth();
@@ -22,6 +23,7 @@ export const AppRouter = () => {
           <Route path="/children/view" element={<ViewChildren />} />
           <Route path="/appointment/new" element={<Appointment />} />
           <Route path="/appointment/view" element={<ViewAppointments />} />
+          <Route path="/absenceRequest/new" element={<AbsenceRequest />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/login" />} />
