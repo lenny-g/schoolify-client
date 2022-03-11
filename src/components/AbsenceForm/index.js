@@ -186,7 +186,7 @@ export const AbsenceForm = () => {
           startIcon={error && <ErrorIcon />}
           color={error ? "error" : "primary"}
         >
-          Sign Up
+          Send Request
         </LoadingButton>
         {!!mutationError && (
           <Typography
