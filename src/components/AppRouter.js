@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "../context/AppProvider";
 import { Login } from "../pages/Login";
 import { Signup } from "../pages/Signup";
-import { AboutUs } from "../pages/AboutUs";
+import { About } from "../pages/About";
 import { Home } from "../pages/Home";
 import { Appointment } from "../pages/Appointment";
 import { Dashboard } from "../pages/Dashboard";
@@ -18,7 +18,7 @@ export const AppRouter = () => {
       <Route path="/" element={<Home />} />
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/about" element={<About />} />
 
       {isLoggedIn ? (
         <>

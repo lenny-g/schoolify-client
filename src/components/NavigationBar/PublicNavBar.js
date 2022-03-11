@@ -149,7 +149,7 @@ export const PublicNavBar = () => {
             />
           </ListItem>
           <Divider />
-          <ListItem button component={Link} href="/about-us">
+          <ListItem button component={Link} href="/about">
             <ListItemIcon
               sx={{
                 color: "#979DAC",
