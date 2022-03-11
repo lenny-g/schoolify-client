@@ -18,7 +18,7 @@ export const TeamMemberCard = ({
   portfolio,
 }) => {
   return (
-    <Card sx={{ maxWidth: 345, m: "2rem" }}>
+    <Card sx={{ maxWidth: 345, m: "1rem" }}>
       <CardMedia component="img" height="200px" image={img} alt={name} />
       <CardContent>
         <Typography variant="body" color="text.primary">
