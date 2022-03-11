@@ -3,11 +3,9 @@ import { PublicNavBar } from "../components/NavigationBar/PublicNavBar";
 import { TeamMemberCard } from "../components/TeamCard/TeamMemberCard";
 import { teamMemberFromApi } from "../data/teamMemberFromApi";
 
-const teamMembers = { teamMemberFromApi };
-
 export const About = () => {
   return (
-    <Container component="main" maxWidth="md">
+    <Container component="main">
       <PublicNavBar />
       <Container
         sx={{
@@ -23,7 +21,18 @@ export const About = () => {
           children for future reference as a smart way of tracking progress.
         </p>
         <h2>Team behind Schoolify</h2>
-        <TeamMemberCard {...teamMembers} />
+        <Container
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          {teamMemberFromApi.map((member) => {
+            return <TeamMemberCard {...member} />;
+          })}
+        </Container>
       </Container>
     </Container>
   );
