@@ -1,6 +1,9 @@
 import Container from "@mui/material/Container";
 import { PublicNavBar } from "../components/NavigationBar/PublicNavBar";
-import { TeamMemberCard } from "../components/TeamMemberCard/TeamMemberCard";
+import { TeamMemberCard } from "../components/TeamCard/TeamMemberCard";
+import { teamMemberFromApi } from "../data/teamMemberFromApi";
+
+const teamMembers = { teamMemberFromApi };
 
 export const About = () => {
   return (
@@ -20,7 +23,7 @@ export const About = () => {
           children for future reference as a smart way of tracking progress.
         </p>
         <h2>Team behind Schoolify</h2>
-        <TeamMemberCard />
+        <TeamMemberCard {...teamMembers} />
       </Container>
     </Container>
   );
