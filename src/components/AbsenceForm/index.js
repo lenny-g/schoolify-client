@@ -93,28 +93,28 @@ export const AbsenceForm = () => {
         </Typography>
         <FormControl sx={{ minWidth: 100, mb: 2 }}>
           <InputLabel id="student">Select Child</InputLabel>
-          <Select
-            labelId="student"
-            id="student"
-            label="Select Student"
-            defaultValue={undefined}
-            autoFocus
-            disabled={mutationLoading}
-            // onChange={(event) => {
-            //   setSelectedStudent(event.target.value);
-            //   console.log(event.target.defaultValue);
-            // }}
-            {...register("student")}
-            error={!!errors.student}
-          >
-            {studentOptions?.map(({ firstName, lastName, id }, index) => {
-              return (
-                <MenuItem key={index} value={id}>
-                  {firstName} {lastName}
-                </MenuItem>
-              );
-            })}
-          </Select>
+          <Controller
+            control={control}
+            name="student"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                labelId="student"
+                id="student"
+                label="Select Student"
+                value={value || ""}
+                disabled={mutationLoading}
+                onChange={onChange}
+                {...register("student", { required: true })}
+                error={!!errors.student}
+              >
+                {studentOptions?.map(({ firstName, lastName, id }, index) => (
+                  <MenuItem key={index} value={id}>
+                    {firstName} {lastName}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
         </FormControl>
         <FormControl sx={{ minWidth: 100, mb: 2 }}>
           <InputLabel id="absenceType">Absence type</InputLabel>
