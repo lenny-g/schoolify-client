@@ -15,12 +15,12 @@ export const Home = () => {
         </Box>
         <Box sx={{ mb: "2rem" }}>
           <Button variant="contained" fullWidth href="https://google.com">
-            Parents Login
+            Parents
           </Button>
         </Box>
         <Box>
           <Button variant="contained" fullWidth href="https://wikipedia.com">
-            Teachers Login
+            Teachers
           </Button>
         </Box>
       </Container>
