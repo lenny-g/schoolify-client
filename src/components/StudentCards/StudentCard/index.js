@@ -4,22 +4,22 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-export const StudentCard = () => {
+export const StudentCard = ({ firstName, lastName, yearGroup, id }) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ minWidth: "100%", margin: 2 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="https://previews.123rf.com/images/olegdudko/olegdudko1508/olegdudko150800275/43199653-cabrito-de-la-escuela-escuela-chico-.jpg"
           alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Bob Smith
+            {firstName} {lastName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Year Group 3
+            {yearGroup.title}
           </Typography>
         </CardContent>
       </CardActionArea>
