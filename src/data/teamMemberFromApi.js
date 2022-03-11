@@ -54,7 +54,7 @@ export const teamMemberFromApi = [
     img: "../../assets/img/profile-img.png",
     name: "Anab Warsame",
     description:
-      " The objective of this project was to fix broken code, make the webpage more accessible and refactor HTML semantics",
+      " Full Stack Web Developer studying at University of Birmingham",
     linkedIn: "https://www.linkedin.com/in/anab-warsame-3004b1221/",
     github: "https://github.com/anabwarsame",
     portfolio: "",
