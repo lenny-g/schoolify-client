@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -7,20 +10,28 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import { useForm, Controller } from "react-hook-form";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 import Typography from "@mui/material/Typography";
 
 import { forms } from "../../styles";
+import { GET_PARENTS_CHILDREN } from "../../graphql/query";
+import { MAKE_AN_ABSENCE_REQUEST } from "../../graphql/mutations";
 
 const appointmentOptions = ["Medical", "Dental", "Other"];
-const studentOptions = ["Bob", "Dan", "Tobby"];
 
 export const AbsenceForm = () => {
-  //   const [{ loading, error }] = useMutation();
+  const { loading, error, data } = useQuery(GET_PARENTS_CHILDREN);
+  const studentOptions = data?.parentsChildren?.children;
+
+  const [
+    executeAbsenceRequest,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(MAKE_AN_ABSENCE_REQUEST);
+
   const [absenceDate, setAbsenceDate] = useState();
+
   const {
     register,
     formState: { errors },
@@ -31,6 +42,7 @@ export const AbsenceForm = () => {
   } = useForm();
 
   const value = getValues("enrollDate");
+  const navigate = useNavigate();
 
   useEffect(() => {
     register("dateOfAbsence");
@@ -43,9 +55,25 @@ export const AbsenceForm = () => {
   const [absenceType, setAbsenceType] = useState("");
   const [selectedStudent, setSelectedStudent] = useState("");
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  const onSubmit = async (formData) => {
+    await executeAbsenceRequest({
+      variables: {
+        input: {
+          type: formData.absenceType,
+          description: formData.description,
+          date: formData.dateOfAbsence,
+          time: formData.dateOfAbsence,
+          studentId: formData.student,
+        },
+      },
+    });
+
+    navigate("/dashboard", { replace: true });
   };
+
+  if (error) {
+    return <div>ERROR</div>;
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -68,9 +96,9 @@ export const AbsenceForm = () => {
             labelId="student"
             id="student"
             label="Select Student"
-            defaultValue="Bob"
+            defaultValue=""
             autoFocus
-            // disabled={loading}
+            disabled={mutationLoading}
             onChange={(event) => {
               setSelectedStudent(event.target.value);
               console.log(event.target.defaultValue);
@@ -78,10 +106,10 @@ export const AbsenceForm = () => {
             {...register("student")}
             error={!!errors.student}
           >
-            {studentOptions.map((title, index) => {
+            {studentOptions?.map(({ firstName, lastName, id }, index) => {
               return (
-                <MenuItem key={index} value={title}>
-                  {title}
+                <MenuItem key={index} value={id}>
+                  {firstName} {lastName}
                 </MenuItem>
               );
             })}
@@ -94,8 +122,7 @@ export const AbsenceForm = () => {
             id="absenceType"
             label="Absence Type"
             defaultValue="Medical"
-            autoFocus
-            // disabled={loading}
+            disabled={mutationLoading}
             onChange={(event) => {
               setAbsenceType(event.target.value);
               console.log(event.target.defaultValue);
@@ -120,14 +147,14 @@ export const AbsenceForm = () => {
           rows={4}
           {...register("description", { required: true })}
           error={!!errors.description}
-          //   disabled={loading}
+          disabled={mutationLoading}
         />
 
         <DateTimePicker
           label="Please select date and time"
           inputFormat="MM/dd/yyyy hh:mm"
           value={absenceDate}
-          //   disabled={loading}
+          disabled={mutationLoading}
           onChange={(value) => {
             setAbsenceDate(value);
             setValue("dateOfAbsence", value, {
@@ -150,27 +177,27 @@ export const AbsenceForm = () => {
         />
 
         <LoadingButton
-          //   loading={loading}
-          //   disabled={loading}
+          loading={mutationLoading}
+          disabled={mutationLoading}
           fullWidth
           type="submit"
           variant="contained"
           sx={forms.loadingButton}
-          //   startIcon={error && <ErrorIcon />}
-          //   color={error ? "error" : "primary"}
+          startIcon={error && <ErrorIcon />}
+          color={error ? "error" : "primary"}
         >
           Sign Up
         </LoadingButton>
-        {/* {!!error && ( */}
-        <Typography
-          variant="subtitle2"
-          gutterBottom
-          component="div"
-          sx={forms.errorContainer}
-        >
-          Failed to request absence, please try again.
-        </Typography>
-        {/* )} */}
+        {!!mutationError && (
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            component="div"
+            sx={forms.errorContainer}
+          >
+            Failed to request absence, please try again.
+          </Typography>
+        )}
       </Box>
     </LocalizationProvider>
   );
