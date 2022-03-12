@@ -56,7 +56,6 @@ export const AbsenceForm = () => {
   const [selectedStudent, setSelectedStudent] = useState("");
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     await executeAbsenceRequest({
       variables: {
         input: {
@@ -126,7 +125,6 @@ export const AbsenceForm = () => {
             disabled={mutationLoading}
             onChange={(event) => {
               setAbsenceType(event.target.value);
-              console.log(event.target.defaultValue);
             }}
             {...register("absenceType")}
             error={!!errors.absenceType}
