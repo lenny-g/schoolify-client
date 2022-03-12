@@ -5,7 +5,7 @@ import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
 
 export const AddChild = () => {
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <ParentNavBar />
       <AddChildForm />
     </Container>

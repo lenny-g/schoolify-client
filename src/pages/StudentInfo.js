@@ -1,20 +1,24 @@
+import { useParams } from "react-router-dom";
 import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
-
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-export const Dashboard = () => {
+import Container from "@mui/material/Container";
+
+export const StudentInfo = () => {
+  const { studentId } = useParams();
+
   return (
     <>
       <ParentNavBar />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <Typography
           variant="h3"
           gutterBottom
           component="div"
           sx={{ textAlign: "center" }}
         >
-          Dashboard
+          STUDENT PAGE
         </Typography>
+        <div>{studentId}</div>
       </Container>
     </>
   );

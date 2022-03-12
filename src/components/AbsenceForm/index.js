@@ -91,7 +91,7 @@ export const AbsenceForm = () => {
         >
           Request Absence
         </Typography>
-        <FormControl sx={{ minWidth: 100, mb: 2 }}>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel id="student">Select Child</InputLabel>
           <Controller
             control={control}
@@ -116,7 +116,7 @@ export const AbsenceForm = () => {
             )}
           />
         </FormControl>
-        <FormControl sx={{ minWidth: 100, mb: 2 }}>
+        <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel id="absenceType">Absence type</InputLabel>
           <Select
             labelId="absenceType"

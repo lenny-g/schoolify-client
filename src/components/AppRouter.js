@@ -8,6 +8,7 @@ import { AddChild } from "../pages/AddChild";
 import { ViewChildren } from "../pages/ViewChildren";
 import { ViewAppointments } from "../pages/ViewAppointments";
 import { AbsenceRequest } from "../pages/AbsenceRequest";
+import { StudentInfo } from "../pages/StudentInfo";
 
 export const AppRouter = () => {
   const { isLoggedIn } = useAuth();
@@ -21,6 +22,7 @@ export const AppRouter = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/children/new" element={<AddChild />} />
           <Route path="/children/view" element={<ViewChildren />} />
+          <Route path="/children/view/:studentId" element={<StudentInfo />} />
           <Route path="/appointment/new" element={<Appointment />} />
           <Route path="/appointment/view" element={<ViewAppointments />} />
           <Route path="/absenceRequest/new" element={<AbsenceRequest />} />
