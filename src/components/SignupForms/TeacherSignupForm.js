@@ -18,7 +18,7 @@ import { forms } from '../../styles';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
-export const ParentSignupForm = () => {
+export const TeacherSignupForm = () => {
 	const [executeSignUp, { loading, error }] = useMutation(PARENT_SIGN_UP);
 
 	const navigate = useNavigate();
@@ -70,7 +70,7 @@ export const ParentSignupForm = () => {
 				gutterBottom
 				component='div'
 				sx={{ textAlign: 'center' }}>
-				Parent Sign Up
+				Teacher Sign Up
 			</Typography>
 			<FormControl sx={{ minWidth: 100 }}>
 				<InputLabel id='title'>Title</InputLabel>
@@ -165,61 +165,7 @@ export const ParentSignupForm = () => {
 					{errors?.confirmPassword?.message}
 				</Typography>
 			)}
-			<TextField
-				margin='normal'
-				id='houseNumber'
-				label='House Number'
-				variant='outlined'
-				name='houseNumber'
-				fullWidth
-				disabled={loading}
-				{...register('houseNumber', { required: true })}
-				error={!!errors.houseNumber}
-			/>
-			<TextField
-				margin='normal'
-				id='street'
-				label='Street Name'
-				variant='outlined'
-				name='street'
-				fullWidth
-				disabled={loading}
-				{...register('street', { required: true })}
-				error={!!errors.street}
-			/>
-			<TextField
-				margin='normal'
-				id='city'
-				label='City'
-				variant='outlined'
-				name='city'
-				fullWidth
-				disabled={loading}
-				{...register('city', { required: true })}
-				error={!!errors.city}
-			/>
-			<TextField
-				margin='normal'
-				id='postCode'
-				label='Post Code'
-				variant='outlined'
-				name='postCode'
-				fullWidth
-				disabled={loading}
-				{...register('postCode', { required: true })}
-				error={!!errors.postCode}
-			/>
-			<TextField
-				margin='normal'
-				id='phoneNumber'
-				label='Phone Number'
-				variant='outlined'
-				name='phoneNumber'
-				fullWidth
-				disabled={loading}
-				{...register('phoneNumber', { required: true })}
-				error={!!errors.phoneNumber}
-			/>
+
 			<LoadingButton
 				loading={loading}
 				disabled={loading}
