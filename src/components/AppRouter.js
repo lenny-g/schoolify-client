@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "../context/AppProvider";
 import { Login } from "../pages/Login";
 import { Signup } from "../pages/Signup";
+import { About } from "../pages/About";
+import { Home } from "../pages/Home";
 import { Appointment } from "../pages/Appointment";
 import { Dashboard } from "../pages/Dashboard";
 import { AddChild } from "../pages/AddChild";
@@ -15,8 +17,11 @@ export const AppRouter = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/about" element={<About />} />
+
       {isLoggedIn ? (
         <>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -28,7 +33,7 @@ export const AppRouter = () => {
           <Route path="/absenceRequest/new" element={<AbsenceRequest />} />
         </>
       ) : (
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       )}
     </Routes>
   );
