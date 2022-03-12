@@ -25,3 +25,30 @@ export const PARENT_SIGN_UP = gql`
     }
   }
 `;
+
+export const MAKE_AN_ABSENCE_REQUEST = gql`
+  mutation Mutation($input: studentAbsenceInput!) {
+    studentAbsenceRequest(input: $input) {
+      id
+      firstName
+      lastName
+      dob
+    }
+  }
+`;
+
+export const ADD_STUDENT = gql`
+  mutation Mutation($input: StudentInputDetails!) {
+    addStudent(input: $input) {
+      id
+      firstName
+      lastName
+      dob
+      yearGroup {
+        id
+        title
+        subjects
+      }
+    }
+  }
+`;

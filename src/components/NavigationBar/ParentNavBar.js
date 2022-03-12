@@ -23,6 +23,7 @@ import FaceIcon from "@mui/icons-material/Face";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 const drawerWidth = 240;
 
@@ -231,13 +232,13 @@ export const ParentNavBar = () => {
               primary="Add Appointment"
             />
           </ListItem>
-          <ListItem button component={Link} href="/logout">
-            <ListItemIcon
+          <ListItem button component={Link} href="/absenceRequest/new">
+   <ListItemIcon
               sx={{
                 color: "#979DAC",
               }}
             >
-              <LogoutIcon />
+              <AddBoxIcon />
             </ListItemIcon>
             <ListItemText
               disableTypography={true}
@@ -245,7 +246,7 @@ export const ParentNavBar = () => {
                 color: "#979DAC",
                 fontFamily: "Arial",
               }}
-              primary="Logout"
+             primary="Absence Request"
             />
           </ListItem>
         </List>
