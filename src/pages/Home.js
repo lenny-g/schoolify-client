@@ -9,20 +9,20 @@ export const Home = () => {
   return (
     <Container component="main" maxWidth="md">
       <PublicNavBar />
-      <Container>
-        <Box sx={{ display: "flex", justifyContent: "center", m: "2rem" }}>
-          <img src={schoolify} height="500px" />
-        </Box>
-        <Box sx={{ mb: "2rem" }}>
-          <Button variant="contained" fullWidth href="https://google.com">
-            Parents
-          </Button>
-        </Box>
-        <Box>
-          <Button variant="contained" fullWidth href="https://wikipedia.com">
-            Teachers
-          </Button>
-        </Box>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          m: "5rem",
+        }}
+      >
+        <h1>Welcome the Parents signup/login portal.</h1>
+        <p>
+          Please sign-up and then login to be transfered to your dashboard where
+          you can keep up to date with your child's progress and register any
+          appointments
+        </p>
       </Container>
     </Container>
   );
