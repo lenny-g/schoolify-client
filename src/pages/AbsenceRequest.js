@@ -1,13 +1,13 @@
 import Container from "@mui/material/Container";
 
-import { AddChildForm } from "../components/AddChild/AddChildForm";
+import { AbsenceForm } from "../components/AbsenceForm";
 import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
 
-export const AddChild = () => {
+export const AbsenceRequest = () => {
   return (
     <Container component="main" maxWidth="md">
       <ParentNavBar />
-      <AddChildForm />
+      <AbsenceForm />
     </Container>
   );
 };

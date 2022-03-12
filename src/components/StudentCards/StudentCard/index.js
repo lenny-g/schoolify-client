@@ -2,11 +2,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
+import Button from "@mui/material/Button";
 
 export const StudentCard = ({ firstName, lastName, yearGroup, id }) => {
   return (
-    <Card sx={{ minWidth: "100%", margin: 2 }}>
+    <Card sx={{ margin: 2 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -23,6 +25,11 @@ export const StudentCard = ({ firstName, lastName, yearGroup, id }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary" id={id}>
+          View
+        </Button>
+      </CardActions>
     </Card>
   );
 };
