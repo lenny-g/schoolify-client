@@ -12,6 +12,7 @@ import { ViewChildren } from '../pages/ViewChildren';
 import { ViewAppointments } from '../pages/ViewAppointments';
 import { AbsenceRequest } from '../pages/AbsenceRequest';
 import { StudentInfo } from '../pages/StudentInfo';
+import { Medical } from '../pages/Medical';
 
 export const AppRouter = () => {
 	const { isLoggedIn } = useAuth();
@@ -23,6 +24,7 @@ export const AppRouter = () => {
 			<Route path='/teacher/sign-up' element={<TeacherSignup />} />
 			<Route path='/login' element={<Login />} />
 			<Route path='/about' element={<About />} />
+			<Route path='/medical/new' element={<Medical />} />
 
 			{isLoggedIn ? (
 				<>
