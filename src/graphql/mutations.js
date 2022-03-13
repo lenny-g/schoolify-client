@@ -15,13 +15,9 @@ export const PARENT_LOGIN = gql`
 `;
 
 export const PARENT_SIGN_UP = gql`
-  mutation Mutation($input: SignupInput) {
+  mutation Mutation($input: ParentSignupInput) {
     parentSignUp(input: $input) {
-      id
-      title
-      firstName
-      lastName
-      email
+      success
     }
   }
 `;
