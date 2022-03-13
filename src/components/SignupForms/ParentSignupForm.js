@@ -294,7 +294,6 @@ export const ParentSignupForm = () => {
 						<LoadingButton
 							loading={loading}
 							disabled={loading}
-							// fullWidth
 							type='submit'
 							variant='contained'
 							sx={item.actionButtons}
