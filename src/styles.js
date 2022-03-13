@@ -10,20 +10,25 @@ export const forms = {
 		display: 'flex',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
+		width: '100%',
 		alignItems: 'center',
 		border: '1px solid black',
-		padding: '2rem',
+		padding: '1rem',
 	},
 	errorContainer: {
 		marginTop: 2,
 		color: '#d32f2f',
 		textAlign: 'center',
 	},
-	inputBox: {
-		margin: '2rem 0',
+	subContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		margin: '10px',
 		padding: '20px',
 		borderRadius: '25px',
 		border: '4px solid #B7CBF8',
+		flexBasis: '100%',
+		flex: 1,
 	},
 	loadingButton: { marginTop: 3, marginBottom: 2 },
 };
