@@ -1,13 +1,21 @@
 import { gql } from "@apollo/client";
 
-export const PARENT_LOGIN = gql`
-  mutation Mutation($input: ParentLoginInput) {
-    parentLogin(input: $input) {
+export const LOGIN_USER = gql`
+  mutation Mutation($input: LoginInput!) {
+    login(input: $input) {
       token
       parent {
         title
         firstName
         lastName
+        email
+        role
+      }
+      teacher {
+        title
+        firstName
+        lastName
+        role
         email
       }
     }
@@ -17,6 +25,14 @@ export const PARENT_LOGIN = gql`
 export const PARENT_SIGN_UP = gql`
   mutation Mutation($input: ParentSignupInput) {
     parentSignUp(input: $input) {
+      success
+    }
+  }
+`;
+
+export const TEACHER_SIGN_UP = gql`
+  mutation Mutation($input: TeacherSignupInput) {
+    teacherSignUp(input: $input) {
       success
     }
   }

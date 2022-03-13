@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 
