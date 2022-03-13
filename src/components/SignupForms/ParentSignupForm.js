@@ -13,9 +13,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
+import InfoIcon from '@mui/icons-material/Info';
 
 import { PARENT_SIGN_UP } from '../../graphql/mutations';
-import { forms } from '../../styles';
+import { item } from '../../styles';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
@@ -64,24 +65,12 @@ export const ParentSignupForm = () => {
 	};
 
 	return (
-		// <Box container sx={forms.container}>
-		// 	<Box>
-		// 		<Typography
-		// 			variant='h3'
-		// 			gutterBottom
-		// 			component='div'
-		// 			sx={{ textAlign: 'center' }}>
-		// 			Parent Sign Up
-		// 		</Typography>
-		// 	</Box>
-
-		<Box
-			sx={{ display: 'flex' }}
-			container
-			spacing={3}
+		<Grid
+			sx={item.outerContainer}
 			component='form'
+			spacing={3}
 			onSubmit={handleSubmit(onSubmit)}>
-			{/* <Box>
+			<Grid xs={12}>
 				<Typography
 					variant='h3'
 					gutterBottom
@@ -89,202 +78,249 @@ export const ParentSignupForm = () => {
 					sx={{ textAlign: 'center' }}>
 					Parent Sign Up
 				</Typography>
-			</Box> */}
-
-			<Box sx={forms.subContainer}>
-				<Box sx={forms.subContainer}>
-					<FormControl sx={{ mt: 2 }} fullWidth>
-						<InputLabel id='title' color='secondary'>
-							Title
-						</InputLabel>
-						<Select
-							color='secondary'
-							labelId='title'
-							id='title'
-							label='Title'
-							{...register('title')}
-							defaultValue='Mr'
-							autoFocus
-							disabled={loading}>
-							{titleOptions.map((title, index) => (
-								<MenuItem key={index} value={title}>
-									{title}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-					<TextField
-						margin='normal'
-						id='firstName'
-						label='First Name'
-						variant='outlined'
-						name='firstName'
-						fullWidth
-						disabled={loading}
-						{...register('firstName', { required: true })}
-						error={!!errors.firstName}
-					/>
-					<TextField
-						margin='normal'
-						id='lastName'
-						label='Last Name'
-						variant='outlined'
-						name='lastName'
-						fullWidth
-						disabled={loading}
-						{...register('lastName', { required: true })}
-						error={!!errors.lastName}
-					/>
-				</Box>
-				<Box sx={forms.subContainer}>
-					<TextField
-						margin='normal'
-						id='emailAddress'
-						label='Email Address'
-						variant='outlined'
-						name='emailAddress'
-						fullWidth
-						disabled={loading}
-						{...register('emailAddress', {
-							required: true,
-							pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-						})}
-						error={!!errors.emailAddress}
-					/>
-					<TextField
-						margin='normal'
-						id='password'
-						label='Password'
-						variant='outlined'
-						name='password'
-						type='password'
-						fullWidth
-						disabled={loading}
-						{...register('password', {
-							required: true,
-							pattern:
-								/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-						})}
-						error={!!errors.password}
-					/>
-					<Typography
-						variant='caption'
-						component='div'
-						sx={{ padding: '0px 8px' }}>
-						Password must be 8 characters, and include both lowercase and
-						uppercase characters, with 1 special character required
-					</Typography>
-					<TextField
-						margin='normal'
-						id='confirmPassword'
-						label='Confirm Password'
-						variant='outlined'
-						name='confirmPassword'
-						type='password'
-						fullWidth
-						disabled={loading}
-						{...register('confirmPassword', { required: true })}
-						error={!!errors.confirmPassword}
-					/>
-					{errors?.confirmPassword?.message && (
+			</Grid>
+			<Grid
+				container
+				spacing={2}
+				component='form'
+				onSubmit={handleSubmit(onSubmit)}>
+				<Grid item xs={12} sm={6}>
+					<Box sx={item.inputBox}>
 						<Typography
+							variant='subtitle1'
+							component='div'
+							sx={{ padding: '0px 8px' }}>
+							Enter personal details
+						</Typography>
+						<FormControl sx={{ mt: 2 }} fullWidth>
+							<InputLabel color='secondary' id='title'>
+								Title
+							</InputLabel>
+							<Select
+								color='secondary'
+								labelId='title'
+								id='title'
+								label='Title'
+								{...register('title')}
+								defaultValue='Mr'
+								autoFocus
+								disabled={loading}>
+								{titleOptions.map((title, index) => (
+									<MenuItem key={index} value={title}>
+										{title}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='firstName'
+							label='First Name'
+							variant='outlined'
+							name='firstName'
+							fullWidth
+							disabled={loading}
+							{...register('firstName', { required: true })}
+							error={!!errors.firstName}
+						/>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='lastName'
+							label='Last Name'
+							variant='outlined'
+							name='lastName'
+							fullWidth
+							disabled={loading}
+							{...register('lastName', { required: true })}
+							error={!!errors.lastName}
+						/>
+					</Box>
+					<Box sx={item.inputBox}>
+						<Typography
+							variant='subtitle1'
+							component='div'
+							sx={{ padding: '0px 8px' }}>
+							Enter login details
+						</Typography>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='emailAddress'
+							label='Email Address'
+							variant='outlined'
+							name='emailAddress'
+							fullWidth
+							disabled={loading}
+							{...register('emailAddress', {
+								required: true,
+								pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+							})}
+							error={!!errors.emailAddress}
+						/>
+						<Grid container sx={{ display: 'flex' }}>
+							<Grid xs={10}>
+								<TextField
+									color='secondary'
+									margin='normal'
+									id='password'
+									label='Password'
+									variant='outlined'
+									name='password'
+									type='password'
+									fullWidth
+									disabled={loading}
+									{...register('password', {
+										required: true,
+										pattern:
+											/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+									})}
+									error={!!errors.password}
+								/>
+							</Grid>
+							<Grid
+								xs={2}
+								sx={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}>
+								<InfoIcon />
+							</Grid>
+						</Grid>
+						<Typography
+							color='secondary'
 							variant='caption'
 							component='div'
-							sx={{ padding: '0px 8px', color: '#d32f2f' }}>
-							{errors?.confirmPassword?.message}
+							sx={{ padding: '0px 8px' }}>
+							Password must be 8 characters, and include both lowercase and
+							uppercase characters, with 1 special character required
 						</Typography>
-					)}
-				</Box>
-			</Box>
-			<Box sx={forms.subContainer}>
-				<Box sx={forms.subContainer}>
-					<TextField
-						margin='normal'
-						id='houseNumber'
-						label='House Number'
-						variant='outlined'
-						name='houseNumber'
-						fullWidth
-						disabled={loading}
-						{...register('houseNumber', { required: true })}
-						error={!!errors.houseNumber}
-					/>
-					<TextField
-						margin='normal'
-						id='street'
-						label='Street Name'
-						variant='outlined'
-						name='street'
-						fullWidth
-						disabled={loading}
-						{...register('street', { required: true })}
-						error={!!errors.street}
-					/>
-					<TextField
-						margin='normal'
-						id='city'
-						label='City'
-						variant='outlined'
-						name='city'
-						fullWidth
-						disabled={loading}
-						{...register('city', { required: true })}
-						error={!!errors.city}
-					/>
-					<TextField
-						margin='normal'
-						id='postCode'
-						label='Post Code'
-						variant='outlined'
-						name='postCode'
-						fullWidth
-						disabled={loading}
-						{...register('postCode', { required: true })}
-						error={!!errors.postCode}
-					/>
-					<TextField
-						margin='normal'
-						id='phoneNumber'
-						label='Phone Number'
-						variant='outlined'
-						name='phoneNumber'
-						fullWidth
-						disabled={loading}
-						{...register('phoneNumber', { required: true })}
-						error={!!errors.phoneNumber}
-					/>
-				</Box>
-				<Box sx={forms.subContainer}>
-					<LoadingButton
-						loading={loading}
-						disabled={loading}
-						// fullWidth
-						type='submit'
-						variant='contained'
-						sx={forms.largeButtons}
-						startIcon={error && <ErrorIcon />}
-						color={error ? 'error' : 'primary'}>
-						Sign Up
-					</LoadingButton>
-					<Link
-						component={RouterLink}
-						variant='body2'
-						to='/login'
-						underline='none'>
-						Already have an account? Login
-					</Link>
-					{!!error && (
+
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='confirmPassword'
+							label='Confirm Password'
+							variant='outlined'
+							name='confirmPassword'
+							type='password'
+							fullWidth
+							disabled={loading}
+							{...register('confirmPassword', { required: true })}
+							error={!!errors.confirmPassword}
+						/>
+						{errors?.confirmPassword?.message && (
+							<Typography
+								variant='caption'
+								component='div'
+								sx={{ padding: '0px 8px', color: '#d32f2f' }}>
+								{errors?.confirmPassword?.message}
+							</Typography>
+						)}
+					</Box>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<Box sx={item.inputBox}>
 						<Typography
-							variant='subtitle2'
-							gutterBottom
+							variant='subtitle1'
 							component='div'
-							sx={forms.errorContainer}>
-							Failed to sign up, please try again.
+							sx={{ padding: '0px 8px' }}>
+							Enter contact details
 						</Typography>
-					)}
-				</Box>
-			</Box>
-		</Box>
-		// </Box>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='houseNumber'
+							label='House Number'
+							variant='outlined'
+							name='houseNumber'
+							fullWidth
+							disabled={loading}
+							{...register('houseNumber', { required: true })}
+							error={!!errors.houseNumber}
+						/>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='street'
+							label='Street Name'
+							variant='outlined'
+							name='street'
+							fullWidth
+							disabled={loading}
+							{...register('street', { required: true })}
+							error={!!errors.street}
+						/>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='city'
+							label='City'
+							variant='outlined'
+							name='city'
+							fullWidth
+							disabled={loading}
+							{...register('city', { required: true })}
+							error={!!errors.city}
+						/>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='postCode'
+							label='Post Code'
+							variant='outlined'
+							name='postCode'
+							fullWidth
+							disabled={loading}
+							{...register('postCode', { required: true })}
+							error={!!errors.postCode}
+						/>
+						<TextField
+							color='secondary'
+							margin='normal'
+							id='phoneNumber'
+							label='Phone Number'
+							variant='outlined'
+							name='phoneNumber'
+							fullWidth
+							disabled={loading}
+							{...register('phoneNumber', { required: true })}
+							error={!!errors.phoneNumber}
+						/>
+					</Box>
+					<Box sx={item.inputBox}>
+						<LoadingButton
+							loading={loading}
+							disabled={loading}
+							// fullWidth
+							type='submit'
+							variant='contained'
+							sx={item.actionButtons}
+							startIcon={error && <ErrorIcon />}
+							color={error ? 'error' : 'secondary'}>
+							Sign Up
+						</LoadingButton>
+						<Link
+							component={RouterLink}
+							variant='body2'
+							to='/login'
+							underline='none'>
+							Already have an account? Login
+						</Link>
+						{!!error && (
+							<Typography
+								variant='subtitle2'
+								gutterBottom
+								component='div'
+								sx={item.errorContainer}>
+								Failed to sign up, please try again.
+							</Typography>
+						)}
+					</Box>
+				</Grid>
+			</Grid>
+		</Grid>
 	);
 };
