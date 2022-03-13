@@ -2,9 +2,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Autocomplete from "@mui/material/Autocomplete";
 
@@ -45,11 +42,13 @@ export const MedicalForm = () => {
     register,
     formState: { errors },
     handleSubmit,
-    control,
   } = useForm();
 
+  const onSubmit = async (formData) => {
+    console.log(formData);
+  };
   return (
-    <Box component="form" sx={forms.inputBox}>
+    <Box component="form" sx={forms.inputBox} onSubmit={handleSubmit(onSubmit)}>
       <Typography
         variant="h3"
         gutterBottom
@@ -58,8 +57,8 @@ export const MedicalForm = () => {
       >
         Medical Form
       </Typography>
-
       <Autocomplete
+        {...register("allergies")}
         sx={{ mb: 2 }}
         multiple
         id="tags-outlined"
@@ -74,7 +73,6 @@ export const MedicalForm = () => {
           />
         )}
       />
-
       <Autocomplete
         sx={{ mb: 2 }}
         multiple
@@ -90,7 +88,6 @@ export const MedicalForm = () => {
           />
         )}
       />
-
       <Autocomplete
         sx={{ mb: 2 }}
         multiple
@@ -106,7 +103,6 @@ export const MedicalForm = () => {
           />
         )}
       />
-
       <TextField
         margin="normal"
         id="additional-info"
@@ -120,7 +116,6 @@ export const MedicalForm = () => {
         {...register("additionalInfo", { required: true })}
         error={!!errors.additionalInfo}
       />
-
       <LoadingButton
         // loading={loading}
         // disabled={loading}
