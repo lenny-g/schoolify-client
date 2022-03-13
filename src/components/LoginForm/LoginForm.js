@@ -12,6 +12,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import ErrorIcon from '@mui/icons-material/Error';
 import { useAuth } from '../../context/AppProvider';
 import { LOGIN_USER } from '../../graphql/mutations';
 import { forms, item } from '../../styles';
@@ -127,7 +128,9 @@ export const LoginForm = () => {
 					disabled={loading}
 					type='submit'
 					variant='contained'
-					sx={item.actionButtons}>
+					sx={item.actionButtons}
+					startIcon={error && <ErrorIcon />}
+					color={error ? 'error' : 'secondary'}>
 					Login
 				</LoadingButton>
 				<Link

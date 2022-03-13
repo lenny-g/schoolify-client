@@ -16,7 +16,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
 
 import { PARENT_SIGN_UP } from '../../graphql/mutations';
-import { item } from '../../styles';
+import { item, colors } from '../../styles';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
@@ -79,13 +79,9 @@ export const ParentSignupForm = () => {
 					Parent Sign Up
 				</Typography>
 			</Grid>
-			<Grid
-				container
-				spacing={2}
-				component='form'
-				onSubmit={handleSubmit(onSubmit)}>
+			<Grid container spacing={2}>
 				<Grid item xs={12} sm={6}>
-					<Box sx={item.inputBox}>
+					<Box sx={(item.inputBox, colors.pink)}>
 						<Typography
 							variant='subtitle1'
 							component='div'
@@ -137,7 +133,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.lastName}
 						/>
 					</Box>
-					<Box sx={item.inputBox}>
+					<Box sx={(item.inputBox, colors.green)}>
 						<Typography
 							variant='subtitle1'
 							component='div'
@@ -145,7 +141,7 @@ export const ParentSignupForm = () => {
 							Enter login details
 						</Typography>
 						<TextField
-							color='secondary'
+							color='primary'
 							margin='normal'
 							id='emailAddress'
 							label='Email Address'
@@ -159,38 +155,27 @@ export const ParentSignupForm = () => {
 							})}
 							error={!!errors.emailAddress}
 						/>
-						<Grid container sx={{ display: 'flex' }}>
-							<Grid xs={10}>
-								<TextField
-									color='secondary'
-									margin='normal'
-									id='password'
-									label='Password'
-									variant='outlined'
-									name='password'
-									type='password'
-									fullWidth
-									disabled={loading}
-									{...register('password', {
-										required: true,
-										pattern:
-											/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-									})}
-									error={!!errors.password}
-								/>
-							</Grid>
-							<Grid
-								xs={2}
-								sx={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-								}}>
-								<InfoIcon />
-							</Grid>
-						</Grid>
+						<TextField
+							sx={{ position: 'relative' }}
+							color='primary'
+							margin='normal'
+							id='password'
+							label='Password'
+							variant='outlined'
+							name='password'
+							type='password'
+							fullWidth
+							disabled={loading}
+							{...register('password', {
+								required: true,
+								pattern:
+									/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+							})}
+							error={!!errors.password}
+						/>
+
 						<Typography
-							color='secondary'
+							color='text.disabled'
 							variant='caption'
 							component='div'
 							sx={{ padding: '0px 8px' }}>
@@ -199,7 +184,7 @@ export const ParentSignupForm = () => {
 						</Typography>
 
 						<TextField
-							color='secondary'
+							color='primary'
 							margin='normal'
 							id='confirmPassword'
 							label='Confirm Password'
@@ -222,7 +207,7 @@ export const ParentSignupForm = () => {
 					</Box>
 				</Grid>
 				<Grid item xs={12} sm={6}>
-					<Box sx={item.inputBox}>
+					<Box sx={(item.inputBox, colors.yellow)}>
 						<Typography
 							variant='subtitle1'
 							component='div'
@@ -230,7 +215,7 @@ export const ParentSignupForm = () => {
 							Enter contact details
 						</Typography>
 						<TextField
-							color='secondary'
+							color='warning'
 							margin='normal'
 							id='houseNumber'
 							label='House Number'
@@ -242,7 +227,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.houseNumber}
 						/>
 						<TextField
-							color='secondary'
+							color='warning'
 							margin='normal'
 							id='street'
 							label='Street Name'
@@ -254,7 +239,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.street}
 						/>
 						<TextField
-							color='secondary'
+							color='warning'
 							margin='normal'
 							id='city'
 							label='City'
@@ -266,7 +251,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.city}
 						/>
 						<TextField
-							color='secondary'
+							color='warning'
 							margin='normal'
 							id='postCode'
 							label='Post Code'
@@ -278,7 +263,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.postCode}
 						/>
 						<TextField
-							color='secondary'
+							color='warning'
 							margin='normal'
 							id='phoneNumber'
 							label='Phone Number'
@@ -298,14 +283,15 @@ export const ParentSignupForm = () => {
 							variant='contained'
 							sx={item.actionButtons}
 							startIcon={error && <ErrorIcon />}
-							color={error ? 'error' : 'secondary'}>
+							color={error ? 'error' : 'success'}>
 							Sign Up
 						</LoadingButton>
 						<Link
 							component={RouterLink}
 							variant='body2'
 							to='/login'
-							underline='none'>
+							underline='none'
+							sx={{ textAlign: 'center' }}>
 							Already have an account? Login
 						</Link>
 						{!!error && (
