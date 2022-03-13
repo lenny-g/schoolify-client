@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import container from "@material-ui/core/Container";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -98,6 +99,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
+
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
@@ -109,6 +111,7 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -127,12 +130,29 @@ export const ParentNavBar = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            backgroundColor: "#212227",
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
-            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {!open ? (
+              <ChevronRightIcon sx={{ color: "#ffff" }} />
+            ) : (
+              <ChevronLeftIcon sx={{ color: "#ffff" }} />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -148,7 +168,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/dashboard">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <GridViewIcon />
@@ -156,7 +176,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Dashboard"
@@ -166,7 +186,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/children/view">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <FaceIcon />
@@ -174,7 +194,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="My Children"
@@ -183,7 +203,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/children/new">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <PersonAddIcon />
@@ -191,7 +211,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Add Child"
@@ -201,7 +221,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/appointment/view">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <CalendarTodayIcon />
@@ -209,7 +229,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="My Appointments"
@@ -218,7 +238,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/appointment/new">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <EventAvailableIcon />
@@ -226,16 +246,16 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Add Appointment"
             />
           </ListItem>
           <ListItem button component={Link} href="/absenceRequest/new">
-   <ListItemIcon
+            <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <AddBoxIcon />
@@ -243,10 +263,10 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
-             primary="Absence Request"
+              primary="Absence Request"
             />
           </ListItem>
         </List>

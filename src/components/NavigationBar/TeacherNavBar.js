@@ -77,10 +77,23 @@ export const ParentNavBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            backgroundColor: "#212227",
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
-            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {!open ? (
+              <ChevronRightIcon sx={{ color: "#ffff" }} />
+            ) : (
+              <ChevronLeftIcon sx={{ color: "#ffff" }} />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -96,7 +109,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/dashboard">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <GridViewIcon />
@@ -104,7 +117,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Dashboard"
@@ -114,7 +127,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/period/one">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <NumbersIcon />
@@ -122,7 +135,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Period One"
@@ -131,7 +144,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/period/two">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <NumbersIcon />
@@ -139,7 +152,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Period Two"
@@ -149,7 +162,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/period/three">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <NumbersIcon />
@@ -157,7 +170,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Period Three"
@@ -166,7 +179,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/period/four">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <NumbersIcon />
@@ -174,7 +187,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Period Four"
@@ -183,7 +196,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/period/five">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <NumbersIcon />
@@ -200,7 +213,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/period/six">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <NumbersIcon />
@@ -208,7 +221,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Period Six"
@@ -217,7 +230,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/appointments">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <CalendarTodayIcon />
@@ -225,7 +238,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="View Appointments"
@@ -234,7 +247,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/messages">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <MailIcon />
@@ -251,7 +264,7 @@ export const ParentNavBar = () => {
           <ListItem button component={Link} href="/logout">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <LogoutIcon />
@@ -259,7 +272,7 @@ export const ParentNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Logout"
