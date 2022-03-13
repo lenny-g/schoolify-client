@@ -61,14 +61,13 @@ export const AbsenceForm = () => {
         input: {
           type: formData.absenceType,
           description: formData.description,
-          date: formData.dateOfAbsence,
-          time: formData.dateOfAbsence,
+          dateTime: formData.dateOfAbsence,
           studentId: formData.student,
         },
       },
     });
 
-    // navigate("/dashboard", { replace: true });
+    navigate("/dashboard", { replace: true });
   };
 
   if (error) {

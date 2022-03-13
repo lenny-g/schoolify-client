@@ -39,12 +39,9 @@ export const TEACHER_SIGN_UP = gql`
 `;
 
 export const MAKE_AN_ABSENCE_REQUEST = gql`
-  mutation Mutation($input: studentAbsenceInput!) {
-    studentAbsenceRequest(input: $input) {
-      id
-      firstName
-      lastName
-      dob
+  mutation Mutation($input: StudentAbsenceInput!) {
+    addStudentAbsenceRequest(input: $input) {
+      success
     }
   }
 `;
