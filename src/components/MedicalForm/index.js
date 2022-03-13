@@ -1,106 +1,146 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import { useForm } from 'react-hook-form';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import LoadingButton from '@mui/lab/LoadingButton';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Autocomplete from "@mui/material/Autocomplete";
 
-import { forms } from '../../styles';
+import { forms } from "../../styles";
+
+const allergyOptions = [
+  "cow's milk",
+  "egg",
+  "wheat",
+  "peanuts",
+  "gluten",
+  "tree nuts",
+  "soy",
+  "fish",
+  "corn",
+  "sesame seeds",
+  "mustard",
+  "celery",
+  "hayfever",
+  "other",
+];
+
+const disabilityOptions = [
+  "learning",
+  "mobilities",
+  "psychiatric",
+  "hearing",
+  "autism",
+  "vision",
+  "ptsd",
+  "adhd",
+];
+
+const medicalOption = ["inhaler", "antibiotics", "epi pen", "stimulants"];
 
 export const MedicalForm = () => {
-	const {
-		register,
-		formState: { errors },
-		handleSubmit,
-		control,
-	} = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    control,
+  } = useForm();
 
-	return (
-		<Box component='form' sx={forms.inputBox}>
-			<Typography
-				variant='h3'
-				gutterBottom
-				component='div'
-				sx={{ textAlign: 'center' }}>
-				Medical Form
-			</Typography>
-			<TextField
-				margin='normal'
-				id='allergies'
-				label='Allergies'
-				variant='outlined'
-				name='allergies'
-				autoFocus
-				fullWidth
-				// disabled={loading}
-				{...register('allergies', { required: true })}
-				error={!!errors.allergies}
-			/>
+  return (
+    <Box component="form" sx={forms.inputBox}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        component="div"
+        sx={{ textAlign: "center" }}
+      >
+        Medical Form
+      </Typography>
 
-			<TextField
-				margin='normal'
-				id='disabilities'
-				label='Disabilities'
-				variant='outlined'
-				name='disabilities'
-				autoFocus
-				fullWidth
-				// disabled={loading}
-				{...register('disabilities', { required: true })}
-				error={!!errors.disabilities}
-			/>
+      <Autocomplete
+        sx={{ mb: 2 }}
+        multiple
+        id="tags-outlined"
+        options={allergyOptions}
+        getOptionLabel={(option) => option}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Allergies"
+            placeholder="Select all allergies that apply"
+          />
+        )}
+      />
 
-			<TextField
-				margin='normal'
-				id='medication'
-				label='Medication'
-				variant='outlined'
-				name='medication'
-				autoFocus
-				fullWidth
-				// disabled={loading}
-				{...register('medication', { required: true })}
-				error={!!errors.medication}
-			/>
-			<TextField
-				margin='normal'
-				id='additional-info'
-				label='AdditionalInfo'
-				variant='outlined'
-				name='additionalInfo'
-				autoFocus
-				fullWidth
-				// disabled={loading}
-				{...register('additionalInfo', { required: true })}
-				error={!!errors.additionalInfo}
-			/>
-			<FormGroup>
-				<FormControlLabel
-					control={<Checkbox />}
-					label='Requires Special Educational Needs'
-				/>
-			</FormGroup>
+      <Autocomplete
+        sx={{ mb: 2 }}
+        multiple
+        id="tags-outlined"
+        options={disabilityOptions}
+        getOptionLabel={(option) => option}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Disability"
+            placeholder="Select all disabilities that apply"
+          />
+        )}
+      />
 
-			<LoadingButton
-				// loading={loading}
-				// disabled={loading}
-				fullWidth
-				type='submit'
-				variant='contained'
-				sx={forms.loadingButton}>
-				Login
-			</LoadingButton>
-			{/* {!!error && ( */}
-			<Typography
-				variant='subtitle2'
-				gutterBottom
-				component='div'
-				sx={forms.errorContainer}>
-				Failed to add medical history.
-			</Typography>
-			{/* )} */}
-		</Box>
-	);
+      <Autocomplete
+        sx={{ mb: 2 }}
+        multiple
+        id="tags-outlined"
+        options={medicalOption}
+        getOptionLabel={(option) => option}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Medication"
+            placeholder="Select all that apply"
+          />
+        )}
+      />
+
+      <TextField
+        margin="normal"
+        id="additional-info"
+        label="Additional Info"
+        variant="outlined"
+        name="additionalInfo"
+        rows={4}
+        multiline
+        fullWidth
+        // disabled={loading}
+        {...register("additionalInfo", { required: true })}
+        error={!!errors.additionalInfo}
+      />
+
+      <LoadingButton
+        // loading={loading}
+        // disabled={loading}
+        fullWidth
+        type="submit"
+        variant="contained"
+        sx={forms.loadingButton}
+      >
+        Submit
+      </LoadingButton>
+      {/* {!!error && ( */}
+      <Typography
+        variant="subtitle2"
+        gutterBottom
+        component="div"
+        sx={forms.errorContainer}
+      >
+        Failed to add medical history.
+      </Typography>
+      {/* )} */}
+    </Box>
+  );
 };
