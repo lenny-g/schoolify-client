@@ -72,7 +72,7 @@ export const TeacherSignupForm = () => {
 				sx={{ textAlign: 'center' }}>
 				Teacher Sign Up
 			</Typography>
-			<FormControl sx={{ minWidth: 100 }}>
+			<FormControl sx={{ mt: 2 }} fullWidth>
 				<InputLabel id='title'>Title</InputLabel>
 				<Select
 					labelId='title'

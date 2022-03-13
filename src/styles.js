@@ -2,7 +2,8 @@ export const forms = {
 	container: {
 		marginTop: 8,
 		display: 'flex',
-		flexDirection: 'column',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
 		alignItems: 'center',
 		border: '1px solid black',
 		padding: '2rem',

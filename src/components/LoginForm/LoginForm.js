@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -15,10 +15,10 @@ import { useAuth } from '../../context/AppProvider';
 import { PARENT_LOGIN } from '../../graphql/mutations';
 import { forms } from '../../styles';
 
-const roleOptions = ['Parent', 'Teacher'];
+const roles = ['Parent', 'Teacher'];
 
 export const LoginForm = () => {
-	const [executeLogin, { loading, error }] = useMutation(PARENT_LOGIN);
+	const [executeLogin, { loading, error, data }] = useMutation(PARENT_LOGIN);
 
 	const navigate = useNavigate();
 
@@ -26,8 +26,9 @@ export const LoginForm = () => {
 
 	const {
 		register,
-		handleSubmit,
 		formState: { errors },
+		handleSubmit,
+		control,
 	} = useForm();
 
 	const onSubmit = async (formData) => {
@@ -50,6 +51,10 @@ export const LoginForm = () => {
 		}
 	};
 
+	if (error) {
+		return <div>ERROR</div>;
+	}
+
 	return (
 		<Box
 			component='form'
@@ -63,22 +68,31 @@ export const LoginForm = () => {
 				Login
 			</Typography>
 
-			<FormControl sx={{ minWidth: 100 }}>
-				<InputLabel id='role'>Role</InputLabel>
-				<Select
-					labelId='role'
-					id='role'
-					label='role'
-					{...register('role')}
-					defaultValue='Mr'
-					autoFocus
-					disabled={loading}>
-					{roleOptions.map((role, index) => (
-						<MenuItem key={index} value={role}>
-							{role}
-						</MenuItem>
-					))}
-				</Select>
+			<FormControl sx={{ mt: 2 }} fullWidth>
+				<InputLabel id='role'>Select Role</InputLabel>
+				<Controller
+					control={control}
+					name='role'
+					render={({ field: { onChange, value } }) => (
+						<Select
+							labelId='role'
+							id='role'
+							value={value || ''}
+							onChange={onChange}
+							label='Year Group'
+							// disabled={''}
+							error={!!errors.role}
+							{...register('role', { required: true })}>
+							{data?.roles?.map((roleObj, index) => {
+								return (
+									<MenuItem key={index} value={roleObj.id}>
+										{roleObj.title}
+									</MenuItem>
+								);
+							})}
+						</Select>
+					)}
+				/>
 			</FormControl>
 
 			<TextField

@@ -63,7 +63,7 @@ export const ParentSignupForm = () => {
 	return (
 		<Box
 			component='form'
-			sx={forms.container}
+			// sx={forms.container}
 			onSubmit={handleSubmit(onSubmit)}>
 			<Typography
 				variant='h3'
@@ -72,7 +72,7 @@ export const ParentSignupForm = () => {
 				sx={{ textAlign: 'center' }}>
 				Parent Sign Up
 			</Typography>
-			<FormControl sx={{ minWidth: 100 }}>
+			<FormControl sx={{ mt: 2 }} fullWidth>
 				<InputLabel id='title'>Title</InputLabel>
 				<Select
 					labelId='title'
