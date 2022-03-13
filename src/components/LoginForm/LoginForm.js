@@ -54,10 +54,6 @@ export const LoginForm = () => {
     }
   };
 
-  // if (error) {
-  //   return <div>ERROR</div>;
-  // }
-
   return (
     <Box component="form" sx={forms.inputBox} onSubmit={handleSubmit(onSubmit)}>
       <Typography

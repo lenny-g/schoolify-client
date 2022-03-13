@@ -12,11 +12,14 @@ export const LOGIN_USER = gql`
         role
       }
       teacher {
-        title
-        firstName
         lastName
+        firstName
+        title
         role
-        email
+        yearGroup {
+          id
+          title
+        }
       }
     }
   }

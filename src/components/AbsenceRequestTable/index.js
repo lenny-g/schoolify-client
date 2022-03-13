@@ -9,6 +9,7 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 
 export const AbsenceRequestTable = () => {
@@ -39,6 +40,15 @@ export const AbsenceRequestTable = () => {
 
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        component="div"
+        sx={{ textAlign: "center" }}
+      >
+        Absence Requests
+      </Typography>
+
       <TableContainer component={Paper}>
         {loading ? (
           <LinearProgress style={{ backgroundColor: "gold" }} />
