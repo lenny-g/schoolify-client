@@ -1,3 +1,9 @@
+// backgroundColor: '#9DD8C8', light green
+// backgroundColor: '#F4E471', light yellow
+// backgroundColor: '#E9C6D6', light pink
+// backgroundColor: '#B7CBF8', light purple
+// backgroundColor: '#212227', dark grey navbar
+
 export const forms = {
 	container: {
 		marginTop: 8,
@@ -12,6 +18,12 @@ export const forms = {
 		marginTop: 2,
 		color: '#d32f2f',
 		textAlign: 'center',
+	},
+	inputBox: {
+		margin: '2rem 0',
+		padding: '20px',
+		borderRadius: '25px',
+		border: '4px solid #B7CBF8',
 	},
 	loadingButton: { marginTop: 3, marginBottom: 2 },
 };

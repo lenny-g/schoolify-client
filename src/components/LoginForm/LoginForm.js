@@ -56,10 +56,7 @@ export const LoginForm = () => {
 	}
 
 	return (
-		<Box
-			component='form'
-			sx={forms.container}
-			onSubmit={handleSubmit(onSubmit)}>
+		<Box component='form' sx={forms.inputBox} onSubmit={handleSubmit(onSubmit)}>
 			<Typography
 				variant='h3'
 				gutterBottom

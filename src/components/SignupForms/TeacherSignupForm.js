@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
@@ -61,134 +62,153 @@ export const TeacherSignupForm = () => {
 	};
 
 	return (
-		<Box
+		<Grid
+			container
 			component='form'
-			sx={forms.container}
+			spacing={3}
 			onSubmit={handleSubmit(onSubmit)}>
-			<Typography
-				variant='h3'
-				gutterBottom
-				component='div'
-				sx={{ textAlign: 'center' }}>
-				Teacher Sign Up
-			</Typography>
-			<FormControl sx={{ mt: 2 }} fullWidth>
-				<InputLabel id='title'>Title</InputLabel>
-				<Select
-					labelId='title'
-					id='title'
-					label='Title'
-					{...register('title')}
-					defaultValue='Mr'
-					autoFocus
-					disabled={loading}>
-					{titleOptions.map((title, index) => (
-						<MenuItem key={index} value={title}>
-							{title}
-						</MenuItem>
-					))}
-				</Select>
-			</FormControl>
-			<TextField
-				margin='normal'
-				id='firstName'
-				label='First Name'
-				variant='outlined'
-				name='firstName'
-				fullWidth
-				disabled={loading}
-				{...register('firstName', { required: true })}
-				error={!!errors.firstName}
-			/>
-			<TextField
-				margin='normal'
-				id='lastName'
-				label='Last Name'
-				variant='outlined'
-				name='lastName'
-				fullWidth
-				disabled={loading}
-				{...register('lastName', { required: true })}
-				error={!!errors.lastName}
-			/>
-			<TextField
-				margin='normal'
-				id='emailAddress'
-				label='Email Address'
-				variant='outlined'
-				name='emailAddress'
-				fullWidth
-				disabled={loading}
-				{...register('emailAddress', {
-					required: true,
-					pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-				})}
-				error={!!errors.emailAddress}
-			/>
-			<TextField
-				margin='normal'
-				id='password'
-				label='Password'
-				variant='outlined'
-				name='password'
-				type='password'
-				fullWidth
-				disabled={loading}
-				{...register('password', {
-					required: true,
-					pattern:
-						/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-				})}
-				error={!!errors.password}
-			/>
-			<Typography variant='caption' component='div' sx={{ padding: '0px 8px' }}>
-				Password must be 8 characters, and include both lowercase and uppercase
-				characters, with 1 special character required
-			</Typography>
-			<TextField
-				margin='normal'
-				id='confirmPassword'
-				label='Confirm Password'
-				variant='outlined'
-				name='confirmPassword'
-				type='password'
-				fullWidth
-				disabled={loading}
-				{...register('confirmPassword', { required: true })}
-				error={!!errors.confirmPassword}
-			/>
-			{errors?.confirmPassword?.message && (
+			<Grid xs={12}>
 				<Typography
-					variant='caption'
-					component='div'
-					sx={{ padding: '0px 8px', color: '#d32f2f' }}>
-					{errors?.confirmPassword?.message}
-				</Typography>
-			)}
-
-			<LoadingButton
-				loading={loading}
-				disabled={loading}
-				fullWidth
-				type='submit'
-				variant='contained'
-				sx={forms.loadingButton}
-				startIcon={error && <ErrorIcon />}
-				color={error ? 'error' : 'primary'}>
-				Sign Up
-			</LoadingButton>
-			<Link component={RouterLink} variant='body2' to='/login' underline='none'>
-				Already have an account? Login
-			</Link>
-			{!!error && (
-				<Typography
-					variant='subtitle2'
+					variant='h3'
 					gutterBottom
 					component='div'
-					sx={forms.errorContainer}>
-					Failed to sign up, please try again.
+					sx={{ textAlign: 'center' }}>
+					Teacher Sign Up
 				</Typography>
-			)}
-		</Box>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Box sx={forms.inputBox}>
+					<FormControl sx={{ mt: 2 }} fullWidth>
+						<InputLabel id='title'>Title</InputLabel>
+						<Select
+							labelId='title'
+							id='title'
+							label='Title'
+							{...register('title')}
+							defaultValue='Mr'
+							autoFocus
+							disabled={loading}>
+							{titleOptions.map((title, index) => (
+								<MenuItem key={index} value={title}>
+									{title}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+					<TextField
+						margin='normal'
+						id='firstName'
+						label='First Name'
+						variant='outlined'
+						name='firstName'
+						fullWidth
+						disabled={loading}
+						{...register('firstName', { required: true })}
+						error={!!errors.firstName}
+					/>
+					<TextField
+						margin='normal'
+						id='lastName'
+						label='Last Name'
+						variant='outlined'
+						name='lastName'
+						fullWidth
+						disabled={loading}
+						{...register('lastName', { required: true })}
+						error={!!errors.lastName}
+					/>
+				</Box>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Box sx={forms.inputBox}>
+					<TextField
+						margin='normal'
+						id='emailAddress'
+						label='Email Address'
+						variant='outlined'
+						name='emailAddress'
+						fullWidth
+						disabled={loading}
+						{...register('emailAddress', {
+							required: true,
+							pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+						})}
+						error={!!errors.emailAddress}
+					/>
+					<TextField
+						margin='normal'
+						id='password'
+						label='Password'
+						variant='outlined'
+						name='password'
+						type='password'
+						fullWidth
+						disabled={loading}
+						{...register('password', {
+							required: true,
+							pattern:
+								/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+						})}
+						error={!!errors.password}
+					/>
+					<Typography
+						variant='caption'
+						component='div'
+						sx={{ padding: '0px 8px' }}>
+						Password must be 8 characters, and include both lowercase and
+						uppercase characters, with 1 special character required
+					</Typography>
+					<TextField
+						margin='normal'
+						id='confirmPassword'
+						label='Confirm Password'
+						variant='outlined'
+						name='confirmPassword'
+						type='password'
+						fullWidth
+						disabled={loading}
+						{...register('confirmPassword', { required: true })}
+						error={!!errors.confirmPassword}
+					/>
+					{errors?.confirmPassword?.message && (
+						<Typography
+							variant='caption'
+							component='div'
+							sx={{ padding: '0px 8px', color: '#d32f2f' }}>
+							{errors?.confirmPassword?.message}
+						</Typography>
+					)}
+				</Box>
+			</Grid>
+			<Grid xs={12}>
+				<LoadingButton
+					loading={loading}
+					disabled={loading}
+					fullWidth
+					type='submit'
+					variant='contained'
+					sx={forms.loadingButton}
+					startIcon={error && <ErrorIcon />}
+					color={error ? 'error' : 'primary'}>
+					Sign Up
+				</LoadingButton>
+				<Link
+					component={RouterLink}
+					variant='body2'
+					to='/login'
+					underline='none'>
+					Already have an account? Login
+				</Link>
+				{!!error && (
+					<Typography
+						variant='subtitle2'
+						gutterBottom
+						component='div'
+						sx={forms.errorContainer}>
+						Failed to sign up, please try again.
+					</Typography>
+				)}
+			</Grid>
+		</Grid>
 	);
 };
