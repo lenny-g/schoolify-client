@@ -16,7 +16,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
 
 import { PARENT_SIGN_UP } from '../../graphql/mutations';
-import { item, colors } from '../../styles';
+import { item, colors, headers } from '../../styles';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
@@ -72,11 +72,12 @@ export const ParentSignupForm = () => {
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid xs={12}>
 				<Typography
+					className='headingFont'
 					variant='h3'
 					gutterBottom
 					component='div'
-					sx={{ textAlign: 'center' }}>
-					Parent Sign Up
+					sx={headers.font}>
+					Parent . Signup . Page
 				</Typography>
 			</Grid>
 			<Grid container spacing={2}>

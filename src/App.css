@@ -37,8 +37,11 @@
 	}
 }
 
-.infoIcon {
-	position: relative;
-	top: -50px;
-	right: 90%;
+.logoContainer {
+	display: flex;
+	justify-content: center;
+}
+
+.logo {
+	height: 250px;
 }

@@ -2,7 +2,6 @@
 
 export const forms = {
 	container: {
-		marginTop: 8,
 		display: 'flex',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
@@ -31,7 +30,6 @@ export const forms = {
 
 export const item = {
 	outerContainer: {
-		marginTop: 8,
 		display: 'flex',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
@@ -127,17 +125,10 @@ export const colors = {
 };
 
 export const headers = {
-	purple: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		marginTop: '2rem',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '25px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#b7cbf88a',
+	font: {
+		textAlign: 'center',
+		fontFamily: "'Gochi Hand', cursive,",
+		letterSpacing: '2px',
 	},
 };
 

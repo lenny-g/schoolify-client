@@ -27,11 +27,6 @@ const theme = createTheme({
 			main: '#f48fb1',
 			dark: ' #aa647b',
 		},
-		// danger: {
-		// 	light: '#f6a5c0',
-		// 	main: '#f48fb1',
-		// 	dark: '#aa647b',
-		// },
 		secondary: {
 			light: '#aa90d7',
 			main: '#9575cd',
@@ -41,6 +36,11 @@ const theme = createTheme({
 			light: '#ffc570',
 			main: '#ffb74d',
 			dark: '#b28035',
+		},
+	},
+	typography: {
+		h3: {
+			fontFamily: "'Gochi Hand', cursive;",
 		},
 	},
 });
