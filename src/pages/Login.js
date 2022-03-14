@@ -12,7 +12,9 @@ export const Login = () => {
 				<div className='logoContainer'>
 					<img src={logo} className='logo' />
 				</div>
-				<LoginForm />
+				<Container xs={12}>
+					<LoginForm />
+				</Container>
 			</Paper>
 		</Container>
 	);
