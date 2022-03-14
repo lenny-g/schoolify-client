@@ -80,10 +80,23 @@ export const PublicNavBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            backgroundColor: "#212227",
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
-            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {!open ? (
+              <ChevronRightIcon sx={{ color: "#ffff" }} />
+            ) : (
+              <ChevronLeftIcon sx={{ color: "#ffff" }} />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -99,7 +112,7 @@ export const PublicNavBar = () => {
           <ListItem button component={Link} href="/home">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <HomeIcon />
@@ -107,7 +120,7 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Home"
@@ -117,7 +130,7 @@ export const PublicNavBar = () => {
           <ListItem button component={Link} href="/login">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <LoginIcon />
@@ -125,7 +138,7 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Login"
@@ -134,7 +147,7 @@ export const PublicNavBar = () => {
           <ListItem button component={Link} href="/sign-up">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <AssignmentIndIcon />
@@ -142,7 +155,7 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Sign Up"
@@ -152,7 +165,7 @@ export const PublicNavBar = () => {
           <ListItem button component={Link} href="/about">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <InfoIcon />
@@ -160,7 +173,7 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="About us"
