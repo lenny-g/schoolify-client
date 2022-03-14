@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
 
-import { item } from '../../styles';
+import { item, colors, headers } from '../../styles';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
@@ -84,19 +84,20 @@ export const TeacherSignupForm = () => {
 					gutterBottom
 					component='div'
 					sx={{ textAlign: 'center' }}>
-					Teacher Sign Up
+					Teacher . Signup . Page
 				</Typography>
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				<Box sx={item.inputBox}>
+				<Box sx={colors.yellow}>
 					<Typography
+						color='warning.dark'
 						variant='subtitle1'
 						component='div'
 						sx={{ padding: '0px 8px' }}>
 						Enter personal details
 					</Typography>
 					<FormControl sx={{ mt: 2 }} fullWidth>
-						<InputLabel id='yearGroup' color='secondary'>
+						<InputLabel id='yearGroup' color='warning'>
 							Year Group
 						</InputLabel>
 						<Controller
@@ -104,7 +105,7 @@ export const TeacherSignupForm = () => {
 							name='yearGroup'
 							render={({ field: { onChange, value } }) => (
 								<Select
-									color='secondary'
+									color='warning'
 									labelId='yearGroup'
 									id='yearGroup'
 									value={value || ''}
@@ -125,11 +126,11 @@ export const TeacherSignupForm = () => {
 						/>
 					</FormControl>
 					<FormControl sx={{ mt: 2 }} fullWidth>
-						<InputLabel id='title' color='secondary'>
+						<InputLabel id='title' color='warning'>
 							Title
 						</InputLabel>
 						<Select
-							color='secondary'
+							color='warning'
 							labelId='title'
 							id='title'
 							label='Title'
@@ -145,7 +146,7 @@ export const TeacherSignupForm = () => {
 						</Select>
 					</FormControl>
 					<TextField
-						color='secondary'
+						color='warning'
 						margin='normal'
 						id='firstName'
 						label='First Name'
@@ -157,7 +158,7 @@ export const TeacherSignupForm = () => {
 						error={!!errors.firstName}
 					/>
 					<TextField
-						color='secondary'
+						color='warning'
 						margin='normal'
 						id='lastName'
 						label='Last Name'
@@ -171,8 +172,9 @@ export const TeacherSignupForm = () => {
 				</Box>
 			</Grid>
 			<Grid item xs={12} sm={6}>
-				<Box sx={item.inputBox}>
+				<Box sx={colors.purple}>
 					<Typography
+						color='secondary.dark'
 						variant='subtitle1'
 						component='div'
 						sx={{ padding: '0px 8px' }}>
