@@ -24,6 +24,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import PreviewIcon from "@mui/icons-material/Preview";
 
 const drawerWidth = 240;
 
@@ -233,7 +234,7 @@ export const ParentNavBar = () => {
             />
           </ListItem>
           <ListItem button component={Link} href="/absenceRequest/new">
-   <ListItemIcon
+            <ListItemIcon
               sx={{
                 color: "#979DAC",
               }}
@@ -246,7 +247,24 @@ export const ParentNavBar = () => {
                 color: "#979DAC",
                 fontFamily: "Arial",
               }}
-             primary="Absence Request"
+              primary="Absence Request"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="/absenceRequest/view">
+            <ListItemIcon
+              sx={{
+                color: "#979DAC",
+              }}
+            >
+              <PreviewIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#979DAC",
+                fontFamily: "Arial",
+              }}
+              primary="Absence Request"
             />
           </ListItem>
         </List>

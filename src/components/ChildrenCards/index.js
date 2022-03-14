@@ -1,20 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { GET_TEACHER_STUDENTS } from "../../graphql/query";
-import { StudentCard } from "./StudentCard";
+import { GET_ALL_CHILDREN } from "../../graphql/query";
+import { ChildCard } from "./ChildCard";
 import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
 
-export const StudentCards = () => {
-  const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
-
-  const { loading, error, data } = useQuery(GET_TEACHER_STUDENTS, {
-    variables: {
-      yearGroupId: yearGroupId,
-    },
-  });
-
-  const studentData = data?.teacherStudents;
+export const ChildrenCards = () => {
+  const { loading, error, data } = useQuery(GET_ALL_CHILDREN);
+  const childrenData = data?.parentsChildren?.children;
 
   const navigate = useNavigate();
 
@@ -32,8 +25,8 @@ export const StudentCards = () => {
 
   return (
     <Grid container onClick={onclick}>
-      {studentData?.map((student, index) => {
-        return <StudentCard {...student} key={index} />;
+      {childrenData?.map((child, index) => {
+        return <ChildCard {...child} key={index} />;
       })}
     </Grid>
   );

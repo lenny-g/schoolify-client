@@ -1,38 +1,50 @@
 import { gql } from "@apollo/client";
 
-export const PARENT_LOGIN = gql`
-  mutation Mutation($input: ParentLoginInput) {
-    parentLogin(input: $input) {
+export const LOGIN_USER = gql`
+  mutation Mutation($input: LoginInput!) {
+    login(input: $input) {
       token
       parent {
         title
         firstName
         lastName
         email
+        role
+      }
+      teacher {
+        lastName
+        firstName
+        title
+        role
+        yearGroup {
+          id
+          title
+        }
       }
     }
   }
 `;
 
 export const PARENT_SIGN_UP = gql`
-  mutation Mutation($input: SignupInput) {
+  mutation Mutation($input: ParentSignupInput) {
     parentSignUp(input: $input) {
-      id
-      title
-      firstName
-      lastName
-      email
+      success
+    }
+  }
+`;
+
+export const TEACHER_SIGN_UP = gql`
+  mutation Mutation($input: TeacherSignupInput) {
+    teacherSignUp(input: $input) {
+      success
     }
   }
 `;
 
 export const MAKE_AN_ABSENCE_REQUEST = gql`
-  mutation Mutation($input: studentAbsenceInput!) {
-    studentAbsenceRequest(input: $input) {
-      id
-      firstName
-      lastName
-      dob
+  mutation Mutation($input: StudentAbsenceInput!) {
+    addStudentAbsenceRequest(input: $input) {
+      success
     }
   }
 `;
