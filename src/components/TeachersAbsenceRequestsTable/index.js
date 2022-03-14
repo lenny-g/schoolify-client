@@ -17,7 +17,7 @@ import Button from "@mui/material/Button";
 export const TeachersAbsenceRequestsTable = () => {
   const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
 
-  const { data, loading, errors } = useQuery(
+  const { data, loading, error } = useQuery(
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
     {
       variables: {
@@ -45,7 +45,7 @@ export const TeachersAbsenceRequestsTable = () => {
       return absenceRequestData.push(...each);
     });
 
-  if (errors) {
+  if (error) {
     return <div>ERROR</div>;
   }
 
