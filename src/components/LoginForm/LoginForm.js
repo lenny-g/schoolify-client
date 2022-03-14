@@ -15,7 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useAuth } from '../../context/AppProvider';
 import { LOGIN_USER } from '../../graphql/mutations';
-import { forms, item } from '../../styles';
+import { forms, item, colors, headers } from '../../styles';
 
 const roleOptions = [
 	{ value: 'parent', title: 'Parent' },
@@ -74,7 +74,7 @@ export const LoginForm = () => {
 					Login Form
 				</Typography>
 			</Grid>
-			<Box sx={item.inputBox}>
+			<Box sx={colors.green}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
 					<InputLabel color='secondary' id='role'>
 						Role
