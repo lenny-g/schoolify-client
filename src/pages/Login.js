@@ -12,9 +12,7 @@ export const Login = () => {
 				<div className='logoContainer'>
 					<img src={logo} className='logo' />
 				</div>
-				<Container component='main' maxWidth='xs'>
-					<LoginForm />
-				</Container>
+				<LoginForm />
 			</Paper>
 		</Container>
 	);

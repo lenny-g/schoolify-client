@@ -13,7 +13,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
-import InfoIcon from '@mui/icons-material/Info';
 
 import { PARENT_SIGN_UP } from '../../graphql/mutations';
 import { item, colors, headers } from '../../styles';
