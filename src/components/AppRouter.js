@@ -13,7 +13,7 @@ import { ViewAppointments } from "../pages/ViewAppointments";
 import { AbsenceRequest } from "../pages/AbsenceRequest";
 import { StudentInfo } from "../pages/StudentInfo";
 import { Medical } from "../pages/Medical";
-import { ViewAbsenceRequests } from "../pages/ViewAbsenceRequests";
+import { ViewParentsAbsenceRequests } from "../pages/ViewParentsAbsenceRequests";
 
 export const AppRouter = () => {
   const { isLoggedIn } = useAuth();
@@ -38,7 +38,7 @@ export const AppRouter = () => {
           <Route path="/absenceRequest/new" element={<AbsenceRequest />} />
           <Route
             path="/absenceRequest/view"
-            element={<ViewAbsenceRequests />}
+            element={<ViewParentsAbsenceRequests />}
           />
         </>
       ) : (

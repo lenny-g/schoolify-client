@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 
-export const AbsenceRequestTable = () => {
+export const ParentsAbsenceRequestTable = () => {
   const { data, loading, errors } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
 
   let absenceRequestData = [];
