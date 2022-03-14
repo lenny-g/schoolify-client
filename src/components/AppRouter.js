@@ -14,6 +14,7 @@ import { AbsenceRequest } from "../pages/AbsenceRequest";
 import { StudentInfo } from "../pages/StudentInfo";
 import { Medical } from "../pages/Medical";
 import { ViewParentsAbsenceRequests } from "../pages/ViewParentsAbsenceRequests";
+import { ViewAbsenceRequestTeacher } from "../pages/ViewAbsenceRequestTeacher";
 
 export const AppRouter = () => {
   const { isLoggedIn } = useAuth();
@@ -39,6 +40,10 @@ export const AppRouter = () => {
           <Route
             path="/absenceRequest/view"
             element={<ViewParentsAbsenceRequests />}
+          />
+          <Route
+            path="/absence-requests"
+            element={<ViewAbsenceRequestTeacher />}
           />
         </>
       ) : (

@@ -1,6 +1,7 @@
 import React from "react";
-import { GET_ALL_PARENT_ABSENCE_REQUESTS } from "../../graphql/query";
 import { useQuery } from "@apollo/client";
+import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
+
 import Box from "@mui/material/Box";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -11,19 +12,29 @@ import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
+import Button from "@mui/material/Button";
 
-export const ParentsAbsenceRequestTable = () => {
-  const { data, loading, errors } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
+export const TeachersAbsenceRequestsTable = () => {
+  const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+
+  const { data, loading, errors } = useQuery(
+    GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
+    {
+      variables: {
+        yearGroupId: yearGroupId,
+      },
+    }
+  );
 
   let absenceRequestData = [];
 
-  data?.parentsChildren?.children
-    ?.map((child) => {
-      return child.absenceRequests.map((eachRequest, index) => {
+  data?.teacherStudents
+    ?.map((students) => {
+      return students.absenceRequests.map((eachRequest, index) => {
         return {
-          id: child.id,
-          name: `${child.firstName} ${child.lastName}`,
-          yearGroup: child.yearGroup.title,
+          id: students.id,
+          name: `${students.firstName} ${students.lastName}`,
+          yearGroup: students.yearGroup.title,
           type: eachRequest.type,
           description: eachRequest.description,
           dateTime: eachRequest.dateTime,
@@ -46,7 +57,7 @@ export const ParentsAbsenceRequestTable = () => {
         component="div"
         sx={{ textAlign: "center" }}
       >
-        Absence Requests
+        Absence Requests Made
       </Typography>
 
       <TableContainer component={Paper}>
@@ -63,6 +74,7 @@ export const ParentsAbsenceRequestTable = () => {
                   "Description",
                   "Date & time",
                   "Status",
+                  "Action",
                 ].map((head) => (
                   <TableCell
                     style={{
@@ -88,6 +100,10 @@ export const ParentsAbsenceRequestTable = () => {
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{row.dateTime}</TableCell>
                     <TableCell align="right">PENDING</TableCell>
+                    <TableCell align="right">
+                      <Button>ACCEPT</Button>
+                      <Button>REJECT</Button>
+                    </TableCell>
                   </TableRow>
                 );
               })}

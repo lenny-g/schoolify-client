@@ -56,3 +56,22 @@ export const GET_ALL_CHILDREN = gql`
     }
   }
 `;
+
+export const GET_TEACHER_STUDENTS_ABSENCE_REQUESTS = gql`
+  query Query($yearGroupId: ID!) {
+    teacherStudents(yearGroupId: $yearGroupId) {
+      id
+      firstName
+      lastName
+      yearGroup {
+        title
+      }
+      absenceRequests {
+        id
+        type
+        description
+        dateTime
+      }
+    }
+  }
+`;
