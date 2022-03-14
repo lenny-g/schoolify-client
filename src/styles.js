@@ -89,7 +89,7 @@ export const colors = {
 		borderRadius: '25px',
 		flexBasis: '100%',
 		flex: 1,
-		backgroundColor: '#B7CBF8',
+		backgroundColor: '#81c78469',
 	},
 	pink: {
 		display: 'flex',
@@ -100,7 +100,7 @@ export const colors = {
 		borderRadius: '25px',
 		flexBasis: '100%',
 		flex: 1,
-		backgroundColor: '#E9C6D6',
+		backgroundColor: '#e9c6d66e',
 	},
 	yellow: {
 		display: 'flex',
@@ -111,7 +111,7 @@ export const colors = {
 		borderRadius: '25px',
 		flexBasis: '100%',
 		flex: 1,
-		backgroundColor: '#F4E471',
+		backgroundColor: '#f4e4715c',
 	},
 	purple: {
 		display: 'flex',
@@ -122,7 +122,22 @@ export const colors = {
 		borderRadius: '25px',
 		flexBasis: '100%',
 		flex: 1,
-		backgroundColor: '#B7CBF8',
+		backgroundColor: '#b7cbf88a',
+	},
+};
+
+export const headers = {
+	purple: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		marginTop: '2rem',
+		margin: '10px',
+		padding: '20px',
+		borderRadius: '25px',
+		flexBasis: '100%',
+		flex: 1,
+		backgroundColor: '#b7cbf88a',
 	},
 };
 

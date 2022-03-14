@@ -81,19 +81,20 @@ export const ParentSignupForm = () => {
 			</Grid>
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={6}>
-					<Box sx={(item.inputBox, colors.pink)}>
+					<Box sx={colors.pink}>
 						<Typography
+							color='primary'
 							variant='subtitle1'
 							component='div'
 							sx={{ padding: '0px 8px' }}>
 							Enter personal details
 						</Typography>
 						<FormControl sx={{ mt: 2 }} fullWidth>
-							<InputLabel color='secondary' id='title'>
+							<InputLabel color='primary' id='title'>
 								Title
 							</InputLabel>
 							<Select
-								color='secondary'
+								color='primary'
 								labelId='title'
 								id='title'
 								label='Title'
@@ -109,7 +110,7 @@ export const ParentSignupForm = () => {
 							</Select>
 						</FormControl>
 						<TextField
-							color='secondary'
+							color='primary'
 							margin='normal'
 							id='firstName'
 							label='First Name'
@@ -121,7 +122,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.firstName}
 						/>
 						<TextField
-							color='secondary'
+							color='primary'
 							margin='normal'
 							id='lastName'
 							label='Last Name'
@@ -133,82 +134,86 @@ export const ParentSignupForm = () => {
 							error={!!errors.lastName}
 						/>
 					</Box>
-					<Box sx={(item.inputBox, colors.green)}>
-						<Typography
-							variant='subtitle1'
-							component='div'
-							sx={{ padding: '0px 8px' }}>
-							Enter login details
-						</Typography>
-						<TextField
-							color='primary'
-							margin='normal'
-							id='emailAddress'
-							label='Email Address'
-							variant='outlined'
-							name='emailAddress'
-							fullWidth
-							disabled={loading}
-							{...register('emailAddress', {
-								required: true,
-								pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-							})}
-							error={!!errors.emailAddress}
-						/>
-						<TextField
-							sx={{ position: 'relative' }}
-							color='primary'
-							margin='normal'
-							id='password'
-							label='Password'
-							variant='outlined'
-							name='password'
-							type='password'
-							fullWidth
-							disabled={loading}
-							{...register('password', {
-								required: true,
-								pattern:
-									/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-							})}
-							error={!!errors.password}
-						/>
-
-						<Typography
-							color='text.disabled'
-							variant='caption'
-							component='div'
-							sx={{ padding: '0px 8px' }}>
-							Password must be 8 characters, and include both lowercase and
-							uppercase characters, with 1 special character required
-						</Typography>
-
-						<TextField
-							color='primary'
-							margin='normal'
-							id='confirmPassword'
-							label='Confirm Password'
-							variant='outlined'
-							name='confirmPassword'
-							type='password'
-							fullWidth
-							disabled={loading}
-							{...register('confirmPassword', { required: true })}
-							error={!!errors.confirmPassword}
-						/>
-						{errors?.confirmPassword?.message && (
+					<Box sx={{ mt: '2rem' }}>
+						<Box sx={colors.green}>
 							<Typography
+								color='success.dark'
+								variant='subtitle1'
+								component='div'
+								sx={{ padding: '0px 8px' }}>
+								Enter login details
+							</Typography>
+							<TextField
+								color='success'
+								margin='normal'
+								id='emailAddress'
+								label='Email Address'
+								variant='outlined'
+								name='emailAddress'
+								fullWidth
+								disabled={loading}
+								{...register('emailAddress', {
+									required: true,
+									pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+								})}
+								error={!!errors.emailAddress}
+							/>
+							<TextField
+								sx={{ position: 'relative' }}
+								color='success'
+								margin='normal'
+								id='password'
+								label='Password'
+								variant='outlined'
+								name='password'
+								type='password'
+								fullWidth
+								disabled={loading}
+								{...register('password', {
+									required: true,
+									pattern:
+										/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+								})}
+								error={!!errors.password}
+							/>
+
+							<Typography
+								color='text.disabled'
 								variant='caption'
 								component='div'
-								sx={{ padding: '0px 8px', color: '#d32f2f' }}>
-								{errors?.confirmPassword?.message}
+								sx={{ padding: '0px 8px' }}>
+								Password must be 8 characters, and include both lowercase and
+								uppercase characters, with 1 special character required
 							</Typography>
-						)}
+
+							<TextField
+								color='success'
+								margin='normal'
+								id='confirmPassword'
+								label='Confirm Password'
+								variant='outlined'
+								name='confirmPassword'
+								type='password'
+								fullWidth
+								disabled={loading}
+								{...register('confirmPassword', { required: true })}
+								error={!!errors.confirmPassword}
+							/>
+							{errors?.confirmPassword?.message && (
+								<Typography
+									variant='caption'
+									component='div'
+									sx={{ padding: '0px 8px', color: '#d32f2f' }}>
+									{errors?.confirmPassword?.message}
+								</Typography>
+							)}
+						</Box>
 					</Box>
 				</Grid>
 				<Grid item xs={12} sm={6}>
-					<Box sx={(item.inputBox, colors.yellow)}>
+					<Box sx={colors.yellow}>
 						<Typography
+							color='warning.dark'
 							variant='subtitle1'
 							component='div'
 							sx={{ padding: '0px 8px' }}>
@@ -283,11 +288,12 @@ export const ParentSignupForm = () => {
 							variant='contained'
 							sx={item.actionButtons}
 							startIcon={error && <ErrorIcon />}
-							color={error ? 'error' : 'success'}>
+							color={error ? 'error' : 'secondary'}>
 							Sign Up
 						</LoadingButton>
 						<Link
 							component={RouterLink}
+							color='black'
 							variant='body2'
 							to='/login'
 							underline='none'
