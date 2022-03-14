@@ -44,9 +44,7 @@ export const MedicalForm = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async (formData) => {
-    console.log(formData);
-  };
+  const onSubmit = async (formData) => {};
   return (
     <Box component="form" sx={forms.inputBox} onSubmit={handleSubmit(onSubmit)}>
       <Typography

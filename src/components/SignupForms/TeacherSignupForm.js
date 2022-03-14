@@ -41,8 +41,6 @@ export const TeacherSignupForm = () => {
 	} = useForm();
 
 	const onSubmit = async (formData) => {
-		console.log(formData);
-
 		if (formData.password !== formData.confirmPassword) {
 			setError('confirmPassword', {
 				type: 'manual',

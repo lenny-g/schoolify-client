@@ -1,12 +1,12 @@
-import { ChildrenCards } from "../components/ChildrenCards";
-import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
+import { StudentCards } from "../components/StudentCards";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-export const ViewChildren = () => {
+export const ViewStudents = () => {
+  const yearGroup = JSON.parse(localStorage.getItem("user")).yearGroup.title;
+
   return (
     <>
-      <ParentNavBar />
       <Container component="main" maxWidth="md">
         <Typography
           variant="h3"
@@ -14,9 +14,9 @@ export const ViewChildren = () => {
           component="div"
           sx={{ textAlign: "center" }}
         >
-          My Children
+          My {yearGroup} Students
         </Typography>
-        <ChildrenCards />
+        <StudentCards />
       </Container>
     </>
   );
