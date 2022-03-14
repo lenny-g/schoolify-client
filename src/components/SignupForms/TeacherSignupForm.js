@@ -72,11 +72,12 @@ export const TeacherSignupForm = () => {
 
 	return (
 		<Grid
+			container
 			sx={item.outerContainer}
 			component='form'
 			spacing={3}
 			onSubmit={handleSubmit(onSubmit)}>
-			<Grid xs={12}>
+			<Grid item xs={12}>
 				<Typography
 					variant='h3'
 					gutterBottom
@@ -240,7 +241,7 @@ export const TeacherSignupForm = () => {
 					)}
 				</Box>
 			</Grid>
-			<Grid xs={12}>
+			<Grid item xs={12}>
 				<Box sx={item.inputBox}>
 					<LoadingButton
 						loading={loading}

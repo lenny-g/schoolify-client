@@ -62,10 +62,11 @@ export const LoginForm = () => {
 
 	return (
 		<Grid
+			container
 			component='form'
 			sx={item.outerContainer}
 			onSubmit={handleSubmit(onSubmit)}>
-			<Grid xs={12}>
+			<Grid item xs={12}>
 				<Typography
 					variant='h3'
 					gutterBottom
