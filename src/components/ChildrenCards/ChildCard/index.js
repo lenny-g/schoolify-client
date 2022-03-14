@@ -6,7 +6,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
-export const StudentCard = ({ firstName, lastName, id, dob }) => {
+export const ChildCard = ({ firstName, lastName, yearGroup, id }) => {
   return (
     <Card sx={{ margin: 2 }}>
       <CardActionArea>
@@ -21,7 +21,7 @@ export const StudentCard = ({ firstName, lastName, id, dob }) => {
             {firstName} {lastName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {dob}
+            {yearGroup.title}
           </Typography>
         </CardContent>
       </CardActionArea>
