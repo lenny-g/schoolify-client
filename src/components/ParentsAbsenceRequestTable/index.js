@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import parseISO from "date-fns/parseISO";
 import { GET_ALL_PARENT_ABSENCE_REQUESTS } from "../../graphql/query";
 import { useQuery } from "@apollo/client";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/parentAbsenceRequestCard";
@@ -25,7 +26,9 @@ export const ParentsAbsenceRequestTable = () => {
   const [search, setSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const { data, loading, error } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
+  const { data, loading, error } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS, {
+    pollInterval: 1000,
+  });
 
   let absenceRequestData = [];
 
@@ -38,7 +41,9 @@ export const ParentsAbsenceRequestTable = () => {
           yearGroup: child.yearGroup.title,
           type: eachRequest.type,
           description: eachRequest.description,
-          dateTime: eachRequest.dateTime,
+          dateTime: `   ${
+            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0]
+          }  `,
           status: eachRequest.status,
         };
       });

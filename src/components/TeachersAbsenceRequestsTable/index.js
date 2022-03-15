@@ -28,7 +28,7 @@ export const TeachersAbsenceRequestsTable = () => {
   const [search, setSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const { data, loading, error } = useQuery(
+  const { data, loading, error, refetch } = useQuery(
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
     {
       variables: {
@@ -54,6 +54,8 @@ export const TeachersAbsenceRequestsTable = () => {
         },
       },
     });
+
+    refetch();
   };
 
   const onReject = async (absenceRequestId, studentId) => {
@@ -68,6 +70,8 @@ export const TeachersAbsenceRequestsTable = () => {
         },
       },
     });
+
+    refetch();
   };
 
   let absenceRequestData = [];
