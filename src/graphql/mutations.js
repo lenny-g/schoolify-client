@@ -72,3 +72,17 @@ export const TEACHER_ABSENCE_REQUEST_RESPONSE = gql`
     }
   }
 `;
+
+export const ADD_MEDICAL_INFO_TO_STUDENT = gql`
+  mutation AddMedicalInfoToStudent($input: MedicalInput) {
+    addMedicalInfoToStudent(input: $input) {
+      medical {
+        id
+        allergies
+        disabilities
+        medications
+        additionalInfo
+      }
+    }
+  }
+`;
