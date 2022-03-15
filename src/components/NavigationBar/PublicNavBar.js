@@ -14,6 +14,8 @@ import ListItemText from "@mui/material/ListItemText";
 import LoginIcon from "@mui/icons-material/Login";
 import Link from "@mui/material/Link";
 import InfoIcon from "@mui/icons-material/Info";
+import FamilyRestroomSharpIcon from "@mui/icons-material/FamilyRestroomSharp";
+import SchoolSharpIcon from "@mui/icons-material/SchoolSharp";
 
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
@@ -80,10 +82,23 @@ export const PublicNavBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            backgroundColor: "#212227",
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
-            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {!open ? (
+              <ChevronRightIcon sx={{ color: "#ffff" }} />
+            ) : (
+              <ChevronLeftIcon sx={{ color: "#ffff" }} />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -96,10 +111,10 @@ export const PublicNavBar = () => {
             margin: "2rem 0rem",
           }}
         >
-          <ListItem button component={Link} href="/home">
+          <ListItem button component={Link} href="/">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <HomeIcon />
@@ -107,7 +122,7 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Home"
@@ -117,7 +132,7 @@ export const PublicNavBar = () => {
           <ListItem button component={Link} href="/login">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <LoginIcon />
@@ -125,34 +140,51 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="Login"
             />
           </ListItem>
-          <ListItem button component={Link} href="/sign-up">
+          <ListItem button component={Link} href="parent/sign-up">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
-              <AssignmentIndIcon />
+              <FamilyRestroomSharpIcon />
             </ListItemIcon>
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
-              primary="Sign Up"
+              primary="Parent Sign Up"
+            />
+          </ListItem>
+          <ListItem button component={Link} href="teacher/sign-up">
+            <ListItemIcon
+              sx={{
+                color: "#ffff",
+              }}
+            >
+              <SchoolSharpIcon />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography={true}
+              sx={{
+                color: "#ffff",
+                fontFamily: "Arial",
+              }}
+              primary="Teacher Sign Up"
             />
           </ListItem>
           <Divider />
           <ListItem button component={Link} href="/about">
             <ListItemIcon
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
               }}
             >
               <InfoIcon />
@@ -160,7 +192,7 @@ export const PublicNavBar = () => {
             <ListItemText
               disableTypography={true}
               sx={{
-                color: "#979DAC",
+                color: "#ffff",
                 fontFamily: "Arial",
               }}
               primary="About us"
