@@ -36,6 +36,7 @@ export const GET_ALL_PARENT_ABSENCE_REQUESTS = gql`
           type
           description
           dateTime
+          status
         }
       }
     }
@@ -71,6 +72,7 @@ export const GET_TEACHER_STUDENTS_ABSENCE_REQUESTS = gql`
         type
         description
         dateTime
+        status
       }
     }
   }

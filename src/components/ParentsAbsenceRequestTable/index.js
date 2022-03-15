@@ -12,6 +12,12 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 
+const stylingRowColor = (status) => {
+  if (status == "PENDING") return "lightGray";
+  if (status == "APPROVED") return "lightGreen";
+  if (status == "REJECTED") return "red";
+};
+
 export const ParentsAbsenceRequestTable = () => {
   const { data, loading, errors } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
 
@@ -27,6 +33,7 @@ export const ParentsAbsenceRequestTable = () => {
           type: eachRequest.type,
           description: eachRequest.description,
           dateTime: eachRequest.dateTime,
+          status: eachRequest.status,
         };
       });
     })
@@ -81,13 +88,16 @@ export const ParentsAbsenceRequestTable = () => {
             <TableBody>
               {absenceRequestData?.map((row, index) => {
                 return (
-                  <TableRow key={index}>
+                  <TableRow
+                    key={index}
+                    sx={{ backgroundColor: stylingRowColor(row.status) }}
+                  >
                     <TableCell align="left">{row.name} </TableCell>
                     <TableCell align="right">{row.yearGroup}</TableCell>
                     <TableCell align="right">{row.type}</TableCell>
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{row.dateTime}</TableCell>
-                    <TableCell align="right">PENDING</TableCell>
+                    <TableCell align="right">{row.status}</TableCell>
                   </TableRow>
                 );
               })}
