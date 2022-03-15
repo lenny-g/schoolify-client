@@ -34,6 +34,7 @@ export const item = {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		width: '100%',
+		justifyContent: 'center',
 		alignItems: 'center',
 		padding: '1rem',
 	},
@@ -78,6 +79,12 @@ export const largeButtons = {
 };
 
 export const colors = {
+	container: {
+		margin: '2rem',
+		backgroundColor: 'red',
+		// display: 'flex',
+		// justifyContent: 'center',
+	},
 	green: {
 		display: 'flex',
 		flexDirection: 'column',

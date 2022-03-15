@@ -75,11 +75,10 @@ export const TeacherSignupForm = () => {
 			container
 			sx={item.outerContainer}
 			component='form'
-			spacing={3}
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
 				<Typography
-					variant='h3'
+					variant='h5'
 					gutterBottom
 					component='div'
 					sx={{ textAlign: 'center' }}>

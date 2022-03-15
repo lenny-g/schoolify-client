@@ -66,12 +66,11 @@ export const ParentSignupForm = () => {
 			container
 			sx={item.outerContainer}
 			component='form'
-			spacing={3}
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
 				<Typography
 					className='headingFont'
-					variant='h3'
+					variant='h5'
 					gutterBottom
 					component='div'
 					sx={headers.font}>

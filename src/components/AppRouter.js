@@ -42,7 +42,7 @@ const theme = createTheme({
 		},
 	},
 	typography: {
-		h3: {
+		h5: {
 			fontFamily: "'Gochi Hand', cursive;",
 		},
 	},

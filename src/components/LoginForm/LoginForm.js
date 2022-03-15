@@ -68,7 +68,7 @@ export const LoginForm = () => {
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
 				<Typography
-					variant='h3'
+					variant='h5'
 					gutterBottom
 					component='div'
 					sx={{ textAlign: 'center' }}>
