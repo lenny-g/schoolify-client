@@ -45,7 +45,9 @@ export const MedicalForm = () => {
 		handleSubmit,
 	} = useForm();
 
-	const onSubmit = async (formData) => {};
+	const onSubmit = async (formData) => {
+		console.log(formData);
+	};
 	return (
 		<Grid
 			container
@@ -54,11 +56,11 @@ export const MedicalForm = () => {
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
 				<Typography
-					variant='h3'
+					variant='h5'
 					gutterBottom
 					component='div'
 					sx={{ textAlign: 'center' }}>
-					Medical Form
+					Child . Medical . Form
 				</Typography>
 			</Grid>
 			<Box sx={colors.yellow}>
