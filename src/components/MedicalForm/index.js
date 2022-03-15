@@ -2,9 +2,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
+import Checkbox from '@mui/material/Checkbox';
 
 import { item, forms, colors } from '../../styles';
 
@@ -43,6 +44,7 @@ export const MedicalForm = () => {
 		register,
 		formState: { errors },
 		handleSubmit,
+		control,
 	} = useForm();
 
 	const onSubmit = async (formData) => {
@@ -64,55 +66,81 @@ export const MedicalForm = () => {
 				</Typography>
 			</Grid>
 			<Box sx={colors.yellow}>
-				<Autocomplete
-					{...register('allergies')}
-					sx={{ mt: 2 }}
-					fullWidth
-					multiple
-					id='tags-outlined'
-					options={allergyOptions}
-					getOptionLabel={(option) => option}
-					filterSelectedOptions
-					renderInput={(params) => (
-						<TextField
-							{...params}
-							color='warning'
-							label='Allergies'
-							placeholder='Select all allergies that apply'
+				<Controller
+					control={control}
+					name='allergies'
+					render={({ field: { onChange, value } }) => (
+						<Autocomplete
+							{...register('allergies')}
+							sx={{ mt: 2 }}
+							fullWidth
+							multiple
+							id='tags-outlined'
+							options={allergyOptions}
+							getOptionLabel={(option) => option}
+							filterSelectedOptions
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									color='warning'
+									label='Allergies'
+									placeholder='Select all allergies that apply'
+								/>
+							)}
+							onChange={(event, values, reason) => onChange(values)}
+							value={value || []}
 						/>
 					)}
 				/>
-				<Autocomplete
-					sx={{ mt: 2 }}
-					fullWidth
-					multiple
-					id='tags-outlined'
-					options={disabilityOptions}
-					getOptionLabel={(option) => option}
-					filterSelectedOptions
-					renderInput={(params) => (
-						<TextField
-							{...params}
-							color='warning'
-							label='Disability'
-							placeholder='Select all disabilities that apply'
+
+				<Controller
+					control={control}
+					name='disability'
+					render={({ field: { onChange, value } }) => (
+						<Autocomplete
+							sx={{ mt: 2 }}
+							fullWidth
+							multiple
+							id='tags-outlined'
+							options={disabilityOptions}
+							getOptionLabel={(option) => option}
+							filterSelectedOptions
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									color='warning'
+									label='Disability'
+									placeholder='Select all disabilities that apply'
+								/>
+							)}
+							onChange={(event, values, reason) => onChange(values)}
+							value={value || []}
 						/>
 					)}
 				/>
-				<Autocomplete
-					sx={{ mt: 2 }}
-					fullWidth
-					multiple
-					id='tags-outlined'
-					options={medicalOption}
-					getOptionLabel={(option) => option}
-					filterSelectedOptions
-					renderInput={(params) => (
-						<TextField
-							{...params}
-							color='warning'
-							label='Medication'
-							placeholder='Select all that apply'
+
+				<Controller
+					control={control}
+					name='medication'
+					render={({ field: { onChange, value } }) => (
+						<Autocomplete
+							sx={{ mt: 2 }}
+							fullWidth
+							multiple
+							id='tags-outlined'
+							options={medicalOption}
+							getOptionLabel={(option) => option}
+							filterSelectedOptions
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									color='warning'
+									label='Medication'
+									placeholder='Select all that apply'
+								/>
+							)}
+							onChange={(event, values, reason) => onChange(values)}
+							value={value || []}
 						/>
 					)}
 				/>
