@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
-import { useNavigate } from "react-router-dom";
+import { AbsenceRequestCard } from "../AbsenceRequestCard/teacherAbsenceRequestCard";
 import { TEACHER_ABSENCE_REQUEST_RESPONSE } from "../../graphql/mutations";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -15,6 +15,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 
 const stylingRowColor = (status) => {
   if (status == "PENDING") return "lightGray";
@@ -25,6 +26,7 @@ const stylingRowColor = (status) => {
 export const TeachersAbsenceRequestsTable = () => {
   const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
   const [search, setSearch] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const { data, loading, error } = useQuery(
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
@@ -41,7 +43,7 @@ export const TeachersAbsenceRequestsTable = () => {
   ] = useMutation(TEACHER_ABSENCE_REQUEST_RESPONSE);
 
   const onAccept = async (absenceRequestId, studentId) => {
-    console.log(absenceRequestId, studentId, "accepted");
+    window.confirm("Are You sure u want to Approve");
 
     await executeTeacherResponse({
       variables: {
@@ -52,12 +54,10 @@ export const TeachersAbsenceRequestsTable = () => {
         },
       },
     });
-
-    // navigate('/children/view', { replace: true });
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    console.log(absenceRequestId, studentId, "rejected");
+    window.confirm("Are You sure u want to Reject");
 
     await executeTeacherResponse({
       variables: {
@@ -97,8 +97,18 @@ export const TeachersAbsenceRequestsTable = () => {
     );
   };
 
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
+
   if (error) {
     return <div>ERROR</div>;
+  }
+
+  if (loading) {
+    return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
   return (
@@ -119,10 +129,8 @@ export const TeachersAbsenceRequestsTable = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <TableContainer component={Paper}>
-        {loading ? (
-          <LinearProgress style={{ backgroundColor: "purple" }} />
-        ) : (
+      {windowWidth > 800 ? (
+        <TableContainer component={Paper}>
           <Table>
             <TableHead style={{ backgroundColor: "#EEBC1D" }}>
               <TableRow>
@@ -183,8 +191,22 @@ export const TeachersAbsenceRequestsTable = () => {
               })}
             </TableBody>
           </Table>
-        )}
-      </TableContainer>
+        </TableContainer>
+      ) : (
+        <Grid container>
+          {handleUserSearch().map((each, index) => {
+            return (
+              <AbsenceRequestCard
+                {...each}
+                colorStyling={stylingRowColor(each.status)}
+                onApproved={onAccept}
+                onRejected={onReject}
+                key={index}
+              />
+            );
+          })}
+        </Grid>
+      )}
     </Box>
   );
 };

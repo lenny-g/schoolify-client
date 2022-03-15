@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GET_ALL_PARENT_ABSENCE_REQUESTS } from "../../graphql/query";
 import { useQuery } from "@apollo/client";
+import { AbsenceRequestCard } from "../AbsenceRequestCard/parentAbsenceRequestCard";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -21,6 +23,7 @@ const stylingRowColor = (status) => {
 
 export const ParentsAbsenceRequestTable = () => {
   const [search, setSearch] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const { data, loading, error } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
 
@@ -50,8 +53,18 @@ export const ParentsAbsenceRequestTable = () => {
     );
   };
 
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
+
   if (error) {
     return <div>ERROR</div>;
+  }
+
+  if (loading) {
+    return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
   return (
@@ -72,10 +85,8 @@ export const ParentsAbsenceRequestTable = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <TableContainer component={Paper}>
-        {loading ? (
-          <LinearProgress style={{ backgroundColor: "purple" }} />
-        ) : (
+      {windowWidth > 800 ? (
+        <TableContainer component={Paper}>
           <Table>
             <TableHead style={{ backgroundColor: "#EEBC1D" }}>
               <TableRow>
@@ -119,8 +130,20 @@ export const ParentsAbsenceRequestTable = () => {
               })}
             </TableBody>
           </Table>
-        )}
-      </TableContainer>
+        </TableContainer>
+      ) : (
+        <Grid container>
+          {handleUserSearch().map((each, index) => {
+            return (
+              <AbsenceRequestCard
+                {...each}
+                colorStyling={stylingRowColor(each.status)}
+                key={index}
+              />
+            );
+          })}
+        </Grid>
+      )}
     </Box>
   );
 };
