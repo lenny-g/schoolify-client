@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -8,10 +8,15 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Autocomplete from "@mui/material/Autocomplete";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 
 import { item, forms, colors } from "../../styles";
 
 import { ADD_MEDICAL_INFO_TO_STUDENT } from "../../graphql/mutations";
+import { GET_PARENTS_CHILDREN } from "../../graphql/query";
 
 const allergyOptions = [
   "cow's milk",
@@ -44,6 +49,9 @@ const disabilityOptions = [
 const medicalOption = ["inhaler", "antibiotics", "epi pen", "stimulants"];
 
 export const MedicalForm = () => {
+  const { loading, error, data } = useQuery(GET_PARENTS_CHILDREN);
+  const studentOptions = data?.parentsChildren?.children;
+
   const [
     executeMedicalRequest,
     { loading: mutationLoading, error: mutationError },
@@ -63,7 +71,8 @@ export const MedicalForm = () => {
     await executeMedicalRequest({
       variables: {
         input: {
-          allergies: formData.allergy,
+          studentId: formData.student,
+          allergies: formData.allergies,
           disabilities: formData.disability,
           medications: formData.medication,
           additionalInfo: formData.additionalInfo,
@@ -91,6 +100,34 @@ export const MedicalForm = () => {
         </Typography>
       </Grid>
       <Box sx={colors.yellow}>
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel id="student" color="warning">
+            Select Child
+          </InputLabel>
+          <Controller
+            control={control}
+            name="student"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                color="warning"
+                labelId="student"
+                id="student"
+                label="Select Student"
+                value={value || ""}
+                disabled={mutationLoading}
+                onChange={onChange}
+                {...register("student", { required: true })}
+                error={!!errors.student}
+              >
+                {studentOptions?.map(({ firstName, lastName, id }, index) => (
+                  <MenuItem key={index} value={id}>
+                    {firstName} {lastName}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+        </FormControl>
         <Controller
           control={control}
           name="allergies"
@@ -172,7 +209,7 @@ export const MedicalForm = () => {
         <TextField
           color="warning"
           margin="normal"
-          id="additional-info"
+          id="additionalInfo"
           label="Additional Info"
           variant="outlined"
           name="additionalInfo"
