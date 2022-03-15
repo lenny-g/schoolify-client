@@ -1,4 +1,3 @@
-import { PublicNavBar } from "../components/NavigationBar/PublicNavBar";
 import Container from "@mui/material/Container";
 import { HomePageNavBtn } from "../components/HomePageNavBtn";
 import { Paper } from "@material-ui/core";
@@ -16,7 +15,6 @@ const styles = {
 export const Home = () => {
   return (
     <Container component="main" maxWidth="md">
-      <PublicNavBar />
       <Container component="main" maxWidth="md">
         <Paper elevation={6} style={styles.paperContainer}>
           <div className="logoContainer">
