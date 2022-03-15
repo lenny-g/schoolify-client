@@ -56,9 +56,9 @@ export const LoginForm = () => {
 		}
 	};
 
-	if (error) {
-		return <div>ERROR</div>;
-	}
+	// if (error) {
+	// 	return <div>ERROR</div>;
+	// }
 
 	return (
 		<Grid

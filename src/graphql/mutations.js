@@ -64,3 +64,11 @@ export const ADD_STUDENT = gql`
     }
   }
 `;
+
+export const TEACHER_ABSENCE_REQUEST_RESPONSE = gql`
+  mutation Mutation($input: TeacherResponseInput!) {
+    teacherAbsenceRequestResponse(input: $input) {
+      success
+    }
+  }
+`;
