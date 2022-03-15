@@ -8,6 +8,7 @@ import { ADD_STUDENT } from '../../graphql/mutations';
 import { GET_YEAR_GROUP_DATA } from '../../graphql/query';
 
 import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -83,119 +84,123 @@ export const AddChildForm = () => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<Box
+			<Grid
+				container
 				component='form'
-				sx={colors.purple}
-				spacing={2}
+				sx={item.outerContainer}
 				onSubmit={handleSubmit(onSubmit)}>
-				<Typography
-					variant='h3'
-					gutterBottom
-					component='div'
-					sx={{ textAlign: 'center' }}>
-					Child . Registration . Form
-				</Typography>
-				<TextField
-					color='secondary'
-					autoFocus
-					margin='normal'
-					id='childFirstName'
-					label='First Name'
-					variant='outlined'
-					name='childFirstName'
-					fullWidth
-					{...register('childFirstName', { required: true })}
-					error={!!errors.childFirstName}
-				/>
-				<TextField
-					color='secondary'
-					margin='normal'
-					id='childLastName'
-					label='Last Name'
-					variant='outlined'
-					name='childLastName'
-					fullWidth
-					{...register('childLastName', { required: true })}
-					error={!!errors.childLastName}
-				/>
-
-				<DesktopDatePicker
-					label='Date of Birth'
-					inputFormat='MM/dd/yyyy'
-					value={dateOfBirth}
-					onChange={(value) => {
-						setDateOfBirth(value);
-						setValue('dob', value, {
-							shouldValidate: true,
-							shouldDirty: true,
-						});
-					}}
-					renderInput={(params) => (
-						<TextField
-							{...params}
-							{...register('dob', { required: true })}
-							error={!!errors.dob}
-							color='secondary'
-							margin='normal'
-							id='dob'
-							variant='outlined'
-							name='dob'
-							fullWidth
-						/>
-					)}
-				/>
-
-				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel id='yearGroup' color='secondary'>
-						Year Group
-					</InputLabel>
-					<Controller
-						control={control}
-						name='yearGroup'
-						render={({ field: { onChange, value } }) => (
-							<Select
-								color='secondary'
-								labelId='yearGroup'
-								id='yearGroup'
-								value={value || ''}
-								onChange={onChange}
-								label='Year Group'
-								disabled={mutationLoading}
-								error={!!errors.yearGroup}
-								{...register('yearGroup', { required: true })}>
-								{data?.yearGroups?.map((yearGroupObj, index) => {
-									return (
-										<MenuItem key={index} value={yearGroupObj.id}>
-											{yearGroupObj.title}
-										</MenuItem>
-									);
-								})}
-							</Select>
-						)}
-					/>
-				</FormControl>
-				<LoadingButton
-					loading={mutationLoading}
-					loadingIndicator='Loading...'
-					variant='contained'
-					fullWidth
-					type='submit'
-					sx={styles.loadingButton}
-					startIcon={mutationError && <ErrorIcon />}
-					color={mutationError ? 'error' : 'secondary'}>
-					Add Child
-				</LoadingButton>
-
-				{!!mutationError && (
+				<Grid item xs={12}>
 					<Typography
-						variant='subtitle2'
+						variant='h5'
 						gutterBottom
 						component='div'
-						sx={{ mt: 2, textAlign: 'center', color: '#d32f2f' }}>
-						Failed to add child.
+						sx={{ textAlign: 'center' }}>
+						Child . Registration . Form
 					</Typography>
-				)}
-			</Box>
+				</Grid>
+				<Box sx={colors.purple}>
+					<TextField
+						color='secondary'
+						autoFocus
+						margin='normal'
+						id='childFirstName'
+						label='First Name'
+						variant='outlined'
+						name='childFirstName'
+						fullWidth
+						{...register('childFirstName', { required: true })}
+						error={!!errors.childFirstName}
+					/>
+					<TextField
+						color='secondary'
+						margin='normal'
+						id='childLastName'
+						label='Last Name'
+						variant='outlined'
+						name='childLastName'
+						fullWidth
+						{...register('childLastName', { required: true })}
+						error={!!errors.childLastName}
+					/>
+
+					<DesktopDatePicker
+						label='Date of Birth'
+						inputFormat='MM/dd/yyyy'
+						value={dateOfBirth}
+						onChange={(value) => {
+							setDateOfBirth(value);
+							setValue('dob', value, {
+								shouldValidate: true,
+								shouldDirty: true,
+							});
+						}}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								{...register('dob', { required: true })}
+								error={!!errors.dob}
+								color='secondary'
+								margin='normal'
+								id='dob'
+								variant='outlined'
+								name='dob'
+								fullWidth
+							/>
+						)}
+					/>
+
+					<FormControl sx={{ mt: 2 }} fullWidth>
+						<InputLabel id='yearGroup' color='secondary'>
+							Year Group
+						</InputLabel>
+						<Controller
+							control={control}
+							name='yearGroup'
+							render={({ field: { onChange, value } }) => (
+								<Select
+									color='secondary'
+									labelId='yearGroup'
+									id='yearGroup'
+									value={value || ''}
+									onChange={onChange}
+									label='Year Group'
+									disabled={mutationLoading}
+									error={!!errors.yearGroup}
+									{...register('yearGroup', { required: true })}>
+									{data?.yearGroups?.map((yearGroupObj, index) => {
+										return (
+											<MenuItem key={index} value={yearGroupObj.id}>
+												{yearGroupObj.title}
+											</MenuItem>
+										);
+									})}
+								</Select>
+							)}
+						/>
+					</FormControl>
+					<LoadingButton
+						loading={mutationLoading}
+						loadingIndicator='Loading...'
+						variant='contained'
+						fullWidth
+						type='submit'
+						sx={styles.loadingButton}
+						startIcon={mutationError && <ErrorIcon />}
+						color={mutationError ? 'error' : 'secondary'}>
+						Add Child
+					</LoadingButton>
+
+					{!!mutationError && (
+						<Typography
+							variant='subtitle2'
+							gutterBottom
+							component='div'
+							sx={{ mt: 2, textAlign: 'center', color: '#d32f2f' }}>
+							Failed to add child.
+						</Typography>
+					)}
+				</Box>
+			</Grid>
 		</LocalizationProvider>
 	);
 };

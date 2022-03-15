@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import TextField from '@mui/material/TextField';
@@ -15,7 +16,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
 import Typography from '@mui/material/Typography';
 
-import { colors, forms } from '../../styles';
+import { colors, forms, item } from '../../styles';
 import { GET_PARENTS_CHILDREN } from '../../graphql/query';
 import { MAKE_AN_ABSENCE_REQUEST } from '../../graphql/mutations';
 
@@ -76,14 +77,20 @@ export const AbsenceForm = () => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<Box component='form' onSubmit={handleSubmit(onSubmit)}>
-				<Typography
-					variant='h3'
-					gutterBottom
-					component='div'
-					sx={{ textAlign: 'center' }}>
-					Absence . Request . Form
-				</Typography>
+			<Grid
+				component='form'
+				container
+				sx={item.outerContainer}
+				onSubmit={handleSubmit(onSubmit)}>
+				<Grid item xs={12}>
+					<Typography
+						variant='h5'
+						gutterBottom
+						component='div'
+						sx={{ textAlign: 'center' }}>
+						Absence . Request . Form
+					</Typography>
+				</Grid>
 				<Box sx={colors.yellow}>
 					<FormControl fullWidth sx={{ mb: 2 }}>
 						<InputLabel id='student' color='warning'>
@@ -196,7 +203,7 @@ export const AbsenceForm = () => {
 						</Typography>
 					)}
 				</Box>
-			</Box>
+			</Grid>
 		</LocalizationProvider>
 	);
 };
