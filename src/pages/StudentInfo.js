@@ -8,7 +8,6 @@ export const StudentInfo = () => {
 
   return (
     <>
-      <ParentNavBar />
       <Container component="main" maxWidth="md">
         <Typography
           variant="h3"

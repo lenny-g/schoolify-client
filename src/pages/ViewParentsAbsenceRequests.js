@@ -9,7 +9,7 @@ import { ParentsAbsenceRequestTable } from "../components/ParentsAbsenceRequestT
 export const ViewParentsAbsenceRequests = () => {
   return (
     <Container component="main" maxWidth="md">
-      <ParentNavBar />
+
       <Box>
         <ParentsAbsenceRequestTable />
       </Box>

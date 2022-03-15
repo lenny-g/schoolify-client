@@ -5,7 +5,7 @@ import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
 export const ViewAppointments = () => {
   return (
     <Container component="main" maxWidth="md">
-      <ParentNavBar />
+     
     </Container>
   );
 };

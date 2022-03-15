@@ -1,12 +1,11 @@
 import { ChildrenCards } from "../components/ChildrenCards";
-import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
+
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 export const ViewChildren = () => {
   return (
     <>
-      <ParentNavBar />
       <Container component="main" maxWidth="md">
         <Typography
           variant="h3"

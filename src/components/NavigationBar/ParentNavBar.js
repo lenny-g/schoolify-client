@@ -85,7 +85,16 @@ export const ParentNavBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            backgroundColor: "#212227",
+          },
+        }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
             {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
