@@ -1,12 +1,15 @@
+import { ParentNavBar } from "./ParentNavBar";
+import { TeacherNavBar } from "./TeacherNavBar";
+
 const userType = JSON.parse(localStorage.getItem("user")).role;
 
 const UserNavBar = () => {
   if (userType === "teacher") {
-    return <TeacherNav />;
+    return <TeacherNavBar />;
   }
 
-  if (userType === "teacher") {
-    return <ParentNav />;
+  if (userType === "parent") {
+    return <ParentNavBar />;
   }
 };
 
