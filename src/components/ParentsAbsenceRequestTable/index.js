@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { GET_ALL_PARENT_ABSENCE_REQUESTS } from "../../graphql/query";
 import { useQuery } from "@apollo/client";
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
@@ -19,7 +20,9 @@ const stylingRowColor = (status) => {
 };
 
 export const ParentsAbsenceRequestTable = () => {
-  const { data, loading, errors } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
+  const [search, setSearch] = useState("");
+
+  const { data, loading, error } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS);
 
   let absenceRequestData = [];
 
@@ -41,7 +44,13 @@ export const ParentsAbsenceRequestTable = () => {
       return absenceRequestData.push(...each);
     });
 
-  if (errors) {
+  const handleUserSearch = () => {
+    return absenceRequestData.filter((each) =>
+      each.name.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
+  if (error) {
     return <div>ERROR</div>;
   }
 
@@ -55,6 +64,13 @@ export const ParentsAbsenceRequestTable = () => {
       >
         Absence Requests
       </Typography>
+
+      <TextField
+        label="Enter Child Name"
+        variant="outlined"
+        style={{ marginBottom: 20, width: "100%" }}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <TableContainer component={Paper}>
         {loading ? (
@@ -86,7 +102,7 @@ export const ParentsAbsenceRequestTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {absenceRequestData?.map((row, index) => {
+              {handleUserSearch()?.map((row, index) => {
                 return (
                   <TableRow
                     key={index}

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
 import { useNavigate } from "react-router-dom";
 import { TEACHER_ABSENCE_REQUEST_RESPONSE } from "../../graphql/mutations";
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
@@ -23,6 +24,7 @@ const stylingRowColor = (status) => {
 
 export const TeachersAbsenceRequestsTable = () => {
   const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+  const [search, setSearch] = useState("");
 
   const { data, loading, error } = useQuery(
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
@@ -37,8 +39,6 @@ export const TeachersAbsenceRequestsTable = () => {
     executeTeacherResponse,
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(TEACHER_ABSENCE_REQUEST_RESPONSE);
-
-  const navigate = useNavigate();
 
   const onAccept = async (absenceRequestId, studentId) => {
     console.log(absenceRequestId, studentId, "accepted");
@@ -91,6 +91,12 @@ export const TeachersAbsenceRequestsTable = () => {
       return absenceRequestData.push(...each);
     });
 
+  const handleUserSearch = () => {
+    return absenceRequestData.filter((each) =>
+      each.name.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
   if (error) {
     return <div>ERROR</div>;
   }
@@ -105,6 +111,13 @@ export const TeachersAbsenceRequestsTable = () => {
       >
         Absence Requests Made
       </Typography>
+
+      <TextField
+        label="Enter Student Name"
+        variant="outlined"
+        style={{ marginBottom: 20, width: "100%" }}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <TableContainer component={Paper}>
         {loading ? (
@@ -137,7 +150,7 @@ export const TeachersAbsenceRequestsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {absenceRequestData?.map((row, index) => {
+              {handleUserSearch()?.map((row, index) => {
                 return (
                   <TableRow
                     key={index}
