@@ -47,12 +47,28 @@ export const GET_ALL_CHILDREN = gql`
   query YearGroups {
     parentsChildren {
       children {
-        yearGroup {
-          title
-        }
         id
         firstName
         lastName
+        dob
+        yearGroup {
+          id
+          title
+          subjects
+        }
+        medical {
+          id
+          allergies
+          disabilities
+          additionalInfo
+          medications
+        }
+        absenceRequests {
+          type
+          description
+          dateTime
+          status
+        }
       }
     }
   }
@@ -85,6 +101,36 @@ export const GET_TEACHER_STUDENTS = gql`
       lastName
       id
       dob
+    }
+  }
+`;
+
+export const VIEW_CHILD = gql`
+  query ViewChild($studentId: ID!) {
+    viewChild(studentId: $studentId) {
+      id
+      firstName
+      lastName
+      dob
+      yearGroup {
+        id
+        title
+        subjects
+      }
+      medical {
+        id
+        disabilities
+        allergies
+        medications
+        additionalInfo
+      }
+      absenceRequests {
+        id
+        type
+        description
+        dateTime
+        status
+      }
     }
   }
 `;
