@@ -52,7 +52,9 @@ export const LoginForm = () => {
 			setIsLoggedIn(true);
 			setUser(parent || teacher);
 
-			navigate('/dashboard', { replace: true });
+			parent
+				? navigate('/dashboard', { replace: true })
+				: navigate('/dashboard/teacher', { replace: true });
 		}
 	};
 

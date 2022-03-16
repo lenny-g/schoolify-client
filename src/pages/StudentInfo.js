@@ -1,7 +1,3 @@
-import { ParentNavBar } from '../components/NavigationBar/ParentNavBar';
-import { VIEW_CHILD } from '../graphql/query';
-
-import { PublicNavBar } from '../components/NavigationBar/PublicNavBar';
 import Container from '@mui/material/Container';
 import { Paper } from '@material-ui/core';
 import logo from '../assets/img/logo.png';
@@ -26,7 +22,6 @@ export const StudentInfo = () => {
 
 	return (
 		<Container>
-			<PublicNavBar />
 			<Container component='main'>
 				<Paper elevation={6} style={styles.paperContainer}>
 					<div className='logoContainer'>

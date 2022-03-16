@@ -17,6 +17,7 @@ import { ViewParentsAbsenceRequests } from '../pages/ViewParentsAbsenceRequests'
 import { ViewAbsenceRequestTeacher } from '../pages/ViewAbsenceRequestTeacher';
 import { ViewStudents } from '../pages/ViewStudents';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { TeacherDashboard } from '../pages/TeacherDashboard';
 
 const theme = createTheme({
 	palette: {
@@ -64,6 +65,7 @@ export const AppRouter = () => {
 				{isLoggedIn ? (
 					<>
 						<Route path='/dashboard' element={<Dashboard />} />
+						<Route path='/dashboard/teacher' element={<TeacherDashboard />} />
 						<Route path='/children/new' element={<AddChild />} />
 						<Route path='/children/view' element={<ViewChildren />} />
 						<Route path='/children/view/:studentId' element={<StudentInfo />} />
