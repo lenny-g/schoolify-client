@@ -34,6 +34,7 @@ export const TeachersAbsenceRequestsTable = () => {
       variables: {
         yearGroupId: yearGroupId,
       },
+      pollInterval: 1000,
     }
   );
 
@@ -43,35 +44,35 @@ export const TeachersAbsenceRequestsTable = () => {
   ] = useMutation(TEACHER_ABSENCE_REQUEST_RESPONSE);
 
   const onAccept = async (absenceRequestId, studentId) => {
-    window.confirm("Are You sure u want to Approve");
-
-    await executeTeacherResponse({
-      variables: {
-        input: {
-          teacherResponse: "APPROVED",
-          studentId: studentId,
-          absenceRequestId: absenceRequestId,
+    if (window.confirm("Are You sure u want to Approve")) {
+      await executeTeacherResponse({
+        variables: {
+          input: {
+            teacherResponse: "APPROVED",
+            studentId: studentId,
+            absenceRequestId: absenceRequestId,
+          },
         },
-      },
-    });
+      });
 
-    refetch();
+      refetch();
+    }
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    window.confirm("Are You sure u want to Reject");
-
-    await executeTeacherResponse({
-      variables: {
-        input: {
-          teacherResponse: "REJECTED",
-          studentId: studentId,
-          absenceRequestId: absenceRequestId,
+    if (window.confirm("Are You sure u want to Reject")) {
+      await executeTeacherResponse({
+        variables: {
+          input: {
+            teacherResponse: "REJECTED",
+            studentId: studentId,
+            absenceRequestId: absenceRequestId,
+          },
         },
-      },
-    });
+      });
 
-    refetch();
+      refetch();
+    }
   };
 
   let absenceRequestData = [];

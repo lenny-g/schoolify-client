@@ -72,3 +72,11 @@ export const TEACHER_ABSENCE_REQUEST_RESPONSE = gql`
     }
   }
 `;
+
+export const DELETE_ABSENCE_REQUEST = gql`
+  mutation Mutation($input: DeleteAbsenceRequestInput) {
+    deleteAbsenceRequest(input: $input) {
+      success
+    }
+  }
+`;

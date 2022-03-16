@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import parseISO from "date-fns/parseISO";
 import { GET_ALL_PARENT_ABSENCE_REQUESTS } from "../../graphql/query";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { DELETE_ABSENCE_REQUEST } from "../../graphql/mutations";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/parentAbsenceRequestCard";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -14,6 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const stylingRowColor = (status) => {
@@ -26,9 +28,17 @@ export const ParentsAbsenceRequestTable = () => {
   const [search, setSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const { data, loading, error } = useQuery(GET_ALL_PARENT_ABSENCE_REQUESTS, {
-    pollInterval: 1000,
-  });
+  const { data, loading, error, refetch } = useQuery(
+    GET_ALL_PARENT_ABSENCE_REQUESTS,
+    {
+      pollInterval: 1000,
+    }
+  );
+
+  const [
+    executeDeleteAbsenceRequest,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(DELETE_ABSENCE_REQUEST);
 
   let absenceRequestData = [];
 
@@ -39,6 +49,7 @@ export const ParentsAbsenceRequestTable = () => {
           id: child.id,
           name: `${child.firstName} ${child.lastName}`,
           yearGroup: child.yearGroup.title,
+          absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
           dateTime: `   ${
@@ -56,6 +67,21 @@ export const ParentsAbsenceRequestTable = () => {
     return absenceRequestData.filter((each) =>
       each.name.toLowerCase().includes(search.toLowerCase())
     );
+  };
+
+  const deleteAbsenceOnClick = async (studentId, absenceRequestId) => {
+    if (window.confirm("Are You sure u want to delete")) {
+      await executeDeleteAbsenceRequest({
+        variables: {
+          input: {
+            studentId: studentId,
+            absenceRequestId: absenceRequestId,
+          },
+        },
+      });
+
+      refetch();
+    }
   };
 
   useEffect(() => {
@@ -102,6 +128,7 @@ export const ParentsAbsenceRequestTable = () => {
                   "Description",
                   "Date & time",
                   "Status",
+                  "Actions",
                 ].map((head) => (
                   <TableCell
                     style={{
@@ -130,6 +157,23 @@ export const ParentsAbsenceRequestTable = () => {
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{row.dateTime}</TableCell>
                     <TableCell align="right">{row.status}</TableCell>
+                    <TableCell align="right">
+                      {" "}
+                      <Button
+                        onClick={() => {
+                          // onAccept(row.absenceRequestId, row.studentId);
+                        }}
+                      >
+                        EDIT
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          deleteAbsenceOnClick(row.id, row.absenceRequestId);
+                        }}
+                      >
+                        DELETE
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -143,6 +187,7 @@ export const ParentsAbsenceRequestTable = () => {
               <AbsenceRequestCard
                 {...each}
                 colorStyling={stylingRowColor(each.status)}
+                onDelete={deleteAbsenceOnClick}
                 key={index}
               />
             );
