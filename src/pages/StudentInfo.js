@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 
 import { item, colors, headers } from '../styles';
 import { AbsenceRequestSummary } from '../components/ChildDashboard/AbsenceRequestSummary';
+import { ChildProfileCard } from '../components/ChildDashboard/ChildProfileCard';
 
 const styles = {
 	paperContainer: {
@@ -26,7 +27,7 @@ export const StudentInfo = () => {
 	return (
 		<Container>
 			<PublicNavBar />
-			<Container component='main' maxWidth='md'>
+			<Container component='main'>
 				<Paper elevation={6} style={styles.paperContainer}>
 					<div className='logoContainer'>
 						<img src={logo} className='logo' />
@@ -43,15 +44,21 @@ export const StudentInfo = () => {
 							</Typography>
 						</Grid>
 						<Grid container spacing={2}>
-							<Grid item xs={12} sm={6}>
+							<Grid item xs={12} sm={4}>
+								<Box sx={colors.purple}>
+									<ChildProfileCard />
+								</Box>
+							</Grid>
+							<Grid item xs={12} sm={4}>
 								<Box sx={colors.pink}>Box1</Box>
 								<Box sx={colors.green}>box2</Box>
 							</Grid>
 
-							<Grid item xs={12} sm={6}>
+							<Grid item xs={12} sm={4}>
 								<Box sx={colors.yellow}>
 									<AbsenceRequestSummary />
 								</Box>
+
 								<Box sx={item.inputBox}>box4</Box>
 							</Grid>
 						</Grid>

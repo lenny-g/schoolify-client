@@ -17,6 +17,9 @@ const styles = {
 	},
 };
 
+const firstName = JSON.parse(localStorage.getItem('user'))?.firstName;
+const lastName = JSON.parse(localStorage.getItem('user'))?.lastNAme;
+
 export const ViewChildren = () => {
 	return (
 		<Container>
@@ -34,7 +37,7 @@ export const ViewChildren = () => {
 								gutterBottom
 								component='div'
 								sx={headers.font}>
-								Hello Parent Name
+								Hi {firstName}!
 							</Typography>
 						</Grid>
 						<Box sx={item.outerContainer}>

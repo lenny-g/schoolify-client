@@ -33,13 +33,13 @@ export const AbsenceRequestSummary = () => {
 				sx={headers.font}>
 				Absence Requests:
 			</Typography>
-			<Accordion className='accordionAccepted'>
+			<Accordion disabled className='accordionAccepted'>
 				<AccordionSummary>
 					<Typography>Medical absence 22/02/22 ACCEPTED</Typography>
 				</AccordionSummary>
 			</Accordion>
 
-			<Accordion className='accordionPending'>
+			<Accordion disabled className='accordionPending'>
 				<AccordionSummary>
 					<Typography>Dental absence 25/03/22 PENDING</Typography>
 				</AccordionSummary>

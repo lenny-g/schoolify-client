@@ -47,15 +47,17 @@
 }
 
 .accordionAccepted {
+	background-color: white !important;
 	border-radius: 10px !important;
 	color: green !important;
 	border: 1px solid green !important;
 }
 
 .accordionPending {
+	background-color: white !important;
 	border-radius: 10px !important;
-	color: darkorange !important;
-	border: 1px solid darkorange !important;
+	color: #ff5e00 !important;
+	border: 1px solid #ff5e00 !important;
 }
 
 .accordionRejected {
