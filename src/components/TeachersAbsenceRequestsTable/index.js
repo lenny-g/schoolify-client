@@ -19,9 +19,9 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
 const stylingRowColor = (status) => {
-  if (status == "PENDING") return "lightGray";
-  if (status == "APPROVED") return "lightGreen";
-  if (status == "REJECTED") return "red";
+  if (status === "PENDING") return "lightGray";
+  if (status === "APPROVED") return "lightGreen";
+  if (status === "REJECTED") return "red";
 };
 
 export const TeachersAbsenceRequestsTable = () => {
@@ -109,8 +109,13 @@ export const TeachersAbsenceRequestsTable = () => {
     window.addEventListener("resize", () => {
       setWindowWidth(window.innerWidth);
     });
-  }, []);
 
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWindowWidth(window.innerWidth);
+      });
+    };
+  }, []);
   if (error) {
     return <div>ERROR</div>;
   }

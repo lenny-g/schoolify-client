@@ -19,9 +19,9 @@ import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const stylingRowColor = (status) => {
-  if (status == "PENDING") return "lightGray";
-  if (status == "APPROVED") return "lightGreen";
-  if (status == "REJECTED") return "red";
+  if (status === "PENDING") return "lightGray";
+  if (status === "APPROVED") return "lightGreen";
+  if (status === "REJECTED") return "red";
 };
 
 export const ParentsAbsenceRequestTable = () => {
@@ -88,6 +88,12 @@ export const ParentsAbsenceRequestTable = () => {
     window.addEventListener("resize", () => {
       setWindowWidth(window.innerWidth);
     });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWindowWidth(window.innerWidth);
+      });
+    };
   }, []);
 
   if (error) {
