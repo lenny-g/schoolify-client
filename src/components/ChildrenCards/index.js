@@ -25,8 +25,8 @@ export const ChildrenCards = () => {
 
 	return (
 		<Grid container onClick={onclick}>
-			{/* {childrenData?.map((child, index) => {
-        return <ChildCard {...child} key={index} />; */}
+			{childrenData?.map((child, index) => {
+				return <ChildCard {...child} key={index} />;
 			})}
 		</Grid>
 	);
