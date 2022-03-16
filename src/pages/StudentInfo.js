@@ -26,7 +26,7 @@ export const StudentInfo = () => {
     return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
-  console.log(data);
+  console.log(data.viewChild);
 
   return (
     <>
@@ -40,7 +40,14 @@ export const StudentInfo = () => {
         >
           STUDENT PAGE
         </Typography>
-        <div>{data.viewChild.lastName}</div>
+        <Typography
+          variant="h3"
+          gutterBottom
+          component="div"
+          sx={{ textAlign: "center" }}
+        >
+          Hello {data.viewChild.firstName} {data.viewChild.lastName}
+        </Typography>
       </Container>
     </>
   );
