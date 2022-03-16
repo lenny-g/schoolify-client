@@ -11,6 +11,9 @@ const styles = {
 	},
 };
 
+import { ParentNavBar } from '../components/NavigationBar/ParentNavBar';
+import { VIEW_CHILD } from '../graphql/query';
+
 export const StudentInfo = () => {
 	const { studentId } = useParams();
 
