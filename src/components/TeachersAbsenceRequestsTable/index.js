@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import parseISO from "date-fns/parseISO";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/teacherAbsenceRequestCard";
@@ -87,7 +88,9 @@ export const TeachersAbsenceRequestsTable = () => {
           absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
-          dateTime: eachRequest.dateTime,
+          dateTime: `${
+            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0]
+          }  `,
           status: eachRequest.status,
         };
       });

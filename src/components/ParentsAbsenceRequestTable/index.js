@@ -52,7 +52,7 @@ export const ParentsAbsenceRequestTable = () => {
           absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
-          dateTime: `   ${
+          dateTime: `${
             parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0]
           }  `,
           status: eachRequest.status,
