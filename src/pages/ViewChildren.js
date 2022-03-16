@@ -3,17 +3,12 @@ import { ParentNavBar } from '../components/NavigationBar/ParentNavBar';
 import Container from '@mui/material/Container';
 import { Paper } from '@material-ui/core';
 import logo from '../assets/img/logo.png';
-
 import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-import { item, colors, headers, largeButtons } from '../styles';
+import { item, headers } from '../styles';
 
 const styles = {
 	paperContainer: {

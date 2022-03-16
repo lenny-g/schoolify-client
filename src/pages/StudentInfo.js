@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { item, colors, headers } from '../styles';
+import { AbsenceRequestSummary } from '../components/ChildDashboard/AbsenceRequestSummary';
 
 const styles = {
 	paperContainer: {
@@ -38,7 +39,7 @@ export const StudentInfo = () => {
 								gutterBottom
 								component='div'
 								sx={headers.font}>
-								Parent . Signup . Page
+								Child name's Dashboard
 							</Typography>
 						</Grid>
 						<Grid container spacing={2}>
@@ -48,7 +49,9 @@ export const StudentInfo = () => {
 							</Grid>
 
 							<Grid item xs={12} sm={6}>
-								<Box sx={colors.yellow}>box3</Box>
+								<Box sx={colors.yellow}>
+									<AbsenceRequestSummary />
+								</Box>
 								<Box sx={item.inputBox}>box4</Box>
 							</Grid>
 						</Grid>

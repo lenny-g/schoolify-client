@@ -46,5 +46,20 @@
 	width: 15rem;
 }
 
-.positioning {
+.accordionAccepted {
+	border-radius: 10px !important;
+	color: green !important;
+	border: 1px solid green !important;
+}
+
+.accordionPending {
+	border-radius: 10px !important;
+	color: darkorange !important;
+	border: 1px solid darkorange !important;
+}
+
+.accordionRejected {
+	border-radius: 10px !important;
+	color: red !important;
+	border: 1px solid red !important;
 }
