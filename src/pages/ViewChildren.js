@@ -1,23 +1,28 @@
-import { ChildrenCards } from "../components/ChildrenCards";
-import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import { ChildrenCards } from '../components/ChildrenCards';
+import { ParentNavBar } from '../components/NavigationBar/ParentNavBar';
+import Container from '@mui/material/Container';
+import { Paper } from '@material-ui/core';
+import logo from '../assets/img/logo.png';
+
+const styles = {
+	paperContainer: {
+		margin: '2rem 0',
+		borderRadius: '25px',
+	},
+};
 
 export const ViewChildren = () => {
-  return (
-    <>
-      <ParentNavBar />
-      <Container component="main" maxWidth="md">
-        <Typography
-          variant="h3"
-          gutterBottom
-          component="div"
-          sx={{ textAlign: "center" }}
-        >
-          My Children
-        </Typography>
-        <ChildrenCards />
-      </Container>
-    </>
-  );
+	return (
+		<Container>
+			<ParentNavBar />
+			<Container component='main' maxWidth='md'>
+				<Paper elevation={6} style={styles.paperContainer}>
+					<div className='logoContainer'>
+						<img src={logo} className='logo' />
+					</div>
+					<ChildrenCards />
+				</Paper>
+			</Container>
+		</Container>
+	);
 };

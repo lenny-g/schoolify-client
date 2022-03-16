@@ -1,8 +1,16 @@
+import { ParentNavBar } from '../components/NavigationBar/ParentNavBar';
+import { VIEW_CHILD } from '../graphql/query';
+
 import { PublicNavBar } from '../components/NavigationBar/PublicNavBar';
 import Container from '@mui/material/Container';
 import { Paper } from '@material-ui/core';
 import logo from '../assets/img/logo.png';
 import { useParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+
+import { item, colors, headers } from '../styles';
 
 const styles = {
 	paperContainer: {
@@ -10,9 +18,6 @@ const styles = {
 		borderRadius: '25px',
 	},
 };
-
-import { ParentNavBar } from '../components/NavigationBar/ParentNavBar';
-import { VIEW_CHILD } from '../graphql/query';
 
 export const StudentInfo = () => {
 	const { studentId } = useParams();
