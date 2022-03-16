@@ -7,7 +7,7 @@ import { TeachersAbsenceRequestsTable } from '../components/TeachersAbsenceReque
 export const ViewAbsenceRequestTeacher = () => {
 	return (
 		<Container component='main' maxWidth='md'>
-			<TeacherNavBar />
+			
 			<Box>
 				<TeachersAbsenceRequestsTable />
 			</Box>
