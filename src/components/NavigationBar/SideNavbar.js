@@ -17,6 +17,80 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import HomeIcon from '@mui/icons-material/Home';
+import LoginIcon from '@mui/icons-material/Login';
+import FamilyRestroomSharpIcon from '@mui/icons-material/FamilyRestroomSharp';
+import SchoolSharpIcon from '@mui/icons-material/SchoolSharp';
+import InfoIcon from '@mui/icons-material/Info';
+import Link from '@mui/material/Link';
+
+const publicNavArray = [
+	{
+		name: 'Home',
+		icon: <HomeIcon />,
+		link: '/',
+	},
+	{
+		name: 'Login',
+		icon: <LoginIcon />,
+		link: '/login',
+	},
+	{
+		name: 'Parent Signup',
+		icon: <FamilyRestroomSharpIcon />,
+		link: '/parent/sign-up',
+	},
+	{
+		name: 'Teacher Signup',
+		icon: <SchoolSharpIcon />,
+		link: '/teacher/sign-up',
+	},
+	{
+		name: 'About',
+		icon: <InfoIcon />,
+		link: '/about',
+	},
+];
+
+const parentNavArray = [
+	{
+		name: 'Home',
+		icon: <HomeIcon />,
+		link: '/',
+	},
+	{
+		name: 'Login',
+		icon: <LoginIcon />,
+		link: '/login',
+	},
+	{
+		name: 'Parent Signup',
+		icon: <FamilyRestroomSharpIcon />,
+		link: '/parent/sign-up',
+	},
+	{
+		name: 'Teacher Signup',
+		icon: <SchoolSharpIcon />,
+		link: '/teacher/sign-up',
+	},
+	{
+		name: 'About',
+		icon: <InfoIcon />,
+		link: '/about',
+	},
+];
+
+const userType = JSON.parse(localStorage.getItem('user'))?.role;
+
+const navbarArray = () => {
+	if (userType === 'teacher') {
+		return [];
+	} else if (userType === 'parent') {
+		return [];
+	} else {
+		return publicNavArray;
+	}
+};
 
 const drawerWidth = 240;
 
@@ -129,10 +203,13 @@ export const SideNavbar = () => {
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
+
 				<List>
-					{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+					{navbarArray().map((each, index) => (
 						<ListItemButton
-							key={text}
+							component={Link}
+							href={each.link}
+							key={each.name}
 							sx={{
 								minHeight: 48,
 								justifyContent: open ? 'initial' : 'center',
@@ -144,31 +221,12 @@ export const SideNavbar = () => {
 									mr: open ? 3 : 'auto',
 									justifyContent: 'center',
 								}}>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+								{each.icon}
 							</ListItemIcon>
-							<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-						</ListItemButton>
-					))}
-				</List>
-				<Divider />
-				<List>
-					{['All mail', 'Trash', 'Spam'].map((text, index) => (
-						<ListItemButton
-							key={text}
-							sx={{
-								minHeight: 48,
-								justifyContent: open ? 'initial' : 'center',
-								px: 2.5,
-							}}>
-							<ListItemIcon
-								sx={{
-									minWidth: 0,
-									mr: open ? 3 : 'auto',
-									justifyContent: 'center',
-								}}>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+							<ListItemText
+								primary={each.name}
+								sx={{ opacity: open ? 1 : 0 }}
+							/>
 						</ListItemButton>
 					))}
 				</List>

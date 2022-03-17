@@ -1,6 +1,5 @@
 import { MedicalForm } from '../components/MedicalForm';
 import Container from '@mui/material/Container';
-import { PublicNavBar } from '../components/NavigationBar/PublicNavBar';
 import { Paper } from '@material-ui/core';
 import logo from '../assets/img/logo.png';
 import '../App.css';
@@ -15,7 +14,6 @@ const styles = {
 export const Medical = () => {
 	return (
 		<Container>
-			<PublicNavBar />
 			<Container component='main' maxWidth='md'>
 				<Paper
 					className='positioning'
