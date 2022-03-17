@@ -1,16 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -29,6 +23,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const publicNavArray = [
 	{
@@ -140,108 +135,67 @@ const navbarArray = () => {
 	}
 };
 
-const drawerWidth = 200;
-
-const openedMixin = (theme) => ({
-	width: drawerWidth,
-	transition: theme.transitions.create('width', {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.enteringScreen,
-	}),
-	overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-	transition: theme.transitions.create('width', {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	overflowX: 'hidden',
-	width: `calc(${theme.spacing(7)} + 1px)`,
-	[theme.breakpoints.up('sm')]: {
-		width: `calc(${theme.spacing(8)} + 1px)`,
-	},
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'flex-end',
-	padding: theme.spacing(0, 1),
-	// necessary for content to be below app bar
-	...theme.mixins.toolbar,
-}));
-
-const Drawer = styled(MuiDrawer, {
-	shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-	width: drawerWidth,
-	flexShrink: 0,
-	whiteSpace: 'nowrap',
-	boxSizing: 'border-box',
-	...(open && {
-		...openedMixin(theme),
-		'& .MuiDrawer-paper': openedMixin(theme),
-	}),
-	...(!open && {
-		...closedMixin(theme),
-		'& .MuiDrawer-paper': closedMixin(theme),
-	}),
-}));
-
-export const SideNavbar = () => {
+export const TopNavbar = () => {
 	const [open, setOpen] = useState(false);
+	const [openTop, setOpenTop] = React.useState(false);
 
 	const handleDrawerToggle = () => {
 		setOpen(!open);
 	};
 
-	return (
-		<Box>
-			<CssBaseline />
-			<Drawer
-				variant='permanent'
-				open={open}
-				sx={{
-					'& .MuiDrawer-paper': {
-						boxSizing: 'border-box',
-						backgroundColor: '#212227',
-					},
-				}}>
-				<DrawerHeader>
-					<IconButton onClick={handleDrawerToggle}>
-						{!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-					</IconButton>
-				</DrawerHeader>
-				<Divider />
+	const toggleDrawer = (anchor, open) => (event) => {
+		if (
+			event.type === 'keydown' &&
+			(event.key === 'Tab' || event.key === 'Shift')
+		) {
+			return;
+		}
+		setOpenTop({ ...openTop, top: open });
+	};
 
-				<List>
-					{navbarArray().map((each, index) => (
-						<ListItemButton
-							component={Link}
-							href={each.link}
-							key={each.name}
+	const list = () => (
+		<Box
+			sx={{ width: 'auto' }}
+			role='presentation'
+			onClick={toggleDrawer(false)}
+			onKeyDown={toggleDrawer(false)}>
+			<List>
+				{navbarArray().map((each, index) => (
+					<ListItemButton
+						component={Link}
+						href={each.link}
+						key={each.name}
+						sx={{
+							minHeight: 48,
+							justifyContent: open ? 'initial' : 'center',
+							px: 2.5,
+						}}>
+						<ListItemIcon
 							sx={{
-								minHeight: 48,
-								justifyContent: open ? 'initial' : 'center',
-								px: 2.5,
+								minWidth: 0,
+								mr: open ? 3 : 'auto',
+								justifyContent: 'center',
 							}}>
-							<ListItemIcon
-								sx={{
-									minWidth: 0,
-									mr: open ? 3 : 'auto',
-									justifyContent: 'center',
-								}}>
-								{each.icon}
-							</ListItemIcon>
-							<ListItemText
-								primary={each.name}
-								sx={{ opacity: open ? 1 : 0 }}
-							/>
-						</ListItemButton>
-					))}
-				</List>
-			</Drawer>
+							{each.icon}
+						</ListItemIcon>
+						<ListItemText primary={each.name} sx={{ opacity: open ? 1 : 0 }} />
+					</ListItemButton>
+				))}
+			</List>
 		</Box>
+	);
+	return (
+		<div>
+			<Box>
+				<Button onClick={toggleDrawer(true)}>
+					<IconButton onClick={handleDrawerToggle}>
+						{!open ? <MenuIcon /> : <MenuIcon />}
+					</IconButton>
+				</Button>
+				<Drawer anchor='top' open={openTop} onClose={toggleDrawer(false)}>
+					{list()}
+				</Drawer>
+			</Box>
+		</div>
 	);
 };
