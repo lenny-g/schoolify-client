@@ -155,7 +155,7 @@ export const TopNavbar = () => {
 
 	const list = () => (
 		<Box
-			sx={{ width: 'auto' }}
+			sx={{ width: 'auto', display: 'flex' }}
 			role='presentation'
 			onClick={toggleDrawer(false)}
 			onKeyDown={toggleDrawer(false)}>
@@ -185,17 +185,15 @@ export const TopNavbar = () => {
 		</Box>
 	);
 	return (
-		<div>
-			<Box>
-				<Button onClick={toggleDrawer(true)}>
-					<IconButton onClick={handleDrawerToggle}>
-						{!open ? <MenuIcon /> : <MenuIcon />}
-					</IconButton>
-				</Button>
-				<Drawer anchor='top' open={openTop} onClose={toggleDrawer(false)}>
-					{list()}
-				</Drawer>
-			</Box>
-		</div>
+		<Box>
+			<Button onClick={toggleDrawer(true)}>
+				<IconButton onClick={handleDrawerToggle}>
+					{!open ? <MenuIcon /> : <MenuIcon />}
+				</IconButton>
+			</Button>
+			<Drawer anchor='top' open={openTop} onClose={toggleDrawer(false)}>
+				{list()}
+			</Drawer>
+		</Box>
 	);
 };
