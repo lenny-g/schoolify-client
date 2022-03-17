@@ -26,6 +26,7 @@ const stylingRowColor = (status) => {
 
 export const TeachersAbsenceRequestsTable = () => {
   const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+
   const [search, setSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -39,12 +40,13 @@ export const TeachersAbsenceRequestsTable = () => {
     }
   );
 
-  const [
-    executeTeacherResponse,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(TEACHER_ABSENCE_REQUEST_RESPONSE);
+  const [executeTeacherResponse, { error: mutationError }] = useMutation(
+    TEACHER_ABSENCE_REQUEST_RESPONSE
+  );
 
   const onAccept = async (absenceRequestId, studentId) => {
+    console.log(absenceRequestId, studentId);
+
     if (window.confirm("Are You sure u want to Approve")) {
       await executeTeacherResponse({
         variables: {
@@ -80,7 +82,7 @@ export const TeachersAbsenceRequestsTable = () => {
 
   data?.teacherStudents
     ?.map((students) => {
-      return students.absenceRequests.map((eachRequest, index) => {
+      return students.absenceRequests.map((eachRequest) => {
         return {
           studentId: students.id,
           name: `${students.firstName} ${students.lastName}`,
@@ -116,6 +118,7 @@ export const TeachersAbsenceRequestsTable = () => {
       });
     };
   }, []);
+
   if (error) {
     return <div>ERROR</div>;
   }
@@ -142,7 +145,7 @@ export const TeachersAbsenceRequestsTable = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {windowWidth > 800 ? (
+      {windowWidth > 700 ? (
         <TableContainer component={Paper}>
           <Table>
             <TableHead style={{ backgroundColor: "#EEBC1D" }}>

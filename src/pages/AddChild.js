@@ -1,7 +1,6 @@
-import Container from "@mui/material/Container";
 import { AddChildForm } from "../components/AddChild/AddChildForm";
-
-import { Paper } from "@material-ui/core";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import logo from "../assets/img/logo.png";
 
 const styles = {
@@ -17,7 +16,7 @@ export const AddChild = () => {
       <Container component="main" maxWidth="md">
         <Paper elevation={6} style={styles.paperContainer}>
           <div className="logoContainer">
-            <img src={logo} className="logo" />
+            <img src={logo} className="logo" alt="logo" />
           </div>
           <AddChildForm />
         </Paper>

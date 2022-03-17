@@ -17,7 +17,7 @@ export const AbsenceRequest = () => {
       <Container component="main" maxWidth="md">
         <Paper elevation={6} style={styles.paperContainer}>
           <div className="logoContainer">
-            <img src={logo} className="logo" />
+            <img src={logo} className="logo" alt={logo} />
           </div>
           <Container xs={12}>
             <AbsenceForm />

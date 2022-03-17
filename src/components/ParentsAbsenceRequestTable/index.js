@@ -122,7 +122,7 @@ export const ParentsAbsenceRequestTable = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {windowWidth > 800 ? (
+      {windowWidth > 700 ? (
         <TableContainer component={Paper}>
           <Table>
             <TableHead style={{ backgroundColor: "#EEBC1D" }}>
