@@ -1,9 +1,13 @@
 import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 import { item, colors, headers } from "../styles";
 import { AbsenceRequestSummary } from "../components/ChildDashboard/AbsenceRequestSummary";
 import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard";
 import logo from "../assets/img/logo.png";
 
+import { VIEW_CHILD } from "../graphql/query";
+
+import LinearProgress from "@mui/material/LinearProgress";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -17,8 +21,21 @@ const styles = {
   },
 };
 
-export const StudentInfo = () => {
+export const StudentInfo = (props) => {
   const { studentId } = useParams();
+
+  const { loading, error, data } = useQuery(VIEW_CHILD, {
+    variables: { studentId },
+  });
+  if (error) {
+    return <div>ERROR</div>;
+  }
+  if (loading) {
+    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+  }
+
+  console.log(data);
+  console.log(data.viewChild);
 
   return (
     <Container>
@@ -36,13 +53,13 @@ export const StudentInfo = () => {
                 component="div"
                 sx={headers.font}
               >
-                Child name's Dashboard {studentId}
+                {data.viewChild.firstName} {data.viewChild.lastName}'s Dashboard
               </Typography>
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <Box sx={colors.purple}>
-                  <ChildProfileCard />
+                  <ChildProfileCard data={data} />
                 </Box>
               </Grid>
               <Grid item xs={12} sm={4}>
