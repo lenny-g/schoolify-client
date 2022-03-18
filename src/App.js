@@ -4,17 +4,16 @@ import {
 	ApolloProvider,
 	createHttpLink,
 } from '@apollo/client';
-
 import { setContext } from '@apollo/client/link/context';
-
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 
 import { AppRouter } from './components/AppRouter';
 import { AppProvider } from './context/AppProvider';
 
+import './App.css';
+
 const link = createHttpLink({
-	uri: process.env.REACT_APP_GRAPHQL|| 'http://localhost:4000/',
+	uri: process.env.REACT_APP_GRAPHQL || 'http://localhost:4000/',
 	credentials: 'same-origin',
 });
 
@@ -34,16 +33,14 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 });
 
-function App() {
+export const App = () => {
 	return (
 		<ApolloProvider client={client}>
-			<AppProvider>
-				<BrowserRouter>
+			<BrowserRouter>
+				<AppProvider>
 					<AppRouter />
-				</BrowserRouter>
-			</AppProvider>
+				</AppProvider>
+			</BrowserRouter>
 		</ApolloProvider>
 	);
-}
-
-export default App;
+};

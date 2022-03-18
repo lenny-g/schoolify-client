@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import parseISO from "date-fns/parseISO";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/teacherAbsenceRequestCard";
@@ -18,63 +19,70 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
 const stylingRowColor = (status) => {
-  if (status == "PENDING") return "lightGray";
-  if (status == "APPROVED") return "lightGreen";
-  if (status == "REJECTED") return "red";
+  if (status === "PENDING") return "lightGray";
+  if (status === "APPROVED") return "lightGreen";
+  if (status === "REJECTED") return "red";
 };
 
 export const TeachersAbsenceRequestsTable = () => {
   const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+
   const [search, setSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const { data, loading, error } = useQuery(
+  const { data, loading, error, refetch } = useQuery(
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
     {
       variables: {
         yearGroupId: yearGroupId,
       },
+      pollInterval: 1000,
     }
   );
 
-  const [
-    executeTeacherResponse,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(TEACHER_ABSENCE_REQUEST_RESPONSE);
+  const [executeTeacherResponse, { error: mutationError }] = useMutation(
+    TEACHER_ABSENCE_REQUEST_RESPONSE
+  );
 
   const onAccept = async (absenceRequestId, studentId) => {
-    window.confirm("Are You sure u want to Approve");
+    console.log(absenceRequestId, studentId);
 
-    await executeTeacherResponse({
-      variables: {
-        input: {
-          teacherResponse: "APPROVED",
-          studentId: studentId,
-          absenceRequestId: absenceRequestId,
+    if (window.confirm("Are You sure u want to Approve")) {
+      await executeTeacherResponse({
+        variables: {
+          input: {
+            teacherResponse: "APPROVED",
+            studentId: studentId,
+            absenceRequestId: absenceRequestId,
+          },
         },
-      },
-    });
+      });
+
+      refetch();
+    }
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    window.confirm("Are You sure u want to Reject");
-
-    await executeTeacherResponse({
-      variables: {
-        input: {
-          teacherResponse: "REJECTED",
-          studentId: studentId,
-          absenceRequestId: absenceRequestId,
+    if (window.confirm("Are You sure u want to Reject")) {
+      await executeTeacherResponse({
+        variables: {
+          input: {
+            teacherResponse: "REJECTED",
+            studentId: studentId,
+            absenceRequestId: absenceRequestId,
+          },
         },
-      },
-    });
+      });
+
+      refetch();
+    }
   };
 
   let absenceRequestData = [];
 
   data?.teacherStudents
     ?.map((students) => {
-      return students.absenceRequests.map((eachRequest, index) => {
+      return students.absenceRequests.map((eachRequest) => {
         return {
           studentId: students.id,
           name: `${students.firstName} ${students.lastName}`,
@@ -82,7 +90,9 @@ export const TeachersAbsenceRequestsTable = () => {
           absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
-          dateTime: eachRequest.dateTime,
+          dateTime: `${
+            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0]
+          }  `,
           status: eachRequest.status,
         };
       });
@@ -101,6 +111,12 @@ export const TeachersAbsenceRequestsTable = () => {
     window.addEventListener("resize", () => {
       setWindowWidth(window.innerWidth);
     });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWindowWidth(window.innerWidth);
+      });
+    };
   }, []);
 
   if (error) {
@@ -129,7 +145,7 @@ export const TeachersAbsenceRequestsTable = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {windowWidth > 800 ? (
+      {windowWidth > 700 ? (
         <TableContainer component={Paper}>
           <Table>
             <TableHead style={{ backgroundColor: "#EEBC1D" }}>

@@ -1,12 +1,10 @@
 import Container from "@mui/material/Container";
-import { PublicNavBar } from "../components/NavigationBar/PublicNavBar";
 import { TeamMemberCard } from "../components/TeamCard/TeamMemberCard";
 import { teamMemberFromApi } from "../data/teamMemberFromApi";
 
 export const About = () => {
   return (
     <Container component="main" maxWidth="md">
-      <PublicNavBar />
       <Container
         sx={{
           m: "5rem",
