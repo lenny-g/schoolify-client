@@ -69,7 +69,7 @@ export const StudentInfo = (props) => {
 
               <Grid item xs={12} sm={4}>
                 <Box sx={colors.yellow}>
-                  <AbsenceRequestSummary />
+                  <AbsenceRequestSummary data={data} />
                 </Box>
 
                 <Box sx={item.inputBox}>box4</Box>
