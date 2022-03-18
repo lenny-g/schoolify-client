@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import logo from '../assets/img/logo.png';
 import Grid from '@mui/material/Grid';
 import { IncidentChannel } from '../components/IncidentChannel';
-import { IncidentList } from '../IncidentList';
+import { IncidentList } from '../components/IncidentList';
 
 const styles = {
 	paperContainer: {
@@ -23,7 +23,6 @@ export const ViewIncident = () => {
 					</div>
 					<Grid container spacing={2}>
 						<Grid item xs={4}>
-							list of incidents
 							<IncidentList />
 						</Grid>
 						<Grid item xs={8}>

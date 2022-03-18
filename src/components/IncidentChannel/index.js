@@ -26,8 +26,26 @@ export const IncidentChannel = () => {
 					<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
 						<Box sx={item.teacherComment}> hello mum</Box>
 					</Grid>
-					<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
+					<Grid
+						item
+						xs={12}
+						sx={{
+							display: 'flex',
+							justifyContent: 'start',
+						}}>
 						<Box sx={item.parentComment}> hi miss</Box>
+					</Grid>
+					<Grid
+						item
+						xs={12}
+						sx={{
+							display: 'flex',
+							justifyContent: 'start',
+						}}>
+						<Box sx={item.parentComment}> hows my son today?</Box>
+					</Grid>
+					<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
+						<Box sx={item.teacherComment}> slight tummy pain- but hes ok!</Box>
 					</Grid>
 				</Grid>
 			</Box>
