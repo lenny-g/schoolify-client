@@ -1,4 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+
 import { useAuth } from "../context/AppProvider";
 import { Login } from "../pages/Login";
 import { ParentSignup } from "../pages/ParentSignup";
@@ -16,8 +20,10 @@ import { Medical } from "../pages/Medical";
 import { ViewParentsAbsenceRequests } from "../pages/ViewParentsAbsenceRequests";
 import { ViewAbsenceRequestTeacher } from "../pages/ViewAbsenceRequestTeacher";
 import { ViewStudents } from "../pages/ViewStudents";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TeacherDashboard } from "../pages/TeacherDashboard";
+import { TopNavbar } from "../components/NavigationBar/TopNavbar";
+import { SideNavbar } from "../components/NavigationBar/SideNavbar";
+import { MOBILE } from "../media";
 
 const theme = createTheme({
   palette: {
@@ -50,42 +56,60 @@ const theme = createTheme({
 });
 
 export const AppRouter = () => {
+  const isMobile = useMediaQuery(MOBILE);
   const { isLoggedIn } = useAuth();
 
   return (
-    <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/parent/sign-up" element={<ParentSignup />} />
-        <Route path="/teacher/sign-up" element={<TeacherSignup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<About />} />
+    <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}>
+      {isMobile ? <TopNavbar /> : <SideNavbar />}
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/parent/sign-up" element={<ParentSignup />} />
+            <Route path="/teacher/sign-up" element={<TeacherSignup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<About />} />
 
-        {isLoggedIn ? (
-          <>
-            <Route path="/medical/new" element={<Medical />} />
-            <Route path="/dashboard/parent" element={<Dashboard />} />
-            <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
-            <Route path="/children/new" element={<AddChild />} />
-            <Route path="/children/view" element={<ViewChildren />} />
-            <Route path="/children/view/:studentId" element={<StudentInfo />} />
-            <Route path="/appointment/new" element={<Appointment />} />
-            <Route path="/appointment/view" element={<ViewAppointments />} />
-            <Route path="/absenceRequest/new" element={<AbsenceRequest />} />
-            <Route
-              path="/absenceRequest/view"
-              element={<ViewParentsAbsenceRequests />}
-            />
-            <Route
-              path="/absence-requests"
-              element={<ViewAbsenceRequestTeacher />}
-            />
-            <Route path="/view/students" element={<ViewStudents />} />
-          </>
-        ) : (
-          <Route path="*" element={<Navigate to="/" />} />
-        )}
-      </Routes>
-    </ThemeProvider>
+            {isLoggedIn ? (
+              <>
+                <Route path="/medical/new" element={<Medical />} />
+                <Route path="/dashboard/parent" element={<Dashboard />} />
+                <Route
+                  path="/dashboard/teacher"
+                  element={<TeacherDashboard />}
+                />
+                <Route path="/children/new" element={<AddChild />} />
+                <Route path="/children/view" element={<ViewChildren />} />
+                <Route
+                  path="/children/view/:studentId"
+                  element={<StudentInfo />}
+                />
+                <Route path="/appointment/new" element={<Appointment />} />
+                <Route
+                  path="/appointment/view"
+                  element={<ViewAppointments />}
+                />
+                <Route
+                  path="/absenceRequest/new"
+                  element={<AbsenceRequest />}
+                />
+                <Route
+                  path="/absenceRequest/view"
+                  element={<ViewParentsAbsenceRequests />}
+                />
+                <Route
+                  path="/absence-requests"
+                  element={<ViewAbsenceRequestTeacher />}
+                />
+                <Route path="/view/students" element={<ViewStudents />} />
+              </>
+            ) : (
+              <Route path="*" element={<Navigate to="/" />} />
+            )}
+          </Routes>
+        </ThemeProvider>
+      </Box>
+    </Box>
   );
 };

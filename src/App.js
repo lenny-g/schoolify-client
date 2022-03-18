@@ -4,16 +4,11 @@ import {
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
-import { useMediaQuery } from "react-responsive";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter } from "react-router-dom";
-import Box from "@mui/material/Box";
 
 import { AppRouter } from "./components/AppRouter";
 import { AppProvider } from "./context/AppProvider";
-import { TopNavbar } from "./components/NavigationBar/TopNavbar";
-import { SideNavbar } from "./components/NavigationBar/SideNavbar";
-import { MOBILE } from "./media";
 
 import "./App.css";
 
@@ -39,22 +34,13 @@ const client = new ApolloClient({
 });
 
 export const App = () => {
-  const isMobile = useMediaQuery(MOBILE);
-
   return (
     <ApolloProvider client={client}>
-      <AppProvider>
-        <Box
-          sx={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}
-        >
-          {isMobile ? <TopNavbar /> : <SideNavbar />}
-          <BrowserRouter>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-              <AppRouter />
-            </Box>
-          </BrowserRouter>
-        </Box>
-      </AppProvider>
+      <BrowserRouter>
+        <AppProvider>
+          <AppRouter />
+        </AppProvider>
+      </BrowserRouter>
     </ApolloProvider>
   );
 };
