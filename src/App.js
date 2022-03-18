@@ -1,57 +1,60 @@
 import {
-	ApolloClient,
-	InMemoryCache,
-	ApolloProvider,
-	createHttpLink,
-} from '@apollo/client';
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { useMediaQuery } from "react-responsive";
+import { setContext } from "@apollo/client/link/context";
+import { BrowserRouter } from "react-router-dom";
+import Box from "@mui/material/Box";
 
-import { setContext } from '@apollo/client/link/context';
+import { AppRouter } from "./components/AppRouter";
+import { AppProvider } from "./context/AppProvider";
+import { TopNavbar } from "./components/NavigationBar/TopNavbar";
+import { SideNavbar } from "./components/NavigationBar/SideNavbar";
+import { MOBILE } from "./media";
 
-import { BrowserRouter } from 'react-router-dom';
-import './App.css';
-
-import { AppRouter } from './components/AppRouter';
-import { AppNavigationBar } from './components/NavigationBar/AppNavigationBar';
-import { AppProvider } from './context/AppProvider';
-
-import Box from '@mui/material/Box';
+import "./App.css";
 
 const link = createHttpLink({
-	uri: 'http://localhost:4000/',
-	credentials: 'same-origin',
+  uri: "http://localhost:4000/",
+  credentials: "same-origin",
 });
 
 const authLink = setContext((_, { headers }) => {
-	const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
-	return {
-		headers: {
-			...headers,
-			authorization: token ? `Bearer ${token}` : '',
-		},
-	};
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
 });
 
 const client = new ApolloClient({
-	link: authLink.concat(link),
-	cache: new InMemoryCache(),
+  link: authLink.concat(link),
+  cache: new InMemoryCache(),
 });
 
-function App() {
-	return (
-		<ApolloProvider client={client}>
-			<AppProvider>
-				<Box sx={{ display: 'flex' }}>
-					<AppNavigationBar />
-					<BrowserRouter>
-						<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-							<AppRouter />
-						</Box>
-					</BrowserRouter>
-				</Box>
-			</AppProvider>
-		</ApolloProvider>
-	);
-}
+export const App = () => {
+  const isMobile = useMediaQuery(MOBILE);
 
-export default App;
+  return (
+    <ApolloProvider client={client}>
+      <AppProvider>
+        <Box
+          sx={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}
+        >
+          {isMobile ? <TopNavbar /> : <SideNavbar />}
+          <BrowserRouter>
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <AppRouter />
+            </Box>
+          </BrowserRouter>
+        </Box>
+      </AppProvider>
+    </ApolloProvider>
+  );
+};
