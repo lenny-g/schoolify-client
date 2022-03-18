@@ -24,9 +24,12 @@ const styles = {
 export const StudentInfo = (props) => {
   const { studentId } = useParams();
 
-  const { loading, error, data } = useQuery(VIEW_CHILD, {
+  const { data, loading, error, refetch } = useQuery(VIEW_CHILD, {
     variables: { studentId },
+
+    pollInterval: 1000,
   });
+  const childData = data?.viewChild;
   if (error) {
     return <div>ERROR</div>;
   }
@@ -34,7 +37,7 @@ export const StudentInfo = (props) => {
     return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
-  console.log(data);
+  console.log(childData);
   console.log(data.viewChild);
 
   return (
@@ -53,13 +56,13 @@ export const StudentInfo = (props) => {
                 component="div"
                 sx={headers.font}
               >
-                {data.viewChild.firstName} {data.viewChild.lastName}'s Dashboard
+                {childData.firstName} {childData.lastName}'s Dashboard
               </Typography>
             </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <Box sx={colors.purple}>
-                  <ChildProfileCard data={data} />
+                  <ChildProfileCard childData={childData} />
                 </Box>
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -69,7 +72,7 @@ export const StudentInfo = (props) => {
 
               <Grid item xs={12} sm={4}>
                 <Box sx={colors.yellow}>
-                  <AbsenceRequestSummary data={data} />
+                  <AbsenceRequestSummary childData={childData} />
                 </Box>
 
                 <Box sx={item.inputBox}>box4</Box>

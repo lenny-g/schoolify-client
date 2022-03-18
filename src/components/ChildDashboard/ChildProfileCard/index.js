@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import { colors, item } from "../../../styles";
 import { MedicalInfo } from "./MedicalInfo";
 
-export const ChildProfileCard = ({ data }) => {
+export const ChildProfileCard = ({ childData }) => {
   return (
     <Box sx={item.inputBox} width="250px">
       <Avatar
@@ -16,7 +16,7 @@ export const ChildProfileCard = ({ data }) => {
         src="https://cdn.24.co.za/files/Cms/General/d/10868/da4178db584e45fab43b01ea0f9aad30.jpg"
         sx={{ width: 200, height: 200 }}
       />
-      <MedicalInfo data={data} />
+      <MedicalInfo childData={childData} />
     </Box>
   );
 };

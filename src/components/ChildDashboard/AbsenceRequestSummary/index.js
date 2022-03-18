@@ -22,7 +22,20 @@ import { forms, item, colors, headers } from "../../../styles";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
-export const AbsenceRequestSummary = ({ data }) => {
+const stylingRowColor = (status) => {
+  if (status === "PENDING") return "lightGray";
+  if (status === "APPROVED") return "lightGreen";
+  if (status === "REJECTED") return "red";
+};
+
+const checkStatus = (absenceRequest) => {
+  if (absenceRequest.status === "reject") {
+  }
+  return true;
+};
+
+export const AbsenceRequestSummary = ({ childData }) => {
+  console.log(childData);
   return (
     <div>
       <Typography
@@ -34,21 +47,26 @@ export const AbsenceRequestSummary = ({ data }) => {
       >
         Absence Requests:
       </Typography>
-      {data.viewChild.absenceRequests.map((absenceRequest, index) => {
+      {childData?.absenceRequests?.map((absenceRequest, index) => {
         return (
-          <Accordion disabled className="accordionPending">
+          <Accordion
+            disabled
+            sx={{ backgroundColor: stylingRowColor(absenceRequest.status) }}
+          >
             <AccordionSummary>
               <Typography>
                 {absenceRequest.type} {absenceRequest.dateTime}
                 {absenceRequest.status}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                We cannot allow child to have a day off for a family trip, as
-                there are ample opportunities during half term break.
-              </Typography>
-            </AccordionDetails>
+            {checkStatus(absenceRequest) && (
+              <AccordionDetails>
+                <Typography>
+                  We cannot allow child to have a day off for a family trip, as
+                  there are ample opportunities during half term break.
+                </Typography>
+              </AccordionDetails>
+            )}
           </Accordion>
         );
       })}

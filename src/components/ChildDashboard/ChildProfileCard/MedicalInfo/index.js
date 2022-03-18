@@ -5,7 +5,8 @@ import Stack from "@mui/material/Stack";
 
 import { item } from "../../../../styles";
 
-export const MedicalInfo = ({ data }) => {
+export const MedicalInfo = ({ childData }) => {
+  console.log(childData);
   return (
     <Box sx={item.inputBox}>
       <Typography variant="subtitle1" gutterBottom>
@@ -20,7 +21,7 @@ export const MedicalInfo = ({ data }) => {
           spacing={1}
           sx={{ display: "flex", justifyContent: "center" }}
         >
-          {data.viewChild.medical.allergies.map((allergy, index) => {
+          {childData?.medical?.allergies?.map((allergy, index) => {
             return <Chip label={allergy} key={index} />;
           })}
         </Stack>
@@ -33,7 +34,7 @@ export const MedicalInfo = ({ data }) => {
             spacing={1}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            {data.viewChild.medical.disabilities.map((disability, index) => {
+            {childData?.medical?.disabilities?.map((disability, index) => {
               return <Chip label={disability} key={index} />;
             })}
           </Stack>
@@ -47,7 +48,7 @@ export const MedicalInfo = ({ data }) => {
             spacing={1}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            {data.viewChild.medical.medications.map((medication, index) => {
+            {childData?.medical?.medications?.map((medication, index) => {
               return <Chip label={medication} key={index} />;
             })}
           </Stack>
