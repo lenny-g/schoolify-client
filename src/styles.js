@@ -61,6 +61,23 @@ export const item = {
 		justifyContent: 'center',
 		borderRadius: '15px',
 	},
+
+	teacherComment: {
+		width: 'fitContent',
+		backgroundColor: 'orange',
+		padding: '5px',
+		margin: '2px',
+		borderRadius: '10px',
+		width: 'fitContent',
+	},
+	parentComment: {
+		width: 'fitContent',
+		backgroundColor: 'yellow',
+		padding: '5px',
+		margin: '2px',
+		borderRadius: '10px',
+		width: 'fitContent',
+	},
 };
 
 export const largeButtons = {

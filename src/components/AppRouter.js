@@ -25,6 +25,7 @@ import { TopNavbar } from '../components/NavigationBar/TopNavbar';
 import { SideNavbar } from '../components/NavigationBar/SideNavbar';
 import { MOBILE } from '../media';
 import { TeacherIncidentReport } from '../pages/TeacherIncidentReport';
+import { ViewIncident } from '../pages/ViewIncident';
 
 const theme = createTheme({
 	palette: {
@@ -75,6 +76,7 @@ export const AppRouter = () => {
 							path='/incident-report/new'
 							element={<TeacherIncidentReport />}
 						/>
+						<Route path='/incident-report/view' element={<ViewIncident />} />
 
 						{isLoggedIn ? (
 							<>
