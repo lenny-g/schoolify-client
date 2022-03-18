@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
-import { colors, item } from "../../../../styles";
+import { item } from "../../../../styles";
 
 export const MedicalInfo = ({ data }) => {
   return (
