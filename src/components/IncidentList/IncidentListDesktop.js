@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { item, colors } from '../../styles';
 import Grid from '@mui/material/Grid';
 
-export const IncidentList = () => {
+export const IncidentListDesktop = () => {
 	return (
 		<Box>
 			<Grid
