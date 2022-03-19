@@ -145,14 +145,14 @@ export const UploadChildImage = ({ setChildImage }) => {
 									} KB`}</Typography>
 								</Grid>
 								<Grid item xs={6} sx={{ textAlign: 'end' }}>
-									<iconButton
+									<IconButton
 										variant='contained'
-										sx={{ color: '#d32f2f', padding: '10px' }}
+										sx={{ color: '#e78baa', padding: '10px' }}
 										onClick={() => {
 											setImage();
 										}}>
 										<DeleteIcon />
-									</iconButton>
+									</IconButton>
 								</Grid>
 							</Grid>
 						</Stack>
