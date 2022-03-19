@@ -9,6 +9,8 @@ import { IncidentListMobile } from '../components/IncidentList/IncidentListMobil
 import { MOBILE, DESKTOP } from '../media';
 import { useMediaQuery } from 'react-responsive';
 import { IncidentComment } from '../components/IncidentComment';
+import Typography from '@mui/material/Typography';
+import { item, colors, headers } from '../styles';
 
 const styles = {
 	paperContainer: {
@@ -26,6 +28,16 @@ export const ViewIncident = () => {
 				<div className='logoContainer'>
 					<img src={logo} className='logo' alt='logo' />
 				</div>
+				<Grid item xs={12}>
+					<Typography
+						className='headingFont'
+						variant='h5'
+						gutterBottom
+						component='div'
+						sx={headers.font}>
+						Incident Form
+					</Typography>
+				</Grid>
 				<Grid container>
 					{isMobile && (
 						<Grid item xs={12}>
