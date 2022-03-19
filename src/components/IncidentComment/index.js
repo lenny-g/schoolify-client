@@ -22,15 +22,15 @@ export const IncidentComment = () => {
 				<TextField
 					color='warning'
 					margin='normal'
-					id='additionalInfo'
-					label='Additional Info'
+					id='comment'
+					label='Comment'
 					variant='outlined'
-					name='additionalInfo'
+					name='comment'
 					rows={4}
 					multiline
 					fullWidth
-					{...register('additionalInfo', { required: true })}
-					error={!!errors.additionalInfo}
+					{...register('comment', { required: true })}
+					error={!!errors.comment}
 				/>
 			</Grid>
 			<Grid sx={item.comment} xs={12}>

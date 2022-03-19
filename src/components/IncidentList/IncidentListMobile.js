@@ -13,6 +13,10 @@ const incidentOptions = [
 	{ value: 'billysPEkit', title: 'Billys PE kit' },
 	{ value: 'billyHadAFight', title: 'Billy had a fight' },
 ];
+const childOptions = [
+	{ value: 'billy', title: 'Billy' },
+	{ value: 'bob', title: 'Bob' },
+];
 
 export const IncidentListMobile = () => {
 	const {
@@ -28,6 +32,33 @@ export const IncidentListMobile = () => {
 
 	return (
 		<Box>
+			<Grid
+				item
+				xs={12}
+				sx={{
+					padding: '10px',
+					display: 'flex',
+				}}>
+				<FormControl sx={{ mt: 2 }} fullWidth>
+					<InputLabel color='secondary' id='child'>
+						Child
+					</InputLabel>
+					<Select
+						color='secondary'
+						defaultValue={'parent'}
+						labelId='child'
+						id='child'
+						label='child'
+						{...register('child')}
+						autoFocus>
+						{childOptions.map((child, index) => (
+							<MenuItem key={index} value={child.value}>
+								{child.title}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</Grid>
 			<Grid
 				item
 				xs={12}

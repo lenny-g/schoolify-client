@@ -3,10 +3,54 @@ import { Divider } from '@mui/material';
 import { Typography } from '@mui/material';
 import { item, colors } from '../../styles';
 import Grid from '@mui/material/Grid';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { useForm, Controller } from 'react-hook-form';
+
+const childOptions = [
+	{ value: 'billy', title: 'Billy' },
+	{ value: 'bob', title: 'Bob' },
+];
 
 export const IncidentListDesktop = () => {
+	const {
+		register,
+
+		control,
+		formState: { errors },
+	} = useForm();
+
 	return (
 		<Box>
+			<Grid
+				item
+				xs={12}
+				sx={{
+					padding: '10px',
+					display: 'flex',
+				}}>
+				<FormControl sx={{ mt: 2 }} fullWidth>
+					<InputLabel color='secondary' id='child'>
+						Child
+					</InputLabel>
+					<Select
+						color='secondary'
+						defaultValue={'parent'}
+						labelId='child'
+						id='child'
+						label='child'
+						{...register('child')}
+						autoFocus>
+						{childOptions.map((child, index) => (
+							<MenuItem key={index} value={child.value}>
+								{child.title}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</Grid>
 			<Grid
 				item
 				xs={12}
