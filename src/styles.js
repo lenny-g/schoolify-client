@@ -53,6 +53,13 @@ export const item = {
 		flexBasis: '100%',
 		flex: 1,
 	},
+	comment: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		borderRadius: '25px',
+		flexBasis: '100%',
+	},
 	actionButtons: {
 		marginBottom: 2,
 		width: '6rem',

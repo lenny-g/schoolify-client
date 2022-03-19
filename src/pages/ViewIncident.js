@@ -8,6 +8,7 @@ import { IncidentListDesktop } from '../components/IncidentList/IncidentListDesk
 import { IncidentListMobile } from '../components/IncidentList/IncidentListMobile';
 import { MOBILE, DESKTOP } from '../media';
 import { useMediaQuery } from 'react-responsive';
+import { IncidentComment } from '../components/IncidentComment';
 
 const styles = {
 	paperContainer: {
@@ -20,37 +21,38 @@ export const ViewIncident = () => {
 	const isMobile = useMediaQuery(MOBILE);
 	const isDesktop = useMediaQuery(DESKTOP);
 	return (
-		<Container>
-			<Container component='main'>
-				<Paper elevation={6} style={styles.paperContainer}>
-					<div className='logoContainer'>
-						<img src={logo} className='logo' alt='logo' />
-					</div>
-					<Grid container>
-						{isMobile && (
-							<Grid item xs={12}>
-								<IncidentListMobile />
-							</Grid>
-						)}
-						{isDesktop && (
-							<Grid item xs={4}>
-								<IncidentListDesktop />
-							</Grid>
-						)}
+		<Container component='main'>
+			<Paper elevation={6} style={styles.paperContainer}>
+				<div className='logoContainer'>
+					<img src={logo} className='logo' alt='logo' />
+				</div>
+				<Grid container>
+					{isMobile && (
+						<Grid item xs={12}>
+							<IncidentListMobile />
+						</Grid>
+					)}
+					{isDesktop && (
+						<Grid item xs={4}>
+							<IncidentListDesktop />
+						</Grid>
+					)}
 
-						{isMobile && (
-							<Grid item xs={12}>
-								<IncidentChannel />
-							</Grid>
-						)}
-						{isDesktop && (
-							<Grid item xs={8}>
-								<IncidentChannel />
-							</Grid>
-						)}
-					</Grid>
-				</Paper>
-			</Container>
+					{isMobile && (
+						<Grid item xs={12}>
+							<IncidentChannel />
+						</Grid>
+					)}
+					{isDesktop && (
+						<Grid item xs={8}>
+							<IncidentChannel />
+						</Grid>
+					)}
+				</Grid>
+				<Grid container>
+					<IncidentComment />
+				</Grid>
+			</Paper>
 		</Container>
 	);
 };
