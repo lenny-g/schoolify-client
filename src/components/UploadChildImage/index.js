@@ -15,6 +15,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import UploadIcon from '@mui/icons-material/Upload';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import { item, colors, headers } from '../../styles';
 
 const Input = styled('input')({
 	display: 'none',
@@ -40,7 +42,7 @@ export const UploadChildImage = ({ setChildImage }) => {
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
-			padding: 4,
+			padding: 2,
 		},
 	};
 
@@ -89,7 +91,7 @@ export const UploadChildImage = ({ setChildImage }) => {
 	};
 
 	return (
-		<Box component='form' sx={styles.form}>
+		<Box component='form' sx={colors.purple}>
 			<Stack spacing={2} alignItems='center'>
 				<label htmlFor='image-uploader'>
 					<Input
@@ -101,7 +103,7 @@ export const UploadChildImage = ({ setChildImage }) => {
 							setImage(event.target.files[0]);
 						}}
 					/>
-					<Button variant='contained' component='span'>
+					<Button color='secondary' variant='contained' component='span'>
 						Add Image
 					</Button>
 				</label>
@@ -127,36 +129,32 @@ export const UploadChildImage = ({ setChildImage }) => {
 							Image to Upload
 						</Typography>
 						<Stack>
-							<ImageListItem>
-								<img
-									style={{
-										maxWidth: 150,
-										objectFit: 'contain',
-									}}
-									src={URL.createObjectURL(image)}
-									loading='lazy'
-								/>
-								<ImageListItemBar
-									title={image.name}
-									subtitle={`${Math.floor(image.size / 10) / 100} KB`}
-									actionIcon={
-										loading ? (
-											<CircularProgress
-												sx={{ color: '#fff', mr: 2 }}
-												size={20}
-											/>
-										) : (
-											<IconButton
-												sx={{ color: '#d32f2f' }}
-												onClick={() => {
-													setImage();
-												}}>
-												<DeleteIcon />
-											</IconButton>
-										)
-									}
-								/>
-							</ImageListItem>
+							<img
+								style={{
+									maxWidth: 180,
+									objectFit: 'contain',
+								}}
+								src={URL.createObjectURL(image)}
+								loading='lazy'
+							/>
+							<Grid container>
+								<Grid item xs={6}>
+									<Typography variant='body2'>{image.name}</Typography>
+									<Typography variant='caption'>{`${
+										Math.floor(image.size / 10) / 100
+									} KB`}</Typography>
+								</Grid>
+								<Grid item xs={6} sx={{ textAlign: 'end' }}>
+									<iconButton
+										variant='contained'
+										sx={{ color: '#d32f2f', padding: '10px' }}
+										onClick={() => {
+											setImage();
+										}}>
+										<DeleteIcon />
+									</iconButton>
+								</Grid>
+							</Grid>
 						</Stack>
 					</>
 				)}
