@@ -78,7 +78,7 @@ export const TeacherSignupForm = () => {
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
 				<Typography
-					variant='h5'
+					variant='h3'
 					gutterBottom
 					component='div'
 					sx={{ textAlign: 'center' }}>
@@ -257,7 +257,8 @@ export const TeacherSignupForm = () => {
 						component={RouterLink}
 						variant='body2'
 						to='/login'
-						underline='none'>
+						underline='none'
+						color='secondary.dark'>
 						Already have an account? Login
 					</Link>
 					{!!error && (

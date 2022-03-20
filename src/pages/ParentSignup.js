@@ -1,3 +1,4 @@
+import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 
 import { ParentSignupForm } from '../components/SignupForms/ParentSignupForm';
@@ -12,9 +13,11 @@ const styles = {
 
 export const ParentSignup = () => {
 	return (
-		<Paper elevation={6} style={styles.paperContainer}>
-			<Logo />
-			<ParentSignupForm />
-		</Paper>
+		<Container component='main'>
+			<Paper elevation={6} style={styles.paperContainer}>
+				<Logo />
+				<ParentSignupForm />
+			</Paper>
+		</Container>
 	);
 };

@@ -1,3 +1,4 @@
+import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 
 import { TeacherSignupForm } from '../components/SignupForms/TeacherSignupForm';
@@ -12,9 +13,11 @@ const styles = {
 
 export const TeacherSignup = () => {
 	return (
-		<Paper elevation={6} style={styles.paperContainer}>
-			<Logo />
-			<TeacherSignupForm />
-		</Paper>
+		<Container component='main'>
+			<Paper elevation={6} style={styles.paperContainer}>
+				<Logo />
+				<TeacherSignupForm />
+			</Paper>
+		</Container>
 	);
 };

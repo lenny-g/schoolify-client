@@ -201,28 +201,28 @@ export const AddChildForm = () => {
 						{/* {uploadComplete && !loading && (
 						<Alert severity='success'>Successfully uploaded image</Alert>
 					)} */}
+						<Box sx={item.comment}>
+							<LoadingButton
+								loading={mutationLoading}
+								loadingIndicator='Loading...'
+								variant='contained'
+								type='submit'
+								sx={styles.loadingButton}
+								startIcon={mutationError && <ErrorIcon />}
+								color={mutationError ? 'error' : 'secondary'}>
+								Add Child
+							</LoadingButton>
 
-						<LoadingButton
-							loading={mutationLoading}
-							loadingIndicator='Loading...'
-							variant='contained'
-							fullWidth
-							type='submit'
-							sx={styles.loadingButton}
-							startIcon={mutationError && <ErrorIcon />}
-							color={mutationError ? 'error' : 'secondary'}>
-							Add Child
-						</LoadingButton>
-
-						{!!mutationError && (
-							<Typography
-								variant='subtitle2'
-								gutterBottom
-								component='div'
-								sx={{ mt: 2, textAlign: 'center', color: '#d32f2f' }}>
-								Failed to add child.
-							</Typography>
-						)}
+							{!!mutationError && (
+								<Typography
+									variant='subtitle2'
+									gutterBottom
+									component='div'
+									sx={{ mt: 2, textAlign: 'center', color: '#d32f2f' }}>
+									Failed to add child.
+								</Typography>
+							)}
+						</Box>
 					</Box>
 				</Grid>
 			</Grid>

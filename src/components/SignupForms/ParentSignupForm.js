@@ -69,7 +69,7 @@ export const ParentSignupForm = () => {
 			<Grid item xs={12}>
 				<Typography
 					className='headingFont'
-					variant='h5'
+					variant='h3'
 					gutterBottom
 					component='div'
 					sx={headers.font}>
@@ -290,11 +290,11 @@ export const ParentSignupForm = () => {
 						</LoadingButton>
 						<Link
 							component={RouterLink}
-							color='black'
 							variant='body2'
 							to='/login'
 							underline='none'
-							sx={{ textAlign: 'center' }}>
+							sx={{ textAlign: 'center' }}
+							color='secondary.dark'>
 							Already have an account? Login
 						</Link>
 						{!!error && (

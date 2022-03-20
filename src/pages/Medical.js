@@ -8,22 +8,20 @@ import { Logo } from '../components/Logo';
 const styles = {
 	paperContainer: {
 		margin: '2rem 0',
-		borderRadius: '25px',
+		borderRadius: '10px',
 	},
 };
 
 export const Medical = () => {
 	return (
-		<Container>
-			<Container component='main' maxWidth='md'>
-				<Paper
-					className='positioning'
-					elevation={6}
-					style={styles.paperContainer}>
-					<Logo />
-					<MedicalForm />
-				</Paper>
-			</Container>
+		<Container component='main' maxWidth='md'>
+			<Paper
+				className='positioning'
+				elevation={6}
+				style={styles.paperContainer}>
+				<Logo />
+				<MedicalForm />
+			</Paper>
 		</Container>
 	);
 };
