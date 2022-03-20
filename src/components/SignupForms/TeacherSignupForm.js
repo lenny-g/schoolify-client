@@ -85,7 +85,7 @@ export const TeacherSignupForm = () => {
 					Teacher . Signup . Page
 				</Typography>
 			</Grid>
-			<Grid item xs={12} sm={6}>
+			<Grid item xs={12} md={6}>
 				<Box sx={colors.yellow}>
 					<Typography
 						color='warning.dark'
@@ -169,7 +169,7 @@ export const TeacherSignupForm = () => {
 					/>
 				</Box>
 			</Grid>
-			<Grid item xs={12} sm={6}>
+			<Grid item xs={12} md={6}>
 				<Box sx={colors.purple}>
 					<Typography
 						color='secondary.dark'
