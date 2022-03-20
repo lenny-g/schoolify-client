@@ -38,6 +38,7 @@ export const item = {
 		padding: '15px',
 		minWidth: '200px',
 		margin: '10px',
+		borderRadius: '10px',
 	},
 	outerContainer: {
 		display: 'flex',
@@ -108,7 +109,7 @@ export const largeButtons = {
 		padding: '10px',
 		m: '1rem',
 		borderRadius: '25px',
-		backgroundColor: 'lightBlue',
+		backgroundColor: '#82caec82',
 	},
 };
 

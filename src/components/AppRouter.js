@@ -51,8 +51,12 @@ const theme = createTheme({
 		},
 	},
 	typography: {
+		h3: {
+			fontFamily: "'Gochi Hand', cursive",
+			fontSize: '2.5rem',
+		},
 		h5: {
-			fontFamily: "'Gochi Hand', cursive;",
+			fontFamily: "'Gochi Hand', cursive",
 		},
 	},
 });

@@ -22,13 +22,13 @@ export const TeamMemberCard = ({
 	return (
 		<Card
 			sx={{
-				maxWidth: 345,
+				maxWidth: 300,
 				m: '1rem',
 				backgroundColor: '#b7cbf88a',
 				padding: ' 20px',
 				borderRadius: '20px',
 			}}>
-			<CardMedia component='img' height='400px' image={img} alt={name} />
+			<CardMedia component='img' height='300px' image={img} alt={name} />
 			<CardContent>
 				<Typography variant='h5' color='text.primary'>
 					{name}

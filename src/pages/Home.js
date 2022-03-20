@@ -8,13 +8,13 @@ import { Logo } from '../components/Logo';
 const styles = {
 	paperContainer: {
 		margin: '2rem 0',
-		borderRadius: '25px',
+		borderRadius: '10px',
 	},
 };
 
 export const Home = () => {
 	return (
-		<Container component='main' maxWidth='md'>
+		<Container component='main'>
 			<Paper elevation={6} style={styles.paperContainer}>
 				<Logo />
 				<HomePageIntro />

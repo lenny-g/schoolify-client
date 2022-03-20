@@ -10,21 +10,20 @@ import { Logo } from '../components/Logo';
 const styles = {
 	paperContainer: {
 		margin: '2rem 0',
-		borderRadius: '25px',
+		padding: '1rem 0',
+		borderRadius: '10px',
 	},
 };
 
 export const About = () => {
 	return (
-		<Container component='main' maxWidth='lg'>
-			<Container
-				sx={{
-					m: '5rem',
-					textAlign: 'center',
-				}}>
+		<Container component='main' sx={{ textAlign: 'center' }}>
+			<Paper velevation={6} sx={styles.paperContainer}>
 				<Logo />
-				<Typography variant='h5'>Team behind Schoolify</Typography>
-				<Typography variant='subtitle1'>
+				<Typography variant='h5' sx={{ m: '1rem', fontSize: '2.5rem' }}>
+					Team behind Schoolify
+				</Typography>
+				<Typography variant='subtitle1' sx={{ m: '1rem' }}>
 					Schoolify works towards cutting green emissions, by reducing paper
 					communication, and streamlining conversations between teachers and
 					parents, Schoolify also documents conversations and progress of
@@ -42,7 +41,7 @@ export const About = () => {
 						return <TeamMemberCard {...member} />;
 					})}
 				</Container>
-			</Container>
+			</Paper>
 		</Container>
 	);
 };
