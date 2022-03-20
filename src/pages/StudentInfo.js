@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { item, colors, headers } from '../styles';
 import { AbsenceRequestSummary } from '../components/ChildDashboard/AbsenceRequestSummary';
 import { ChildProfileCard } from '../components/ChildDashboard/ChildProfileCard';
-import logo from '../assets/img/logo.png';
 
 import { VIEW_CHILD } from '../graphql/query';
 

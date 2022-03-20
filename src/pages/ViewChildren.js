@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import { ChildrenCards } from '../components/ChildrenCards';
-import { item, headers, colors } from '../styles';
+import { item, colors, headers } from '../styles';
 import { Logo } from '../components/Logo';
+import { QuickActionBtns } from '../components/QuickActionBtns';
 
 const styles = {
 	paperContainer: {
@@ -36,7 +36,7 @@ export const ViewChildren = () => {
 							Hi {firstName} {lastName}!
 						</Typography>
 					</Grid>
-					<Box sx={item.comment}>
+					<Grid xs={12} sx={item.comment}>
 						<Typography
 							variant='subtitle1'
 							gutterBottom
@@ -54,35 +54,15 @@ export const ViewChildren = () => {
 							Please note: If you have more then one child attending the same
 							school, you are able to add multiple children to your app
 						</Typography>
-						<Grid container sx={item.outerContainer}>
-							<Grid item xs={12}>
-								<Typography
-									variant='h6'
-									gutterBottom
-									sx={{ color: 'black', textAlign: 'center' }}>
-									Quick actions
-								</Typography>
+						<Grid container>
+							<Grid item xs={12} md={4}>
+								<QuickActionBtns />
 							</Grid>
-							<Grid container sx={colors.container}>
-								<Grid item xs={12} md={4} sx={item.btnContainer}>
-									<Button variant='contained' sx={item.btn} color='secondary'>
-										Add child
-									</Button>
-								</Grid>
-								<Grid item xs={12} md={4} sx={item.btnContainer}>
-									<Button variant='contained' sx={item.btn} color='secondary'>
-										View Incidents
-									</Button>
-								</Grid>
-								<Grid item xs={12} md={4} sx={item.btnContainer}>
-									<Button variant='contained' sx={item.btn} color='secondary'>
-										Absence Requests
-									</Button>
-								</Grid>
+							<Grid item xs={12} md={8} sx={{ margin: 'auto' }}>
+								<ChildrenCards />
 							</Grid>
 						</Grid>
-						<ChildrenCards />
-					</Box>
+					</Grid>
 				</Grid>
 			</Paper>
 		</Container>
