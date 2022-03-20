@@ -51,6 +51,7 @@ export const GET_ALL_CHILDREN = gql`
         firstName
         lastName
         dob
+        profileImageUrl
         yearGroup {
           id
           title
