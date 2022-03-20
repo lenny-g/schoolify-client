@@ -28,7 +28,7 @@ export const QuickActionBtns = () => {
 						Absence Requests
 					</Button>
 					<Button variant='contained' sx={item.btn} color='secondary'>
-						Absence Requests
+						Book Appointment
 					</Button>
 				</Grid>
 			</Box>

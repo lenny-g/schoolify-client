@@ -54,6 +54,7 @@ export const ViewChildren = () => {
 							Please note: If you have more then one child attending the same
 							school, you are able to add multiple children to your app
 						</Typography>
+
 						<Grid container>
 							<Grid item xs={12} md={4}>
 								<QuickActionBtns />
