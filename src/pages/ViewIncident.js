@@ -11,6 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 import { IncidentComment } from '../components/IncidentComment';
 import Typography from '@mui/material/Typography';
 import { item, colors, headers } from '../styles';
+import { Logo } from '../components/Logo';
 
 const styles = {
 	paperContainer: {
@@ -25,9 +26,7 @@ export const ViewIncident = () => {
 	return (
 		<Container component='main'>
 			<Paper elevation={6} style={styles.paperContainer}>
-				<div className='logoContainer'>
-					<img src={logo} className='logo' alt='logo' />
-				</div>
+				<Logo />
 				<Grid item xs={12}>
 					<Typography
 						className='headingFont'

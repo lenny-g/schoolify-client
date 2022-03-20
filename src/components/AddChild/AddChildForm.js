@@ -31,7 +31,7 @@ export const AddChildForm = () => {
 		executeAddStudent,
 		{ loading: mutationLoading, error: mutationError },
 	] = useMutation(ADD_STUDENT);
-	const [childImage, setChildImage] = useState('');
+	// const [childImage, setChildImage] = useState('');
 	const [dateOfBirth, setDateOfBirth] = useState(null);
 
 	const navigate = useNavigate();
@@ -54,7 +54,7 @@ export const AddChildForm = () => {
 	useEffect(() => {
 		setDateOfBirth(value || null);
 	}, [setDateOfBirth, value]);
-	console.log(childImage);
+	// console.log(childImage);
 	const onSubmit = async (studentData) => {
 		const { data, error } = await executeAddStudent({
 			variables: {
@@ -63,7 +63,7 @@ export const AddChildForm = () => {
 					lastName: studentData.childLastName,
 					dob: studentData.dob,
 					yearGroup: studentData.yearGroup,
-					avatar: childImage,
+					// avatar: childImage,
 				},
 			},
 		});
@@ -79,7 +79,7 @@ export const AddChildForm = () => {
 			textAlign: 'center',
 		},
 	};
-	console.log(childImage);
+	// console.log(childImage);
 
 	if (error) {
 		return <div>ERROR</div>;
@@ -98,7 +98,7 @@ export const AddChildForm = () => {
 					</Typography>
 				</Grid>
 				<Grid item xs={12} sx={colors.purple}>
-					<UploadChildImage setChildImage={setChildImage} />
+					{/* <UploadChildImage setChildImage={setChildImage} />
 					{childImage && (
 						<Stack sx={{ alignItems: 'center' }}>
 							<Typography
@@ -115,7 +115,7 @@ export const AddChildForm = () => {
 								sx={{ width: 100, height: 100 }}
 							/>
 						</Stack>
-					)}
+					)} */}
 
 					<Box onSubmit={handleSubmit(onSubmit)} component='form'>
 						<TextField

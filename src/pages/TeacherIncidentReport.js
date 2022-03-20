@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import logo from '../assets/img/logo.png';
 import { IncidentReportForm } from '../components/IncidentReportForm';
+import { Logo } from '../components/Logo';
 
 const styles = {
 	paperContainer: {
@@ -16,9 +17,7 @@ export const TeacherIncidentReport = () => {
 		<Container>
 			<Container component='main' maxWidth='md'>
 				<Paper elevation={6} style={styles.paperContainer}>
-					<div className='logoContainer'>
-						<img src={logo} className='logo' alt='logo' />
-					</div>
+					<Logo />
 					<IncidentReportForm />
 				</Paper>
 			</Container>

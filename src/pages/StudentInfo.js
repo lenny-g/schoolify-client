@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Logo } from '../components/Logo';
 
 const styles = {
 	paperContainer: {
@@ -44,9 +45,7 @@ export const StudentInfo = (props) => {
 		<Container>
 			<Container component='main'>
 				<Paper elevation={6} style={styles.paperContainer}>
-					<div className='logoContainer'>
-						<img src={logo} className='logo' alt='logo' />
-					</div>
+					<Logo />
 					<Grid container sx={item.outerContainer}>
 						<Grid item xs={12}>
 							<Typography

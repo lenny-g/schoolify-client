@@ -29,6 +29,16 @@ export const forms = {
 };
 
 export const item = {
+	btnContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+		minWidth: '160px',
+	},
+	btn: {
+		padding: '15px',
+		minWidth: '200px',
+		margin: '10px',
+	},
 	outerContainer: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -104,10 +114,12 @@ export const largeButtons = {
 
 export const colors = {
 	container: {
-		margin: '2rem',
-		backgroundColor: 'red',
-		// display: 'flex',
-		// justifyContent: 'center',
+		margin: '10px',
+		padding: '20px',
+		borderRadius: '25px',
+		flexBasis: '100%',
+		flex: 1,
+		backgroundColor: '#82caec82',
 	},
 	green: {
 		display: 'flex',
@@ -152,6 +164,15 @@ export const colors = {
 		flexBasis: '100%',
 		flex: 1,
 		backgroundColor: '#b7cbf88a',
+	},
+};
+export const brand = {
+	container: {
+		display: 'flex',
+		justifyContent: 'center',
+	},
+	logo: {
+		width: '5rem',
 	},
 };
 
