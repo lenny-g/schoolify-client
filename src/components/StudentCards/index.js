@@ -13,6 +13,8 @@ export const StudentCards = () => {
       yearGroupId: yearGroupId,
     },
   });
+  console.log(data);
+  console.log(yearGroupId);
 
   const studentData = data?.teacherStudents;
 
