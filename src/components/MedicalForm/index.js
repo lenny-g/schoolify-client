@@ -12,11 +12,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import LinearProgress from '@mui/material/LinearProgress';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
-import { item, forms, colors } from '../../styles';
+import { forms, colors, PURPLE } from '../../styles';
 
 import { ADD_MEDICAL_INFO_TO_STUDENT } from '../../graphql/mutations';
 import { GET_PARENTS_CHILDREN } from '../../graphql/query';
+import { PageTitle } from '../PageTitle';
 
 const allergyOptions = [
 	"cow's milk",
@@ -89,23 +93,26 @@ export const MedicalForm = () => {
 
 		navigate('/dashboard', { replace: true });
 	};
+
+	if (loading) {
+		return <LinearProgress style={{ backgroundColor: 'purple' }} />;
+	}
+
+	if (error) {
+		return (
+			<Alert severity='error'>
+				Something went wrong, please try again later.
+			</Alert>
+		);
+	}
 	return (
-		<Grid
-			container
-			component='form'
-			sx={item.outerContainer}
-			onSubmit={handleSubmit(onSubmit)}>
-			<Grid item xs={12}>
-				<Typography
-					variant='h5'
-					gutterBottom
-					component='div'
-					sx={{ textAlign: 'center' }}>
-					Child . Medical . Form
-				</Typography>
-			</Grid>
-			<Box sx={colors.yellow}>
-				<FormControl fullWidth sx={{ mb: 2 }}>
+		<Stack spacing={2}>
+			<PageTitle>Child . Medical . Form</PageTitle>
+			<Box
+				onSubmit={handleSubmit(onSubmit)}
+				component='form'
+				sx={{ ...forms.container, backgroundColor: PURPLE }}>
+				<FormControl fullWidth>
 					<InputLabel id='student' color='warning'>
 						Select Child
 					</InputLabel>
@@ -220,29 +227,29 @@ export const MedicalForm = () => {
 					rows={4}
 					multiline
 					fullWidth
-					// disabled={loading}
+					disabled={loading}
 					{...register('additionalInfo', { required: true })}
 					error={!!errors.additionalInfo}
 				/>
 				<LoadingButton
-					// loading={loading}
-					// disabled={loading}
+					loading={loading}
+					disabled={loading}
 					color='secondary'
 					type='submit'
 					variant='contained'
 					sx={forms.loadingButton}>
 					Submit
 				</LoadingButton>
-				{/* {!!error && ( */}
-				<Typography
-					variant='subtitle2'
-					gutterBottom
-					component='div'
-					sx={forms.errorContainer}>
-					Failed to add medical history.
-				</Typography>
-				{/* )} */}
+				{!!mutationError && (
+					<Typography
+						variant='subtitle2'
+						gutterBottom
+						component='div'
+						sx={forms.errorContainer}>
+						Failed to add medical history.
+					</Typography>
+				)}
 			</Box>
-		</Grid>
+		</Stack>
 	);
 };

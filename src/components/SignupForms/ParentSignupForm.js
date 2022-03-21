@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { PARENT_SIGN_UP } from '../../graphql/mutations';
-import { item, colors, headers } from '../../styles';
+import { item, colors, PURPLE, forms } from '../../styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
+import { PageTitle } from '../PageTitle';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
@@ -67,18 +68,11 @@ export const ParentSignupForm = () => {
 			component='form'
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
-				<Typography
-					className='headingFont'
-					variant='h3'
-					gutterBottom
-					component='div'
-					sx={headers.font}>
-					Parent . Signup . Page
-				</Typography>
+				<PageTitle>Parent . Signup . Page</PageTitle>
 			</Grid>
 			<Grid container>
 				<Grid item xs={12} md={6}>
-					<Box sx={colors.pink}>
+					<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
 						<Typography
 							color='primary'
 							variant='subtitle1'
@@ -132,7 +126,7 @@ export const ParentSignupForm = () => {
 						/>
 					</Box>
 					<Box sx={{ mt: '2rem' }}>
-						<Box sx={colors.green}>
+						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
 							<Typography
 								color='success.dark'
 								variant='subtitle1'
@@ -206,7 +200,7 @@ export const ParentSignupForm = () => {
 					</Box>
 				</Grid>
 				<Grid item xs={12} md={6}>
-					<Box sx={colors.yellow}>
+					<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
 						<Typography
 							color='warning.dark'
 							variant='subtitle1'
@@ -275,7 +269,7 @@ export const ParentSignupForm = () => {
 							error={!!errors.phoneNumber}
 						/>
 					</Box>
-					<Box sx={item.inputBox}>
+					<Box sx={{ ...forms.container }}>
 						<LoadingButton
 							loading={loading}
 							disabled={loading}

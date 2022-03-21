@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import parseISO from 'date-fns/parseISO';
 import { GET_ALL_PARENT_ABSENCE_REQUESTS } from '../../graphql/query';
 import { useQuery, useMutation } from '@apollo/client';
 import { DELETE_ABSENCE_REQUEST } from '../../graphql/mutations';
-import { AbsenceRequestCard } from '../AbsenceRequestCard/parentAbsenceRequestCard';
-import Box from '@mui/material/Box';
+import { AbsenceRequestCard } from '../AbsenceRequestCard/ParentAbsenceRequestCard';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import TableContainer from '@mui/material/TableContainer';
@@ -14,12 +13,14 @@ import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { PageTitle } from '../PageTitle';
+import { MOBILE, DESKTOP } from '../../media';
+import { useMediaQuery } from 'react-responsive';
 
 const stylingRowColor = (status) => {
 	if (status === 'PENDING') return '#b7cbf88a';
@@ -28,8 +29,10 @@ const stylingRowColor = (status) => {
 };
 
 export const ParentsAbsenceRequestTable = () => {
+	const isMobile = useMediaQuery(MOBILE);
+	const isDesktop = useMediaQuery(DESKTOP);
+
 	const [search, setSearch] = useState('');
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 	const { data, loading, error, refetch } = useQuery(
 		GET_ALL_PARENT_ABSENCE_REQUESTS,
@@ -87,18 +90,6 @@ export const ParentsAbsenceRequestTable = () => {
 		}
 	};
 
-	useEffect(() => {
-		window.addEventListener('resize', () => {
-			setWindowWidth(window.innerWidth);
-		});
-
-		return () => {
-			window.removeEventListener('resize', () => {
-				setWindowWidth(window.innerWidth);
-			});
-		};
-	}, []);
-
 	if (error) {
 		return <div>ERROR</div>;
 	}
@@ -108,15 +99,8 @@ export const ParentsAbsenceRequestTable = () => {
 	}
 
 	return (
-		<Container>
-			<Typography
-				variant='h3'
-				gutterBottom
-				component='div'
-				sx={{ textAlign: 'center' }}>
-				Absence Requests
-			</Typography>
-
+		<Stack spacing={2}>
+			<PageTitle>Absence . Requests</PageTitle>
 			<TextField
 				color='secondary'
 				label='Filter by child name'
@@ -129,7 +113,7 @@ export const ParentsAbsenceRequestTable = () => {
 				onChange={(e) => setSearch(e.target.value)}
 			/>
 
-			{windowWidth > 700 ? (
+			{isDesktop && (
 				<TableContainer component={Paper}>
 					<Table>
 						<TableHead
@@ -192,8 +176,9 @@ export const ParentsAbsenceRequestTable = () => {
 						</TableBody>
 					</Table>
 				</TableContainer>
-			) : (
-				<Grid container>
+			)}
+			{!isMobile && (
+				<Grid>
 					{handleUserSearch().map((each, index) => {
 						return (
 							<AbsenceRequestCard
@@ -206,6 +191,6 @@ export const ParentsAbsenceRequestTable = () => {
 					})}
 				</Grid>
 			)}
-		</Container>
+		</Stack>
 	);
 };

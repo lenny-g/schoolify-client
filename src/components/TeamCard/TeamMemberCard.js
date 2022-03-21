@@ -1,6 +1,4 @@
-import * as React from 'react';
 import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LanguageIcon from '@mui/icons-material/Language';
-import { item, colors, headers } from '../../styles';
 
 export const TeamMemberCard = ({
 	img,
@@ -22,13 +19,19 @@ export const TeamMemberCard = ({
 	return (
 		<Card
 			sx={{
-				maxWidth: 300,
+				maxWidth: 250,
 				m: '1rem',
 				backgroundColor: '#b7cbf88a',
 				padding: ' 20px',
 				borderRadius: '20px',
 			}}>
-			<CardMedia component='img' height='300px' image={img} alt={name} />
+			<CardMedia
+				component='img'
+				height='250px'
+				image={img}
+				alt={name}
+				sx={{ borderRadius: '15px' }}
+			/>
 			<CardContent>
 				<Typography variant='h5' color='text.primary'>
 					{name}

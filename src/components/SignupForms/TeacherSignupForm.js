@@ -4,7 +4,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { GET_YEAR_GROUP_DATA } from '../../graphql/query';
 import { TEACHER_SIGN_UP } from '../../graphql/mutations';
-import { forms } from '../../styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -17,7 +16,8 @@ import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
 
-import { item, colors, headers } from '../../styles';
+import { item, colors, forms, PURPLE } from '../../styles';
+import { PageTitle } from '../PageTitle';
 
 const titleOptions = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'];
 
@@ -77,16 +77,10 @@ export const TeacherSignupForm = () => {
 			component='form'
 			onSubmit={handleSubmit(onSubmit)}>
 			<Grid item xs={12}>
-				<Typography
-					variant='h3'
-					gutterBottom
-					component='div'
-					sx={{ textAlign: 'center' }}>
-					Teacher . Signup . Page
-				</Typography>
+				<PageTitle>Teacher . Signup . Page</PageTitle>
 			</Grid>
 			<Grid item xs={12} md={6}>
-				<Box sx={colors.yellow}>
+				<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
 					<Typography
 						color='warning.dark'
 						variant='subtitle1'
@@ -170,7 +164,7 @@ export const TeacherSignupForm = () => {
 				</Box>
 			</Grid>
 			<Grid item xs={12} md={6}>
-				<Box sx={colors.purple}>
+				<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
 					<Typography
 						color='secondary.dark'
 						variant='subtitle1'
@@ -241,7 +235,7 @@ export const TeacherSignupForm = () => {
 				</Box>
 			</Grid>
 			<Grid item xs={12}>
-				<Box sx={item.inputBox}>
+				<Box sx={{ ...forms.container }}>
 					<LoadingButton
 						loading={loading}
 						disabled={loading}

@@ -1,25 +1,17 @@
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { item, colors, headers } from '../styles';
-import { AbsenceRequestSummary } from '../components/ChildDashboard/AbsenceRequestSummary';
-import { ChildProfileCard } from '../components/ChildDashboard/ChildProfileCard';
-
-import { VIEW_CHILD } from '../graphql/query';
-
 import LinearProgress from '@mui/material/LinearProgress';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { Logo } from '../components/Logo';
+import { PageContainer } from '../components/PageContainer/';
 
-const styles = {
-	paperContainer: {
-		margin: '2rem 0',
-		borderRadius: '25px',
-	},
-};
+import { VIEW_CHILD } from '../graphql/query';
+
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { item, forms, PURPLE, headers } from '../styles';
+import { AbsenceRequestSummary } from '../components/ChildDashboard/AbsenceRequestSummary';
+import { ChildProfileCard } from '../components/ChildDashboard/ChildProfileCard';
+import { PageTitle } from '../components/PageTitle';
 
 export const StudentInfo = (props) => {
 	const { studentId } = useParams();
@@ -41,43 +33,33 @@ export const StudentInfo = (props) => {
 	console.log(data.viewChild);
 
 	return (
-		<Container>
-			<Container component='main'>
-				<Paper elevation={6} style={styles.paperContainer}>
-					<Logo />
-					<Grid container sx={item.outerContainer}>
-						<Grid item xs={12}>
-							<Typography
-								className='headingFont'
-								variant='h5'
-								gutterBottom
-								component='div'
-								sx={headers.font}>
-								{childData.firstName} {childData.lastName}'s Dashboard
-							</Typography>
-						</Grid>
-						<Grid container spacing={2}>
-							<Grid item xs={12} sm={4}>
-								<Box sx={colors.purple}>
-									<ChildProfileCard childData={childData} />
-								</Box>
-							</Grid>
-							<Grid item xs={12} sm={4}>
-								<Box sx={colors.pink}>Box1</Box>
-								<Box sx={colors.green}>box2</Box>
-							</Grid>
-
-							<Grid item xs={12} sm={4}>
-								<Box sx={colors.yellow}>
-									<AbsenceRequestSummary childData={childData} />
-								</Box>
-
-								<Box sx={item.inputBox}>box4</Box>
-							</Grid>
-						</Grid>
+		<PageContainer>
+			<Grid container sx={item.outerContainer}>
+				<Grid item xs={12}>
+					<PageTitle>
+						{childData.firstName} {childData.lastName}'s Dashboard
+					</PageTitle>
+				</Grid>
+				<Grid container>
+					<Grid item xs={12} md={4}>
+						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+							<ChildProfileCard childData={childData} />
+						</Box>
 					</Grid>
-				</Paper>
-			</Container>
-		</Container>
+					<Grid item xs={12} md={4}>
+						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>Box1</Box>
+						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>box2</Box>
+					</Grid>
+
+					<Grid item xs={12} md={4}>
+						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+							<AbsenceRequestSummary childData={childData} />
+						</Box>
+
+						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>box4</Box>
+					</Grid>
+				</Grid>
+			</Grid>
+		</PageContainer>
 	);
 };
