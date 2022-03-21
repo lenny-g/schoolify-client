@@ -44,7 +44,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -68,10 +67,20 @@ const Drawer = styled(MuiDrawer, {
 export const SideNavbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, setUser, setIsLoggedIn } = useAuth();
 
   const handleDrawerToggle = () => {
     setOpen(!open);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setUser();
+    setIsLoggedIn(false);
+
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -98,7 +107,11 @@ export const SideNavbar = () => {
           {getNavItems(user).map((each, index) => (
             <ListItemButton
               onClick={() => {
-                navigate(each.link, { replace: true });
+                if (each.name === "Logout") {
+                  handleLogout();
+                } else {
+                  navigate(each.link, { replace: true });
+                }
               }}
               key={each.name}
               sx={{

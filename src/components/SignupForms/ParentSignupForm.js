@@ -173,7 +173,6 @@ export const ParentSignupForm = () => {
 								})}
 								error={!!errors.password}
 							/>
-
 							<Typography
 								color='text.disabled'
 								variant='caption'
@@ -182,7 +181,6 @@ export const ParentSignupForm = () => {
 								Password must be 8 characters, and include both lowercase and
 								uppercase characters, with 1 special character required
 							</Typography>
-
 							<TextField
 								color='success'
 								margin='normal'

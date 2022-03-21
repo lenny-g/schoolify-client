@@ -15,7 +15,7 @@ import { getNavItems } from "./getNavItems";
 export const TopNavbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, setUser, setIsLoggedIn } = useAuth();
 
   const handleOpenDrawer = () => {
     setOpen(true);
@@ -25,7 +25,17 @@ export const TopNavbar = () => {
     setOpen(false);
   };
 
-  const list = () => (
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setUser();
+    setIsLoggedIn(false);
+
+    navigate("/login", { replace: true });
+  };
+
+  const renderList = () => (
     <Box
       sx={{ width: "auto", display: "flex", backgroundColor: "#212227" }}
       role="presentation"
@@ -36,7 +46,11 @@ export const TopNavbar = () => {
         {getNavItems(user).map((each, index) => (
           <ListItemButton
             onClick={() => {
-              navigate(each.link, { replace: true });
+              if (each.name === "Logout") {
+                handleLogout();
+              } else {
+                navigate(each.link, { replace: true });
+              }
             }}
             key={each.name}
             sx={{
@@ -65,6 +79,7 @@ export const TopNavbar = () => {
       </List>
     </Box>
   );
+
   return (
     <Box>
       <IconButton
@@ -74,7 +89,7 @@ export const TopNavbar = () => {
         {!open ? <MenuIcon /> : <MenuIcon />}
       </IconButton>
       <Drawer anchor="top" open={open} onClose={handleCloseDrawer}>
-        {list()}
+        {renderList()}
       </Drawer>
     </Box>
   );

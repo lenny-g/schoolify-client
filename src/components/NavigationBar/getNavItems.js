@@ -25,12 +25,12 @@ const publicNavArray = [
   {
     name: "Parent Signup",
     icon: <FamilyRestroomSharpIcon />,
-    link: "/parent/sign-up",
+    link: "/sign-up/parent",
   },
   {
     name: "Teacher Signup",
     icon: <SchoolSharpIcon />,
-    link: "/teacher/sign-up",
+    link: "/sign-up/teacher",
   },
   {
     name: "About",
@@ -106,7 +106,6 @@ const teacherNavArray = [
   {
     name: "Logout",
     icon: <LogoutIcon />,
-    link: "",
   },
 ];
 

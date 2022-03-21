@@ -212,6 +212,14 @@ export const headers = {
   },
 };
 
+export const getContainerStyles = (isMobile) => ({
+  // margin: "2rem 0",
+  borderRadius: "10px",
+  boxShadow: isMobile
+    ? "none"
+    : "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)",
+});
+
 // backgroundColor: '#9DD8C8', light green
 // backgroundColor: '#F4E471', light yellow
 // backgroundColor: '#E9C6D6', light pink
