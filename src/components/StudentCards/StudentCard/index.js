@@ -1,35 +1,38 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 
-export const StudentCard = ({ firstName, lastName, id, dob }) => {
+import { item } from "../../../styles";
+
+export const StudentCard = ({
+  firstName,
+  lastName,
+  id,
+  dob,
+  profileImageUrl,
+}) => {
   return (
-    <Card sx={{ margin: 2 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://previews.123rf.com/images/olegdudko/olegdudko1508/olegdudko150800275/43199653-cabrito-de-la-escuela-escuela-chico-.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {firstName} {lastName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {dob}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" id={id}>
-          View
-        </Button>
-      </CardActions>
-    </Card>
+    <Box sx={item.yellow} maxWidth="250px">
+      <Typography variant="h6" gutterBottom sx={{ color: "black" }}>
+        {firstName} {lastName}
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom sx={{ color: "black" }}>
+        {dob}
+      </Typography>
+      <Avatar
+        alt="teacher signup"
+        src={profileImageUrl}
+        sx={{ width: 200, height: 200 }}
+      />
+      <Button
+        sx={{ mt: "20px", borderRadius: "10px" }}
+        variant="contained"
+        color="secondary"
+        id={id}
+      >
+        View
+      </Button>
+    </Box>
   );
 };
