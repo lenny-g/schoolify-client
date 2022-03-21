@@ -47,7 +47,7 @@ export const item = {
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    padding: "1rem",
+    // padding: "1rem",
   },
   errorContainer: {
     marginTop: 2,
