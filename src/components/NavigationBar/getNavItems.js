@@ -84,7 +84,7 @@ const teacherNavArray = [
     link: "/dashboard",
   },
   {
-    name: "My Children",
+    name: "My Classroom",
     icon: <FaceIcon />,
     link: "/view/students",
   },
