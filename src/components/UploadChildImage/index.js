@@ -20,8 +20,6 @@ const Input = styled("input")({
   display: "none",
 });
 
-const username = "bobsmith";
-
 export const UploadChildImage = ({ uploadedImage, setUploadedImage }) => {
   const [image, setImage] = useState();
   const [awsError, setAwsError] = useState(false);
@@ -63,7 +61,7 @@ export const UploadChildImage = ({ uploadedImage, setUploadedImage }) => {
 
       const { url, fields } = await s3.createPresignedPost({
         Bucket: process.env.REACT_APP_BUCKET_NAME,
-        Fields: { key: `${username}/images/${image.uuid}` },
+        Fields: { key: `images/${image.uuid}` },
         Expires: 60,
       });
 
@@ -79,8 +77,8 @@ export const UploadChildImage = ({ uploadedImage, setUploadedImage }) => {
         setUploadComplete(true);
         setImage();
         setUploadedImage({
-          src: `${upload.url}/${username}/images/${image.uuid}`,
-          fileName: `${username}/images/${image.uuid}`,
+          src: `${upload.url}/images/${image.uuid}`,
+          fileName: `images/${image.uuid}`,
         });
         setLoading(false);
         setAwsError(false);
@@ -110,17 +108,6 @@ export const UploadChildImage = ({ uploadedImage, setUploadedImage }) => {
             Add Image
           </Button>
         </label>
-        {image && (
-          <LoadingButton
-            loading={loading}
-            loadingPosition="start"
-            startIcon={<UploadIcon />}
-            variant="contained"
-            onClick={uploadImage}
-          >
-            Upload Image
-          </LoadingButton>
-        )}
 
         {image && (
           <>
@@ -155,6 +142,18 @@ export const UploadChildImage = ({ uploadedImage, setUploadedImage }) => {
               </ImageListItem>
             </ImageList>
           </>
+        )}
+
+        {image && (
+          <LoadingButton
+            loading={loading}
+            loadingPosition="start"
+            startIcon={<UploadIcon />}
+            variant="contained"
+            onClick={uploadImage}
+          >
+            Upload Image
+          </LoadingButton>
         )}
 
         {uploadedImage && (
