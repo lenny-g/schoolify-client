@@ -3,12 +3,14 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -18,7 +20,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 
 import { ADD_STUDENT } from "../../graphql/mutations";
 import { GET_YEAR_GROUP_DATA } from "../../graphql/query";
-import { item, colors } from "../../styles";
+import { PURPLE, forms } from "../../styles";
 import { UploadChildImage } from "../UploadChildImage";
 
 export const AddChildForm = () => {
@@ -81,60 +83,60 @@ export const AddChildForm = () => {
     },
   };
 
-  // TODO: Add error component here
-  if (error || mutationError) {
-    return <div>ERROR</div>;
+  if (loading) {
+    return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
-  // TODO: Add loading spinner component here
-  if (loading) {
-    return <h1>Loading...</h1>;
+  if (error) {
+    return (
+      <Alert severity="error">
+        Something went wrong, please tray again later.
+      </Alert>
+    );
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Grid container sx={item.outerContainer}>
-        <Grid item xs={12}>
-          <Typography
-            variant="h5"
-            gutterBottom
-            component="div"
-            sx={{ textAlign: "center" }}
-          >
-            Child . Registration . Form
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sx={colors.purple}>
-          <UploadChildImage
-            uploadedImage={childImage}
-            setUploadedImage={setChildImage}
+    <Stack spacing={2}>
+      <Typography
+        variant="h5"
+        gutterBottom
+        component="div"
+        sx={{ textAlign: "center" }}
+      >
+        Child . Registration . Form
+      </Typography>
+      <Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+        <UploadChildImage
+          uploadedImage={childImage}
+          setUploadedImage={setChildImage}
+        />
+        <Box onSubmit={handleSubmit(onSubmit)} component="form">
+          <TextField
+            color="secondary"
+            autoFocus
+            margin="normal"
+            id="childFirstName"
+            label="First Name"
+            variant="outlined"
+            name="childFirstName"
+            fullWidth
+            {...register("childFirstName", { required: true })}
+            error={!!errors.childFirstName}
+            disabled={mutationLoading}
           />
-          <Box onSubmit={handleSubmit(onSubmit)} component="form">
-            <TextField
-              color="secondary"
-              autoFocus
-              margin="normal"
-              id="childFirstName"
-              label="First Name"
-              variant="outlined"
-              name="childFirstName"
-              fullWidth
-              {...register("childFirstName", { required: true })}
-              error={!!errors.childFirstName}
-              disabled={mutationLoading}
-            />
-            <TextField
-              color="secondary"
-              margin="normal"
-              id="childLastName"
-              label="Last Name"
-              variant="outlined"
-              name="childLastName"
-              fullWidth
-              {...register("childLastName", { required: true })}
-              error={!!errors.childLastName}
-              disabled={mutationLoading}
-            />
+          <TextField
+            color="secondary"
+            margin="normal"
+            id="childLastName"
+            label="Last Name"
+            variant="outlined"
+            name="childLastName"
+            fullWidth
+            {...register("childLastName", { required: true })}
+            error={!!errors.childLastName}
+            disabled={mutationLoading}
+          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
               disabled={mutationLoading}
               label="Date of Birth"
@@ -161,67 +163,62 @@ export const AddChildForm = () => {
                 />
               )}
             />
-            <FormControl sx={{ mt: 2 }} fullWidth>
-              <InputLabel id="yearGroup" color="secondary">
-                Year Group
-              </InputLabel>
-              <Controller
-                control={control}
-                name="yearGroup"
-                render={({ field: { onChange, value } }) => (
-                  <Select
-                    color="secondary"
-                    labelId="yearGroup"
-                    id="yearGroup"
-                    value={value || ""}
-                    onChange={onChange}
-                    label="Year Group"
-                    disabled={mutationLoading}
-                    error={!!errors.yearGroup}
-                    {...register("yearGroup", { required: true })}
-                  >
-                    {data?.yearGroups?.map((yearGroupObj, index) => {
-                      return (
-                        <MenuItem key={index} value={yearGroupObj.id}>
-                          {yearGroupObj.title}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                )}
-              />
-            </FormControl>
-
-            {/* {uploadComplete && !loading && (
-						<Alert severity='success'>Successfully uploaded image</Alert>
-					)} */}
-            <Box sx={item.comment}>
-              <LoadingButton
-                loading={mutationLoading}
-                loadingIndicator="Loading..."
-                variant="contained"
-                type="submit"
-                sx={styles.loadingButton}
-                startIcon={mutationError && <ErrorIcon />}
-                color={mutationError ? "error" : "secondary"}
-              >
-                Add Child
-              </LoadingButton>
-
-              {!!mutationError && (
-                <Typography
-                  variant="subtitle2"
-                  gutterBottom
-                  component="div"
-                  sx={{ mt: 2, textAlign: "center", color: "#d32f2f" }}
+          </LocalizationProvider>
+          <FormControl sx={{ mt: 2 }} fullWidth>
+            <InputLabel id="yearGroup" color="secondary">
+              Year Group
+            </InputLabel>
+            <Controller
+              control={control}
+              name="yearGroup"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  color="secondary"
+                  labelId="yearGroup"
+                  id="yearGroup"
+                  value={value || ""}
+                  onChange={onChange}
+                  label="Year Group"
+                  disabled={mutationLoading}
+                  error={!!errors.yearGroup}
+                  {...register("yearGroup", { required: true })}
                 >
-                  Failed to add child.
-                </Typography>
+                  {data?.yearGroups?.map((yearGroupObj, index) => {
+                    return (
+                      <MenuItem key={index} value={yearGroupObj.id}>
+                        {yearGroupObj.title}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
               )}
-            </Box>
+            />
+          </FormControl>
+          <Box sx={{ textAlign: "center", marginBottom: "30px" }}>
+            <LoadingButton
+              loading={mutationLoading}
+              loadingIndicator="Loading..."
+              variant="contained"
+              type="submit"
+              sx={styles.loadingButton}
+              startIcon={mutationError && <ErrorIcon />}
+              color={mutationError ? "error" : "secondary"}
+            >
+              Add Child
+            </LoadingButton>
+            {!!mutationError && (
+              <Typography
+                variant="subtitle2"
+                gutterBottom
+                component="div"
+                sx={{ mt: 2, textAlign: "center", color: "#d32f2f" }}
+              >
+                Failed to add child.
+              </Typography>
+            )}
           </Box>
-        </Grid>
-      </Grid>
-    </LocalizationProvider>
+        </Box>
+      </Box>
+    </Stack>
   );
 };

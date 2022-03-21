@@ -9,7 +9,11 @@ export const PageContainer = ({ children }) => {
   const isMobile = useMediaQuery(MOBILE);
 
   return (
-    <Container sx={getContainerStyles(isMobile)} disableGutters={isMobile}>
+    <Container
+      maxWidth="md"
+      sx={getContainerStyles(isMobile)}
+      disableGutters={isMobile}
+    >
       <Logo />
       {children}
     </Container>
