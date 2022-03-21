@@ -43,12 +43,7 @@ const parentNavArray = [
   {
     name: "Dashboard",
     icon: <GridViewIcon />,
-    link: "/dashboard/parent",
-  },
-  {
-    name: "My Children",
-    icon: <FaceIcon />,
-    link: "/children/view",
+    link: "/dashboard",
   },
   {
     name: "Add Child",
@@ -86,7 +81,7 @@ const teacherNavArray = [
   {
     name: "Dashboard",
     icon: <GridViewIcon />,
-    link: "/dashboard/teacher",
+    link: "/dashboard",
   },
   {
     name: "My Children",

@@ -10,9 +10,8 @@ import { TeacherSignup } from "../pages/TeacherSignup";
 import { About } from "../pages/About";
 import { Home } from "../pages/Home";
 import { Appointment } from "../pages/Appointment";
-import { Dashboard } from "../pages/Dashboard";
 import { AddChild } from "../pages/AddChild";
-import { ViewChildren } from "../pages/ViewChildren";
+import { ParentDashboard } from "../pages/ParentDashboard";
 import { ViewAppointments } from "../pages/ViewAppointments";
 import { AbsenceRequest } from "../pages/AbsenceRequest";
 import { StudentInfo } from "../pages/StudentInfo";
@@ -63,7 +62,9 @@ const theme = createTheme({
 
 export const AppRouter = () => {
   const isMobile = useMediaQuery(MOBILE);
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
+
+  console.log(user);
 
   return (
     <Box
@@ -99,13 +100,17 @@ export const AppRouter = () => {
             {isLoggedIn ? (
               <>
                 <Route path="/medical/new" element={<Medical />} />
-                <Route path="/dashboard/parent" element={<Dashboard />} />
                 <Route
-                  path="/dashboard/teacher"
-                  element={<TeacherDashboard />}
+                  path="/dashboard"
+                  element={
+                    user.role === "parent" ? (
+                      <ParentDashboard />
+                    ) : (
+                      <TeacherDashboard />
+                    )
+                  }
                 />
                 <Route path="/children/new" element={<AddChild />} />
-                <Route path="/children/view" element={<ViewChildren />} />
                 <Route
                   path="/children/view/:studentId"
                   element={<StudentInfo />}

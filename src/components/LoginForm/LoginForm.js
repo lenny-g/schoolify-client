@@ -28,8 +28,6 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    getValues,
-    setValue,
     watch,
     formState: { errors },
   } = useForm();
@@ -52,9 +50,7 @@ export const LoginForm = () => {
       setIsLoggedIn(true);
       setUser(parent || teacher);
 
-      parent
-        ? navigate("/dashboard/parent", { replace: true })
-        : navigate("/dashboard/teacher", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
   };
 
