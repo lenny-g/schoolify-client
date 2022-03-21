@@ -6,16 +6,15 @@ import { GET_TEACHER_STUDENTS } from "../graphql/query";
 import { useQuery } from "@apollo/client";
 
 import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 
 export const ViewStudents = () => {
   const { user } = useAuth();
 
-  const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
-
   const { loading, error, data } = useQuery(GET_TEACHER_STUDENTS, {
     variables: {
-      yearGroupId: yearGroupId,
+      yearGroupId: user?.yearGroup.id,
     },
     pollInterval: 1000,
   });
@@ -39,10 +38,10 @@ export const ViewStudents = () => {
   const renderData = () => {
     if (!loading && !error && data?.teacherStudents) {
       return (
-        <>
+        <Stack spacing={2}>
           <PageTitle> My.{user?.yearGroup?.title}.Classroom</PageTitle>
           <StudentCards studentData={data?.teacherStudents} />
-        </>
+        </Stack>
       );
     }
   };
