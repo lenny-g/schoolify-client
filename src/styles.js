@@ -113,21 +113,6 @@ export const item = {
 	},
 };
 
-export const largeButtons = {
-	container: {
-		width: '10rem',
-		height: '10rem',
-		display: 'flex',
-		alignItems: 'center',
-		flexDirection: 'column',
-		justifyContent: 'end',
-		padding: '10px',
-		m: '1rem',
-		borderRadius: '25px',
-		backgroundColor: '#82caec82',
-	},
-};
-
 export const brand = {
 	container: {
 		display: 'flex',
@@ -148,3 +133,4 @@ export const getContainerStyles = (isMobile) => ({
 });
 
 export const GREEN = '#b2e2d8';
+export const ORANGE = '#dd9148';

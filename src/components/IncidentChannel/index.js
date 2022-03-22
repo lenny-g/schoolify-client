@@ -20,7 +20,7 @@ export const IncidentChannel = ({
 					variant='h6'
 					gutterBottom
 					component='div'
-					sx={{ textAlign: 'center' }}>
+					sx={{ textAlign: 'center', fontWeight: 700 }}>
 					{incidentReportData?.title}
 				</Typography>
 			</Grid>

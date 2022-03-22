@@ -11,6 +11,7 @@ import { IncidentComment } from '../components/IncidentComment';
 import { IncidentListDesktop } from '../components/IncidentList/IncidentListDesktop';
 
 import { PageContainer } from '../components/PageContainer';
+import { PageTitle } from '../components/PageTitle';
 import { DESKTOP, MOBILE } from '../media';
 import { useMediaQuery } from 'react-responsive';
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
@@ -102,15 +103,7 @@ export const ViewIncidentParent = () => {
 	const renderData = () => {
 		return (
 			<PageContainer>
-				<Grid item xs={12}>
-					<Typography
-						className='headingFont'
-						variant='h5'
-						gutterBottom
-						component='div'>
-						Incident Form
-					</Typography>
-				</Grid>
+				<PageTitle>Incident Report</PageTitle>
 				<Grid container>
 					<Grid item xs={isDesktop ? 4 : 12}>
 						<IncidentListDesktop

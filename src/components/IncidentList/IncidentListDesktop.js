@@ -6,6 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
+import { GREEN } from '../../styles';
 
 export const IncidentListDesktop = ({
 	studentList,
@@ -25,11 +26,11 @@ export const IncidentListDesktop = ({
 					display: 'flex',
 				}}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel color='secondary' id='child'>
+					<InputLabel color='warning' id='child'>
 						Child
 					</InputLabel>
 					<Select
-						color='secondary'
+						color='warning'
 						defaultValue={``}
 						labelId='child'
 						id='child'
@@ -69,17 +70,17 @@ export const IncidentListDesktop = ({
 							key={index}
 							sx={{
 								padding: '10px',
-								backgroundColor: 'lightblue',
+								backgroundColor: GREEN,
 								borderRadius: '10px',
 								mb: 2,
 							}}>
 							<Grid container>
-								<Grid item xs={12} md={6}>
+								<Grid item xs={12} sm={6}>
 									<Typography variant='body2' sx={{ textAlign: 'left' }}>
 										{each.teacher.firstName} {each.teacher.lastName}
 									</Typography>
 								</Grid>
-								<Grid item xs={12} md={6}>
+								<Grid item xs={12} sm={6}>
 									<Typography variant='body2' sx={{ textAlign: 'right' }}>
 										{each.dateTime.split(' ').slice(0, 4).join(' ')}
 									</Typography>
