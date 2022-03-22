@@ -17,7 +17,7 @@ const stylingAbsenceRequestColor = (status) => {
 const checkStatus = (status) => {
   if (status !== "REJECTED") {
   }
-  return "disabled";
+  return true;
 };
 
 export const AbsenceRequestSummary = ({ childData }) => {
@@ -35,8 +35,6 @@ export const AbsenceRequestSummary = ({ childData }) => {
     }
   );
 
-  console.log(checkStatus("PENDING"));
-
   return (
     <Box width="100%">
       <Typography className="headingFont" variant="subtitle1" gutterBottom>
@@ -44,15 +42,15 @@ export const AbsenceRequestSummary = ({ childData }) => {
       </Typography>
       {formattedChildData.length === 0 && (
         <Alert severity="info">
-          You have made no absence requests yet, click on the 'request absence'
-          button to submit one.
+          {childData.firstName} {childData.lastName} has no absence requests
+          yet, click on the 'request absence' button to submit one.
         </Alert>
       )}
       {formattedChildData?.map((absenceRequest, index) => {
         return (
           <Accordion
+            disabled={checkStatus(absenceRequest.status)}
             key={index}
-            disabled
             sx={{
               backgroundColor: stylingAbsenceRequestColor(
                 absenceRequest.status

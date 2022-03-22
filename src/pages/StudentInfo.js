@@ -1,6 +1,7 @@
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import { PageContainer } from "../components/PageContainer/";
 
@@ -22,14 +23,18 @@ export const StudentInfo = (props) => {
     pollInterval: 1000,
   });
   const childData = data?.viewChild;
-  if (error) {
-    return <div>ERROR</div>;
-  }
+
   if (loading) {
     return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
-  console.log(data.viewChild);
+  if (!loading && error) {
+    return (
+      <Alert severity="error">
+        Something went wrong, please tray again later.
+      </Alert>
+    );
+  }
 
   return (
     <PageContainer>
