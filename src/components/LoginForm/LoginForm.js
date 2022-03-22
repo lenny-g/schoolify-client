@@ -119,7 +119,7 @@ export const LoginForm = () => {
 					variant='contained'
 					sx={item.actionButtons}
 					startIcon={error && <ErrorIcon />}
-					color={error ? 'error' : 'secondary'}>
+					color={error ? 'error' : 'warning'}>
 					Login
 				</LoadingButton>
 				<Link

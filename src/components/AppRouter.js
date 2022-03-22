@@ -37,8 +37,9 @@ const theme = createTheme({
 	typography: {
 		h3: {
 			fontFamily: "'Outfit', sans-serif",
-			fontSize: '2.5rem',
-			fontWeight: 500,
+			fontSize: '2rem',
+			textTransform: 'uppercase',
+			fontWeight: 700,
 		},
 		h5: {
 			fontFamily: "'Outfit', sans-serif",
