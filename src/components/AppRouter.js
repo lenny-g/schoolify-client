@@ -28,34 +28,20 @@ import { ViewIncident } from '../pages/ViewIncident';
 
 const theme = createTheme({
 	palette: {
-		success: {
-			light: '#9ad29c',
-			main: '#81c784',
-			dark: '#5a8b5c',
-		},
-		primary: {
-			light: '#f6a5c0',
-			main: '#f48fb1',
-			dark: ' #aa647b',
-		},
-		secondary: {
-			light: '#aa90d7',
-			main: '#9575cd',
-			dark: '#68518f',
-		},
 		warning: {
 			light: '#ffc570',
-			main: '#ffb74d',
+			main: '#dd9148',
 			dark: '#b28035',
 		},
 	},
 	typography: {
 		h3: {
-			fontFamily: "'Gochi Hand', cursive",
+			fontFamily: "'Outfit', sans-serif",
 			fontSize: '2.5rem',
+			fontWeight: 500,
 		},
 		h5: {
-			fontFamily: "'Gochi Hand', cursive",
+			fontFamily: "'Outfit', sans-serif",
 		},
 	},
 });
@@ -75,6 +61,8 @@ export const AppRouter = () => {
 			<Box
 				component='main'
 				sx={{
+					backgroundImage:
+						'url("https://cdn.wallpapersafari.com/13/73/AQ4CSR.jpg")',
 					display: 'flex',
 					flexGrow: 1,
 					p: 3,
