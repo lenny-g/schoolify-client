@@ -109,7 +109,7 @@ export const item = {
 		marginBottom: '20px',
 		padding: '20px',
 		borderRadius: '15px',
-		backgroundColor: '#f4e4715c',
+		backgroundColor: '#b2e2d8',
 	},
 };
 
@@ -219,6 +219,6 @@ export const getContainerStyles = (isMobile) => ({
 		: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
 });
 
-export const PURPLE = '#b2e2d8';
+export const GREEN = '#b2e2d8';
 
 // buttons #dd9148

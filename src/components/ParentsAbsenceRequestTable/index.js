@@ -27,7 +27,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { forms } from '../../styles';
 
 const stylingRowColor = (status) => {
-	if (status === 'PENDING') return '#faba73';
+	if (status === 'PENDING') return '#ead885';
 	if (status === 'APPROVED') return '#79d8a5';
 	if (status === 'REJECTED') return '#ef8080';
 };

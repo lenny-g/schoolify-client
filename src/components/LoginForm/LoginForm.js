@@ -17,7 +17,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { PageTitle } from '../PageTitle';
 import { useAuth } from '../../context/AppProvider';
 import { LOGIN_USER } from '../../graphql/mutations';
-import { forms, item, PURPLE } from '../../styles';
+import { forms, item, GREEN } from '../../styles';
 
 export const LoginForm = () => {
 	const [executeLogin, { loading, error }] = useMutation(LOGIN_USER);
@@ -62,16 +62,12 @@ export const LoginForm = () => {
 	return (
 		<Stack component='form' onSubmit={handleSubmit(onSubmit)}>
 			<PageTitle>
-				{' '}
 				{role === 'parent' ? 'Parent' : 'Teacher'} . Login . Page
 			</PageTitle>
-			<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+			<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel color='secondary' id='role'>
-						Role
-					</InputLabel>
+					<InputLabel id='role'>Role</InputLabel>
 					<Select
-						color='secondary'
 						defaultValue={'parent'}
 						labelId='role'
 						id='role'
@@ -87,7 +83,6 @@ export const LoginForm = () => {
 					</Select>
 				</FormControl>
 				<TextField
-					color='secondary'
 					margin='normal'
 					id='email'
 					label='Email'
@@ -100,7 +95,6 @@ export const LoginForm = () => {
 					error={!!errors.email}
 				/>
 				<TextField
-					color='secondary'
 					margin='normal'
 					id='password'
 					label='Password'
@@ -127,7 +121,7 @@ export const LoginForm = () => {
 					variant='body2'
 					to={`/sign-up/${role}`}
 					underline='none'
-					color='secondary.dark'>
+					color='warning.dark'>
 					Don't have an account? Sign up as a {role}
 				</Link>
 				{!!error && (

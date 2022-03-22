@@ -28,7 +28,7 @@ export const StudentCard = ({
       <Button
         sx={{ mt: "20px", borderRadius: "10px" }}
         variant="contained"
-        color="secondary"
+        color="warning"
         id={id}
       >
         View
