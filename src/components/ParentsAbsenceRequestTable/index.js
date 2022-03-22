@@ -80,7 +80,7 @@ export const ParentsAbsenceRequestTable = () => {
   };
 
   const deleteAbsenceOnClick = async (studentId, absenceRequestId) => {
-    if (window.confirm("Are You sure u want to delete")) {
+    if (window.confirm("Are You sure you want to delete")) {
       await executeDeleteAbsenceRequest({
         variables: {
           input: {
@@ -110,7 +110,6 @@ export const ParentsAbsenceRequestTable = () => {
     <Stack spacing={2} sx={{ mb: 3 }}>
       <PageTitle>Absence . Requests</PageTitle>
       <TextField
-        color="secondary"
         label="Filter by child name"
         variant="outlined"
         style={{

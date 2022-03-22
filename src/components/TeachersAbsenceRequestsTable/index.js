@@ -53,7 +53,7 @@ export const TeachersAbsenceRequestsTable = () => {
   );
 
   const onAccept = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are You sure u want to Approve")) {
+    if (window.confirm("Are You sure you want to Approve")) {
       await executeTeacherResponse({
         variables: {
           input: {
@@ -69,7 +69,7 @@ export const TeachersAbsenceRequestsTable = () => {
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are You sure u want to Reject")) {
+    if (window.confirm("Are you sure you want to Reject")) {
       await executeTeacherResponse({
         variables: {
           input: {
@@ -131,7 +131,6 @@ export const TeachersAbsenceRequestsTable = () => {
     <Stack spacing={2} sx={{ mb: 3 }}>
       <PageTitle>Absence . Requests . Made</PageTitle>
       <TextField
-        color="secondary"
         label="Filter by child name"
         variant="outlined"
         style={{

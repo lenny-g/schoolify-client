@@ -8,7 +8,7 @@ export const HomePageIntro = () => {
   return (
     <Grid sx={item.outerContainer}>
       <Box sx={{ textAlign: "center" }}>
-        <Typography color="secondary" variant="h6">
+        <Typography variant="h6">
           An app that brings parents closer to their children’s school day.
         </Typography>
         <Typography
