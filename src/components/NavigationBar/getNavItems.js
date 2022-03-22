@@ -10,6 +10,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import FamilyRestroomSharpIcon from "@mui/icons-material/FamilyRestroomSharp";
 import SchoolSharpIcon from "@mui/icons-material/SchoolSharp";
 import InfoIcon from "@mui/icons-material/Info";
+import ReportIcon from "@mui/icons-material/Report";
 
 const publicNavArray = [
   {
@@ -66,6 +67,11 @@ const parentNavArray = [
     link: "/absenceRequest/view",
   },
   {
+    name: "View incident Reports",
+    icon: <ReportIcon />,
+    link: "/incident-report/view/parent",
+  },
+  {
     name: "About",
     icon: <InfoIcon />,
     link: "/about",
@@ -92,6 +98,16 @@ const teacherNavArray = [
     name: "View Absence Requests",
     icon: <EventAvailableIcon />,
     link: "/absence-requests",
+  },
+  {
+    name: "Create Incident report",
+    icon: <ReportIcon />,
+    link: "/incident-report/new",
+  },
+  {
+    name: "View incident Reports",
+    icon: <ReportIcon />,
+    link: "/incident-report/view/teacher",
   },
   {
     name: "About",
