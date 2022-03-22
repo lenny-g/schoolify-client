@@ -17,7 +17,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { PageTitle } from '../PageTitle';
 import { useAuth } from '../../context/AppProvider';
 import { LOGIN_USER } from '../../graphql/mutations';
-import { forms, item, PURPLE } from '../../styles';
+import { forms, item, GREEN } from '../../styles';
 
 export const LoginForm = () => {
 	const [executeLogin, { loading, error }] = useMutation(LOGIN_USER);
@@ -41,15 +41,14 @@ export const LoginForm = () => {
 				input: formData,
 			},
 		});
-
 		if (data?.login) {
 			const { token, parent, teacher } = data.login;
 
 			localStorage.setItem('token', token);
 			localStorage.setItem('user', JSON.stringify(parent || teacher));
 
+			setUser(teacher || parent);
 			setIsLoggedIn(true);
-			setUser(parent || teacher);
 
 			navigate('/dashboard', { replace: true });
 		}
@@ -61,18 +60,14 @@ export const LoginForm = () => {
 	];
 
 	return (
-		<Stack container component='form' onSubmit={handleSubmit(onSubmit)}>
+		<Stack component='form' onSubmit={handleSubmit(onSubmit)}>
 			<PageTitle>
-				{' '}
-				{role === 'parent' ? 'Parent' : 'Teacher'} . Login . Page
+				{role === 'parent' ? 'Parent' : 'Teacher'} Login Page
 			</PageTitle>
-			<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+			<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel color='secondary' id='role'>
-						Role
-					</InputLabel>
+					<InputLabel id='role'>Role</InputLabel>
 					<Select
-						color='secondary'
 						defaultValue={'parent'}
 						labelId='role'
 						id='role'
@@ -88,7 +83,6 @@ export const LoginForm = () => {
 					</Select>
 				</FormControl>
 				<TextField
-					color='secondary'
 					margin='normal'
 					id='email'
 					label='Email'
@@ -101,7 +95,6 @@ export const LoginForm = () => {
 					error={!!errors.email}
 				/>
 				<TextField
-					color='secondary'
 					margin='normal'
 					id='password'
 					label='Password'
@@ -120,7 +113,7 @@ export const LoginForm = () => {
 					variant='contained'
 					sx={item.actionButtons}
 					startIcon={error && <ErrorIcon />}
-					color={error ? 'error' : 'secondary'}>
+					color={error ? 'error' : 'warning'}>
 					Login
 				</LoadingButton>
 				<Link
@@ -128,7 +121,7 @@ export const LoginForm = () => {
 					variant='body2'
 					to={`/sign-up/${role}`}
 					underline='none'
-					color='secondary.dark'>
+					color='warning.dark'>
 					Don't have an account? Sign up as a {role}
 				</Link>
 				{!!error && (

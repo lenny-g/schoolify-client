@@ -1,114 +1,89 @@
 import Box from '@mui/material/Box';
-import { Divider } from '@mui/material';
-import { Typography } from '@mui/material';
-import { item, colors } from '../../styles';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import { useForm, Controller } from 'react-hook-form';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import { GREEN } from '../../styles';
 
-const childOptions = [
-	{ value: 'billy', title: 'Billy' },
-	{ value: 'bob', title: 'Bob' },
-];
-
-export const IncidentListDesktop = () => {
-	const {
-		register,
-
-		control,
-		formState: { errors },
-	} = useForm();
-
+export const IncidentListDesktop = ({
+	studentList,
+	setStudent,
+	studentIncidents,
+	renderIncidentReportOnClick,
+	student,
+	//   setShowCommentSection,
+}) => {
 	return (
-		<Box>
-			<Grid
+		<Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+			{/* <Grid
 				item
 				xs={12}
 				sx={{
 					padding: '10px',
 					display: 'flex',
-				}}>
-				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel color='secondary' id='child'>
-						Child
-					</InputLabel>
-					<Select
-						color='secondary'
-						defaultValue={'parent'}
-						labelId='child'
-						id='child'
-						label='child'
-						{...register('child')}
-						autoFocus>
-						{childOptions.map((child, index) => (
-							<MenuItem key={index} value={child.value}>
-								{child.title}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-			</Grid>
-			<Grid
-				item
-				xs={12}
+				}}> */}
+			<FormControl sx={{ mt: 2, padding: '10px' }} fullWidth>
+				<InputLabel color="warning" id="child" sx={{ padding: '10px' }}>
+					Child
+				</InputLabel>
+				<Select
+					color="warning"
+					defaultValue={``}
+					labelId="child"
+					id="child"
+					label="child"
+					onChange={(e) => {
+						setStudent(e.target.value);
+						// setShowCommentSection(false);
+					}}>
+					{studentList?.map((each, index) => (
+						<MenuItem key={index} value={each.id}>
+							{each.firstName} {each.lastName}
+						</MenuItem>
+					))}
+				</Select>
+			</FormControl>
+			{/* </Grid> */}
+			<Stack
 				sx={{
 					padding: '10px',
 				}}>
-				<Box
-					sx={{
-						padding: '10px',
-						backgroundColor: 'lightblue',
-						borderRadius: '10px',
-					}}>
-					<Grid container>
-						<Grid item xs={12} md={6}>
-							<Typography variant='body2' sx={{ textAlign: 'left' }}>
-								Miss Jones
-							</Typography>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<Typography variant='body2' sx={{ textAlign: 'right' }}>
-								18.03.2022
-							</Typography>
-						</Grid>
-					</Grid>
+				{studentIncidents()?.length === 0 && student ? (
+					<Alert severity="info">
+						There are no incident reports regarding this student
+					</Alert>
+				) : (
+					''
+				)}
 
-					<Typography variant='subtitle1'>Billy had a fall</Typography>
-				</Box>
-			</Grid>
-			<Grid
-				item
-				xs={12}
-				sx={{
-					padding: '10px',
-					display: 'flex',
-				}}>
-				<Box
-					sx={{
-						width: '100%',
-						padding: '10px',
-						backgroundColor: 'lightblue',
-						borderRadius: '10px',
-					}}>
-					<Grid container>
-						<Grid item xs={12} md={6}>
-							<Typography variant='body2' sx={{ textAlign: 'left' }}>
-								Miss Jones
+				{studentIncidents()?.map((each, index) => {
+					return (
+						<Box
+							onClick={() => {
+								renderIncidentReportOnClick(each.id);
+							}}
+							key={index}
+							sx={{
+								padding: '10px',
+								backgroundColor: GREEN,
+								borderRadius: '10px',
+								mb: 2,
+							}}>
+							<Typography variant="body2" sx={{ textAlign: 'left' }}>
+								{each.teacher.firstName} {each.teacher.lastName}
 							</Typography>
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<Typography variant='body2' sx={{ textAlign: 'right' }}>
-								18.03.2022
+							<Typography variant="body2" sx={{ textAlign: 'right' }}>
+								{each.dateTime.split(' ').slice(0, 4).join(' ')}
 							</Typography>
-						</Grid>
-					</Grid>
-
-					<Typography variant='subtitle1'>Billy's PE Kit</Typography>
-				</Box>
-			</Grid>
+							<Typography variant="subtitle1">{each.title}</Typography>
+						</Box>
+					);
+				})}
+			</Stack>
 		</Box>
 	);
 };

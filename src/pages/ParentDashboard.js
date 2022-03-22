@@ -65,6 +65,7 @@ export const ParentDashboard = () => {
 					</Typography>
 					<Box sx={{ textAlign: 'center', marginBottom: '30px' }}>
 						<Button
+							color='warning'
 							variant='contained'
 							type='button'
 							sx={{ my: 3 }}

@@ -1,26 +1,10 @@
-import { LoginForm } from '../components/LoginForm/LoginForm';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import logo from '../assets/img/logo.png';
 import { IncidentReportForm } from '../components/IncidentReportForm';
-import { Logo } from '../components/Logo';
-
-const styles = {
-	paperContainer: {
-		margin: '2rem 0',
-		borderRadius: '25px',
-	},
-};
+import { PageContainer } from '../components/PageContainer';
 
 export const TeacherIncidentReport = () => {
 	return (
-		<Container>
-			<Container component='main' maxWidth='md'>
-				<Paper elevation={6} style={styles.paperContainer}>
-					<Logo />
-					<IncidentReportForm />
-				</Paper>
-			</Container>
-		</Container>
+		<PageContainer>
+			<IncidentReportForm />
+		</PageContainer>
 	);
 };

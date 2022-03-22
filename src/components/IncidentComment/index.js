@@ -1,31 +1,56 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { item, forms, colors } from '../../styles';
+import { item, forms, GREEN } from '../../styles';
+import { DESKTOP, MOBILE } from '../../media';
+import { useMediaQuery } from 'react-responsive';
 
-export const IncidentComment = () => {
+export const IncidentComment = ({
+	mutationError,
+	executeAddComment,
+	incidentReportDataById,
+	showCommentSection,
+
+	refetch,
+}) => {
+	const isDesktop = useMediaQuery(DESKTOP);
+
 	const {
 		register,
 		formState: { errors },
 		handleSubmit,
-		control,
 	} = useForm();
 
-	const onSubmit = async (comment) => {
-		console.log(comment);
+	const onSubmit = async (data) => {
+		await executeAddComment({
+			variables: {
+				input: {
+					incidentReportId: incidentReportDataById.id,
+					name: JSON.parse(localStorage.getItem('user')).firstName,
+					message: data.comment,
+				},
+			},
+		});
+
+		refetch();
 	};
+
 	return (
-		<Grid container>
-			<Grid sx={colors.yellow} xs={12}>
+		<Grid container component="form" onSubmit={handleSubmit(onSubmit)}>
+			<Grid
+				item={true}
+				sx={{ ...forms.container, backgroundColor: GREEN }}
+				xs={12}>
 				<TextField
-					color='warning'
-					margin='normal'
-					id='comment'
-					label='Comment'
-					variant='outlined'
-					name='comment'
+					sx={{ minWidth: isDesktop ? '450px' : 'unset' }}
+					color="warning"
+					margin="normal"
+					id="comment"
+					label="Comment"
+					variant="outlined"
+					name="comment"
 					rows={4}
 					multiline
 					fullWidth
@@ -33,23 +58,25 @@ export const IncidentComment = () => {
 					error={!!errors.comment}
 				/>
 			</Grid>
-			<Grid sx={item.comment} xs={12}>
+			<Grid item={true} sx={item.comment} xs={12}>
 				<LoadingButton
-					// loading={loading}
-					// disabled={loading}
-					type='submit'
-					variant='contained'
+					// loading={mutationLoading}
+					color="warning"
+					disabled={!showCommentSection}
+					type="submit"
+					variant="contained"
 					sx={forms.loadingButton}>
 					Submit
 				</LoadingButton>
-				{/* {!!error && ( */}
-				<Typography
-					variant='subtitle2'
-					gutterBottom
-					component='div'
-					sx={forms.errorContainer}>
-					Failed to add medical history.
-				</Typography>
+				{!!mutationError && (
+					<Typography
+						variant="subtitle2"
+						gutterBottom
+						component="div"
+						sx={forms.errorContainer}>
+						Failed to add comment.
+					</Typography>
+				)}
 			</Grid>
 		</Grid>
 	);

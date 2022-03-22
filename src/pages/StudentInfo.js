@@ -8,7 +8,7 @@ import { VIEW_CHILD } from '../graphql/query';
 
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { item, forms, PURPLE, headers } from '../styles';
+import { item, forms, GREEN, headers } from '../styles';
 import { AbsenceRequestSummary } from '../components/ChildDashboard/AbsenceRequestSummary';
 import { ChildProfileCard } from '../components/ChildDashboard/ChildProfileCard';
 import { PageTitle } from '../components/PageTitle';
@@ -42,21 +42,21 @@ export const StudentInfo = (props) => {
 				</Grid>
 				<Grid container>
 					<Grid item xs={12} md={4}>
-						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+						<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 							<ChildProfileCard childData={childData} />
 						</Box>
 					</Grid>
 					<Grid item xs={12} md={4}>
-						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>Box1</Box>
-						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>box2</Box>
+						<Box sx={{ ...forms.container, backgroundColor: GREEN }}>Box1</Box>
+						<Box sx={{ ...forms.container, backgroundColor: GREEN }}>Box2</Box>
 					</Grid>
 
 					<Grid item xs={12} md={4}>
-						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+						<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 							<AbsenceRequestSummary childData={childData} />
 						</Box>
 
-						<Box sx={{ ...forms.container, backgroundColor: PURPLE }}>box4</Box>
+						<Box sx={{ ...forms.container, backgroundColor: GREEN }}>Box4</Box>
 					</Grid>
 				</Grid>
 			</Grid>
