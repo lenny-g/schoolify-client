@@ -37,7 +37,11 @@ export const TopNavbar = () => {
 
 	const renderList = () => (
 		<Box
-			sx={{ width: 'auto', display: 'flex', backgroundColor: '#212227' }}
+			sx={{
+				width: 'auto',
+				display: 'flex',
+				backgroundColor: '#212227',
+			}}
 			role='presentation'
 			onClick={handleCloseDrawer}
 			onKeyDown={handleCloseDrawer}>
@@ -78,7 +82,7 @@ export const TopNavbar = () => {
 	);
 
 	return (
-		<Box>
+		<Box sx={{ position: 'absolute' }}>
 			<IconButton
 				onClick={handleOpenDrawer}
 				sx={{ color: '#212227', m: '10px' }}>

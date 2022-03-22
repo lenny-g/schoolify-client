@@ -212,7 +212,7 @@ export const headers = {
 };
 
 export const getContainerStyles = (isMobile) => ({
-	// margin: "2rem 0",
+	padding: '1rem',
 	borderRadius: '10px',
 	boxShadow: isMobile
 		? 'none'
