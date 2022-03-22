@@ -1,33 +1,38 @@
-import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import { certificateOptions } from "../../data/certificateTypes";
 import FormControl from "@mui/material/FormControl";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import ErrorIcon from "@mui/icons-material/Error";
-import { CertificateCard } from "../CertificateCard";
-import { PageTitle } from "../PageTitle";
+
+import { useMutation } from "@apollo/client";
+import { Link as RouterLink } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AppProvider";
-import { LOGIN_USER } from "../../graphql/mutations";
-import { forms, item, PURPLE } from "../../styles";
+import { useQuery } from "@apollo/client";
+import { GET_PARENTS_CHILDREN } from "../../graphql/query";
+import { forms, item, GREEN } from "../../styles";
+import { certificateOptions } from "../../data/certificateTypes";
+import { CertificateCard } from "../CertificateCard";
 
 export const CertificateForm = () => {
+  const { loading, error, data } = useQuery(GET_PARENTS_CHILDREN);
+  const studentOptions = data?.parentsChildren?.children;
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
+    control,
   } = useForm();
 
   const certificate = watch("certificate", "wellDone");
-  console.log(certificate);
+  const message = watch("message", "");
 
   const certificateCardData = () => {
     return certificateOptions.find((each) => each.value === certificate);
@@ -36,10 +41,10 @@ export const CertificateForm = () => {
 
   return (
     <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+      <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
         <FormControl sx={{ mt: 2 }} fullWidth>
           <InputLabel color="secondary" id="certificate">
-            Please choose your certificate
+            Certificate
           </InputLabel>
           <Select
             defaultValue={"wellDone"}
@@ -57,18 +62,35 @@ export const CertificateForm = () => {
             ))}
           </Select>
         </FormControl>
-        <TextField
-          margin="normal"
-          id="name"
-          label="Name"
-          variant="outlined"
-          name="name"
-          autoFocus
-          fullWidth
-          // disabled={loading}
-          {...register("email", { required: true })}
-          error={!!errors.email}
-        />
+
+        <FormControl fullWidth sx={{ mt: 2 }}>
+          <InputLabel id="student" color="warning">
+            Select Child
+          </InputLabel>
+          <Controller
+            control={control}
+            name="student"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                labelId="student"
+                id="student"
+                label="Select Student"
+                value={value || ""}
+                // disabled={mutationLoading}
+                onChange={onChange}
+                {...register("student", { required: true })}
+                error={!!errors.student}
+              >
+                {studentOptions?.map(({ firstName, lastName, id }, index) => (
+                  <MenuItem key={index} value={id}>
+                    {firstName} {lastName}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+        </FormControl>
+
         <TextField
           margin="normal"
           id="message"
@@ -83,10 +105,10 @@ export const CertificateForm = () => {
         />
         <CertificateCard
           backgroundImage={certificateCardData().backgroundImage}
-          message={certificateCardData().message}
-          studentName={certificateCardData().name}
+          message={message}
+          studentName={"Student Name"}
         />
-        {console.log(certificateCardData())}
+
         <LoadingButton
           // loading={loading}
           // disabled={loading}

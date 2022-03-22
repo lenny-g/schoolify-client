@@ -12,6 +12,7 @@ export const CertificateCard = ({ backgroundImage, studentName, message }) => {
       backgroundPosition: "center center",
       width: "400px",
       height: "300px",
+      margin: "1rem",
     },
   };
 
@@ -21,7 +22,7 @@ export const CertificateCard = ({ backgroundImage, studentName, message }) => {
         {studentName}
       </Typography>
       <Typography variant="subititle1" textAlign="center">
-        {message}
+        For {message}
       </Typography>
     </Box>
   );
