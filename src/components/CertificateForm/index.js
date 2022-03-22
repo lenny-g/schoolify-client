@@ -1,12 +1,48 @@
+const certificateArray = [
+  {
+    name: "Brilliant Behaviour",
+    value: "brilliantBehaviour",
+    backgroundImage: "../../assets/img/certificates/brilliantBehavior.png",
+  },
+  {
+    name: "Class Helper",
+    value: "classHelper",
+    backgroundImage: "../../assets/img/certificates/classHelper.png",
+  },
+  {
+    name: "Excellent Achievement",
+    value: "excellentAchievement",
+    backgroundImage: "../../assets/img/certificates/excellentAchievement.png",
+  },
+  {
+    name: "Fantastic Friend",
+    value: "fantasticFriend",
+    backgroundImage: "../../assets/img/certificates/fantasticFriend.png",
+  },
+  {
+    name: "Star Of The Day",
+    value: "starOfTheDay",
+    backgroundImage: "../../assets/img/certificates/starOfTheDay.png",
+  },
+  {
+    name: "Student Of The Week",
+    value: "studentOfTheWeek",
+    backgroundImage: "../../assets/img/certificates/studentOfTheWeek.png",
+  },
+  {
+    name: "Well Done",
+    value: "wellDone",
+    backgroundImage: "../../assets/img/certificates/wellDone.png",
+  },
+];
+
 export const CertificateForm = () => {
   return (
     <Stack container component="form" onSubmit={handleSubmit(onSubmit)}>
       <PageTitle>Create . Certificate</PageTitle>
-      <Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
+      <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
         <FormControl sx={{ mt: 2 }} fullWidth>
-          <InputLabel color="secondary" id="role">
-            Role
-          </InputLabel>
+          <InputLabel id="type">Please Choose Certificate</InputLabel>
           <Select
             color="secondary"
             defaultValue={"parent"}
@@ -17,15 +53,14 @@ export const CertificateForm = () => {
             autoFocus
             disabled={loading}
           >
-            {roleOptions.map((role, index) => (
-              <MenuItem key={index} value={role.value}>
-                {role.title}
+            {certificateArray.map((certificate, index) => (
+              <MenuItem key={index} value={certificate.value}>
+                {certificate.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <TextField
-          color="secondary"
           margin="normal"
           id="childName"
           label="Child's Name"
@@ -37,7 +72,6 @@ export const CertificateForm = () => {
           error={!!errors.childName}
         />
         <TextField
-          color="success"
           margin="normal"
           id="certificateDetail"
           label="Description"
@@ -56,7 +90,7 @@ export const CertificateForm = () => {
           variant="contained"
           sx={item.actionButtons}
           startIcon={error && <ErrorIcon />}
-          color={error ? "error" : "secondary"}
+          color={error ? "error" : "warning"}
         >
           Create Certificate
         </LoadingButton>
