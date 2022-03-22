@@ -122,9 +122,9 @@ export const VIEW_CHILD = gql`
       }
       medical {
         id
-        disabilities
         allergies
         medications
+        disabilities
         additionalInfo
       }
       absenceRequests {
@@ -133,6 +133,20 @@ export const VIEW_CHILD = gql`
         description
         dateTime
         status
+      }
+      incidentReports {
+        id
+        title
+        description
+        dateTime
+        teacher {
+          id
+          role
+          title
+          firstName
+          lastName
+          email
+        }
       }
     }
   }
