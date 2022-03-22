@@ -24,9 +24,6 @@ export const Certificate = () => {
       <Typography variant="subititle1" textAlign="center">
         for being helpful
       </Typography>
-      <Typography variant="h5" textAlign="center">
-        From: Miss Gallagher
-      </Typography>
     </Box>
   );
 };
