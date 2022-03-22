@@ -1,6 +1,4 @@
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import logo from '../assets/img/logoMain.png';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
@@ -8,11 +6,11 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import { IncidentChannel } from '../components/IncidentChannel';
 import { IncidentListDesktop } from '../components/IncidentList/IncidentListDesktop';
-
+import { PageContainer } from '../components/PageContainer';
+import { PageTitle } from '../components/PageTitle';
 import { MOBILE, DESKTOP } from '../media';
 import { useMediaQuery } from 'react-responsive';
 import { IncidentComment } from '../components/IncidentComment';
-
 import { useState } from 'react';
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
 import { ADD_INCIDENT_REPORT_COMMENT } from '../graphql/mutations';
@@ -21,13 +19,6 @@ import {
 	VIEW_INCIDENT_REPORTS,
 	VIEW_INCIDENT_REPORT_BY_ID,
 } from '../graphql/query';
-
-const styles = {
-	paperContainer: {
-		margin: '2rem 0',
-		borderRadius: '25px',
-	},
-};
 
 export const ViewIncidentTeacher = () => {
 	const isMobile = useMediaQuery(MOBILE);
@@ -97,7 +88,7 @@ export const ViewIncidentTeacher = () => {
 			!incidentReportListLoading
 		) {
 			return (
-				<Alert severity='error'>
+				<Alert severity="error">
 					Something went wrong, please tray again later.
 				</Alert>
 			);
@@ -106,59 +97,48 @@ export const ViewIncidentTeacher = () => {
 
 	const renderData = () => {
 		return (
-			<Box component='main' maxWidth='lg'>
-				<Paper elevation={6} style={styles.paperContainer}>
-					<div className='logoContainer'>
-						<img src={logo} className='logo' alt='logo' />
-					</div>
-					<Grid item xs={12}>
-						<Typography
-							className='headingFont'
-							variant='h3'
-							gutterBottom
-							component='div'>
-							Incident Form
-						</Typography>
-					</Grid>
-					<Grid container>
-						<Grid item xs={isDesktop ? 4 : 12}>
-							<IncidentListDesktop
-								studentList={studentList?.teacherStudents}
-								setStudent={setStudent}
-								studentIncidents={studentIncidents}
-								renderIncidentReportOnClick={renderIncidentReportOnClick}
-								student={student}
-								setShowCommentSection={setShowCommentSection}
-							/>
-						</Grid>
-
-						<Grid item xs={isMobile ? 12 : 8}>
-							<IncidentChannel
-								incidentReportDataById={incidentReportDataById?.id}
-								studentIncidents={studentIncidents}
-							/>
-						</Grid>
-					</Grid>
-					<Grid container>
-						<IncidentComment
-							showCommentSection={showCommentSection}
-							executeAddComment={executeAddComment}
-							incidentReportDataById={incidentReportDataById}
-							mutationError={mutationError}
-							setIncidentReportDataById={setIncidentReportDataById}
-							refetch={refetch}
+			<>
+				<Grid item xs={12}>
+					<PageTitle>Incident Report</PageTitle>
+				</Grid>
+				<Grid container>
+					<Grid item={true} xs={isDesktop ? 4 : 12}>
+						<IncidentListDesktop
+							studentList={studentList?.teacherStudents}
+							setStudent={setStudent}
+							studentIncidents={studentIncidents}
+							renderIncidentReportOnClick={renderIncidentReportOnClick}
+							student={student}
+							setShowCommentSection={setShowCommentSection}
 						/>
 					</Grid>
-				</Paper>
-			</Box>
+
+					<Grid item={true} xs={isMobile ? 12 : 8}>
+						<IncidentChannel
+							incidentReportDataById={incidentReportDataById?.id}
+							studentIncidents={studentIncidents}
+						/>
+					</Grid>
+				</Grid>
+				<Grid container>
+					<IncidentComment
+						showCommentSection={showCommentSection}
+						executeAddComment={executeAddComment}
+						incidentReportDataById={incidentReportDataById}
+						mutationError={mutationError}
+						setIncidentReportDataById={setIncidentReportDataById}
+						refetch={refetch}
+					/>
+				</Grid>
+			</>
 		);
 	};
 
 	return (
-		<Box>
+		<PageContainer>
 			{renderLoading()}
 			{renderError()}
 			{renderData()}
-		</Box>
+		</PageContainer>
 	);
 };

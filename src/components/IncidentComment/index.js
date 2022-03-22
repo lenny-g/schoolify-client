@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { item, forms, GREEN } from '../../styles';
+import { DESKTOP, MOBILE } from '../../media';
+import { useMediaQuery } from 'react-responsive';
 
 export const IncidentComment = ({
 	mutationError,
@@ -13,6 +15,8 @@ export const IncidentComment = ({
 
 	refetch,
 }) => {
+	const isDesktop = useMediaQuery(DESKTOP);
+
 	const {
 		register,
 		formState: { errors },
@@ -34,15 +38,19 @@ export const IncidentComment = ({
 	};
 
 	return (
-		<Grid container component='form' onSubmit={handleSubmit(onSubmit)}>
-			<Grid sx={{ ...forms.container, backgroundColor: GREEN }} xs={12}>
+		<Grid container component="form" onSubmit={handleSubmit(onSubmit)}>
+			<Grid
+				item={true}
+				sx={{ ...forms.container, backgroundColor: GREEN }}
+				xs={12}>
 				<TextField
-					color='warning'
-					margin='normal'
-					id='comment'
-					label='Comment'
-					variant='outlined'
-					name='comment'
+					sx={{ minWidth: isDesktop ? '450px' : 'unset' }}
+					color="warning"
+					margin="normal"
+					id="comment"
+					label="Comment"
+					variant="outlined"
+					name="comment"
 					rows={4}
 					multiline
 					fullWidth
@@ -50,21 +58,21 @@ export const IncidentComment = ({
 					error={!!errors.comment}
 				/>
 			</Grid>
-			<Grid sx={item.comment} xs={12}>
+			<Grid item={true} sx={item.comment} xs={12}>
 				<LoadingButton
 					// loading={mutationLoading}
-					color='warning'
+					color="warning"
 					disabled={!showCommentSection}
-					type='submit'
-					variant='contained'
+					type="submit"
+					variant="contained"
 					sx={forms.loadingButton}>
 					Submit
 				</LoadingButton>
 				{!!mutationError && (
 					<Typography
-						variant='subtitle2'
+						variant="subtitle2"
 						gutterBottom
-						component='div'
+						component="div"
 						sx={forms.errorContainer}>
 						Failed to add comment.
 					</Typography>

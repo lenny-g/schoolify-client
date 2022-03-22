@@ -75,21 +75,21 @@ export const IncidentReportForm = () => {
 	}
 
 	return (
-		<Stack component='form' onSubmit={handleSubmit(onSubmit)}>
+		<Stack component="form" onSubmit={handleSubmit(onSubmit)}>
 			<PageTitle>Incident Report Form</PageTitle>
 
 			<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel id='childName'>Select child name</InputLabel>
+					<InputLabel id="childName">Select child name</InputLabel>
 					<Controller
 						control={control}
-						name='student'
+						name="student"
 						render={({ field: { onChange, value } }) => (
 							<Select
 								autoFocus
-								labelId='student'
-								id='student'
-								label='Select Student'
+								labelId="student"
+								id="student"
+								label="Select Student"
 								value={value || ''}
 								disabled={mutationLoading}
 								onChange={onChange}
@@ -105,22 +105,22 @@ export const IncidentReportForm = () => {
 					/>
 				</FormControl>
 				<TextField
-					margin='normal'
-					id='incidentTitle'
-					label='Incident Title'
-					variant='outlined'
-					name='incidentTitle'
+					margin="normal"
+					id="incidentTitle"
+					label="Incident Title"
+					variant="outlined"
+					name="incidentTitle"
 					disabled={mutationLoading}
 					fullWidth
 					{...register('incidentTitle', { required: true })}
 					error={!!errors.incidentTitle}
 				/>
 				<TextField
-					margin='normal'
-					id='incidentDetail'
-					label='Incident details'
-					variant='outlined'
-					name='incidentDetail'
+					margin="normal"
+					id="incidentDetail"
+					label="Incident details"
+					variant="outlined"
+					name="incidentDetail"
 					multiline
 					disabled={mutationLoading}
 					rows={4}
@@ -131,9 +131,9 @@ export const IncidentReportForm = () => {
 
 				<LoadingButton
 					loading={mutationLoading}
-					loadingIndicator='Loading...'
-					variant='contained'
-					type='submit'
+					loadingIndicator="Loading..."
+					variant="contained"
+					type="submit"
 					sx={styles.loadingButton}
 					startIcon={mutationError && <ErrorIcon />}
 					color={mutationError ? 'error' : 'warning'}>
@@ -142,9 +142,9 @@ export const IncidentReportForm = () => {
 
 				{!!mutationError && (
 					<Typography
-						variant='subtitle2'
+						variant="subtitle2"
 						gutterBottom
-						component='div'
+						component="div"
 						sx={{ mt: 2, textAlign: 'center', color: 'warning' }}>
 						Failed to send report.
 					</Typography>

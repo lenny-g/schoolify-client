@@ -1,15 +1,11 @@
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import logo from '../assets/img/logoPages.png';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import { IncidentChannel } from '../components/IncidentChannel';
 import { IncidentComment } from '../components/IncidentComment';
 import { IncidentListDesktop } from '../components/IncidentList/IncidentListDesktop';
-
 import { PageContainer } from '../components/PageContainer';
 import { PageTitle } from '../components/PageTitle';
 import { DESKTOP, MOBILE } from '../media';
@@ -22,13 +18,6 @@ import {
 	VIEW_INCIDENT_REPORTS,
 	VIEW_INCIDENT_REPORT_BY_ID,
 } from '../graphql/query';
-
-const styles = {
-	paperContainer: {
-		margin: '2rem 0',
-		borderRadius: '25px',
-	},
-};
 
 export const ViewIncidentParent = () => {
 	const isDesktop = useMediaQuery(DESKTOP);
@@ -93,7 +82,7 @@ export const ViewIncidentParent = () => {
 			!incidentReportListLoading
 		) {
 			return (
-				<Alert severity='error'>
+				<Alert severity="error">
 					Something went wrong, please tray again later.
 				</Alert>
 			);
@@ -102,10 +91,10 @@ export const ViewIncidentParent = () => {
 
 	const renderData = () => {
 		return (
-			<PageContainer>
+			<>
 				<PageTitle>Incident Report</PageTitle>
 				<Grid container>
-					<Grid item xs={isDesktop ? 4 : 12}>
+					<Grid item={true} md={isMobile ? 12 : 4} sm={12} xs={12}>
 						<IncidentListDesktop
 							studentList={studentList?.parentsChildren?.children}
 							setStudent={setStudent}
@@ -116,33 +105,38 @@ export const ViewIncidentParent = () => {
 						/>
 					</Grid>
 
-					<Grid item xs={isMobile ? 12 : 8}>
-						<IncidentChannel
-							incidentReportDataById={incidentReportDataById?.id}
-							studentIncidents={studentIncidents}
-						/>
+					<Grid item={true} md={isMobile ? 12 : 8} sm={12} xs={12}>
+						{student && showCommentSection && (
+							<IncidentChannel
+								incidentReportDataById={incidentReportDataById?.id}
+								studentIncidents={studentIncidents}
+							/>
+						)}
 					</Grid>
 				</Grid>
-				<Grid container>
-					<IncidentComment
-						executeAddComment={executeAddComment}
-						incidentReportDataById={incidentReportDataById}
-						mutationError={mutationError}
-						setIncidentReportDataById={setIncidentReportDataById}
-						showCommentSection={showCommentSection}
-						refetch={refetch}
-						setShowCommentSection={setShowCommentSection}
-					/>
-				</Grid>
-			</PageContainer>
+
+				{student && showCommentSection && (
+					<Grid container>
+						<IncidentComment
+							executeAddComment={executeAddComment}
+							incidentReportDataById={incidentReportDataById}
+							mutationError={mutationError}
+							setIncidentReportDataById={setIncidentReportDataById}
+							showCommentSection={showCommentSection}
+							refetch={refetch}
+							setShowCommentSection={setShowCommentSection}
+						/>
+					</Grid>
+				)}
+			</>
 		);
 	};
 
 	return (
-		<Box>
+		<PageContainer>
 			{renderLoading()}
 			{renderError()}
 			{renderData()}
-		</Box>
+		</PageContainer>
 	);
 };

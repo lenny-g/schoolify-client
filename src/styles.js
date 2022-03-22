@@ -85,11 +85,11 @@ export const item = {
 		padding: '5px',
 		margin: '2px',
 		borderRadius: '10px',
-		width: 'fitContent',
+		width: '#ffa500',
 	},
 	parentComment: {
 		width: 'fitContent',
-		backgroundColor: 'yellow',
+		backgroundColor: '#5acdb8',
 		padding: '5px',
 		margin: '2px',
 		borderRadius: '10px',
@@ -100,16 +100,6 @@ export const item = {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-	},
-	yellow: {
-		justifyContent: 'center',
-		textAlign: 'center',
-		marginLeft: 'auto',
-		marginRight: 'auto',
-		marginBottom: '20px',
-		padding: '20px',
-		borderRadius: '15px',
-		backgroundColor: '#b2e2d8',
 	},
 };
 
