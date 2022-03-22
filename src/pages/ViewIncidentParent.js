@@ -10,6 +10,7 @@ import { IncidentChannel } from '../components/IncidentChannel';
 import { IncidentComment } from '../components/IncidentComment';
 import { IncidentListDesktop } from '../components/IncidentList/IncidentListDesktop';
 
+import { PageContainer } from '../components/PageContainer';
 import { DESKTOP, MOBILE } from '../media';
 import { useMediaQuery } from 'react-responsive';
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
@@ -100,52 +101,47 @@ export const ViewIncidentParent = () => {
 
 	const renderData = () => {
 		return (
-			<Box component='main' maxWidth='lg'>
-				<Paper elevation={6} style={styles.paperContainer}>
-					<div className='logoContainer'>
-						<img src={logo} className='logo' alt='logo' />
-					</div>
-					<Grid item xs={12}>
-						<Typography
-							className='headingFont'
-							variant='h5'
-							gutterBottom
-							component='div'>
-							Incident Form
-						</Typography>
-					</Grid>
-					<Grid container>
-						<Grid item xs={isDesktop ? 4 : 12}>
-							<IncidentListDesktop
-								studentList={studentList?.parentsChildren?.children}
-								setStudent={setStudent}
-								studentIncidents={studentIncidents}
-								renderIncidentReportOnClick={renderIncidentReportOnClick}
-								student={student}
-								setShowCommentSection={setShowCommentSection}
-							/>
-						</Grid>
-
-						<Grid item xs={isMobile ? 12 : 8}>
-							<IncidentChannel
-								incidentReportDataById={incidentReportDataById?.id}
-								studentIncidents={studentIncidents}
-							/>
-						</Grid>
-					</Grid>
-					<Grid container>
-						<IncidentComment
-							executeAddComment={executeAddComment}
-							incidentReportDataById={incidentReportDataById}
-							mutationError={mutationError}
-							setIncidentReportDataById={setIncidentReportDataById}
-							showCommentSection={showCommentSection}
-							refetch={refetch}
+			<PageContainer>
+				<Grid item xs={12}>
+					<Typography
+						className='headingFont'
+						variant='h5'
+						gutterBottom
+						component='div'>
+						Incident Form
+					</Typography>
+				</Grid>
+				<Grid container>
+					<Grid item xs={isDesktop ? 4 : 12}>
+						<IncidentListDesktop
+							studentList={studentList?.parentsChildren?.children}
+							setStudent={setStudent}
+							studentIncidents={studentIncidents}
+							renderIncidentReportOnClick={renderIncidentReportOnClick}
+							student={student}
 							setShowCommentSection={setShowCommentSection}
 						/>
 					</Grid>
-				</Paper>
-			</Box>
+
+					<Grid item xs={isMobile ? 12 : 8}>
+						<IncidentChannel
+							incidentReportDataById={incidentReportDataById?.id}
+							studentIncidents={studentIncidents}
+						/>
+					</Grid>
+				</Grid>
+				<Grid container>
+					<IncidentComment
+						executeAddComment={executeAddComment}
+						incidentReportDataById={incidentReportDataById}
+						mutationError={mutationError}
+						setIncidentReportDataById={setIncidentReportDataById}
+						showCommentSection={showCommentSection}
+						refetch={refetch}
+						setShowCommentSection={setShowCommentSection}
+					/>
+				</Grid>
+			</PageContainer>
 		);
 	};
 

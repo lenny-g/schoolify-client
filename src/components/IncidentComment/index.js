@@ -53,6 +53,7 @@ export const IncidentComment = ({
 			<Grid sx={item.comment} xs={12}>
 				<LoadingButton
 					// loading={mutationLoading}
+					color='warning'
 					disabled={!showCommentSection}
 					type='submit'
 					variant='contained'
