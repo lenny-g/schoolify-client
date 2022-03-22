@@ -78,7 +78,14 @@ export const item = {
 		justifyContent: 'center',
 		borderRadius: '15px',
 	},
-
+	incident: {
+		backgroundColor: '#ef8080',
+		width: 'inherit',
+		padding: '5px',
+		margin: '2px',
+		borderRadius: '10px',
+		width: '#ffa500',
+	},
 	teacherComment: {
 		width: 'fitContent',
 		backgroundColor: 'orange',

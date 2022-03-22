@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import { GREEN } from '../../styles';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 export const IncidentListDesktop = ({
 	studentList,
@@ -19,21 +20,14 @@ export const IncidentListDesktop = ({
 }) => {
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-			{/* <Grid
-				item
-				xs={12}
-				sx={{
-					padding: '10px',
-					display: 'flex',
-				}}> */}
 			<FormControl sx={{ mt: 2, padding: '10px' }} fullWidth>
 				<InputLabel color="warning" id="child" sx={{ padding: '10px' }}>
-					Child
+					Child's name
 				</InputLabel>
 				<Select
 					color="warning"
 					defaultValue={``}
-					labelId="child"
+					labelId="Enter child's name"
 					id="child"
 					label="child"
 					onChange={(e) => {
@@ -47,7 +41,6 @@ export const IncidentListDesktop = ({
 					))}
 				</Select>
 			</FormControl>
-			{/* </Grid> */}
 			<Stack
 				sx={{
 					padding: '10px',
@@ -62,25 +55,34 @@ export const IncidentListDesktop = ({
 
 				{studentIncidents()?.map((each, index) => {
 					return (
-						<Box
+						<Stack
 							onClick={() => {
 								renderIncidentReportOnClick(each.id);
 							}}
 							key={index}
 							sx={{
+								flexDirection: 'row',
+								justifyContent: 'space-between',
 								padding: '10px',
 								backgroundColor: GREEN,
 								borderRadius: '10px',
 								mb: 2,
 							}}>
-							<Typography variant="body2" sx={{ textAlign: 'left' }}>
-								{each.teacher.firstName} {each.teacher.lastName}
-							</Typography>
-							<Typography variant="body2" sx={{ textAlign: 'right' }}>
-								{each.dateTime.split(' ').slice(0, 4).join(' ')}
-							</Typography>
-							<Typography variant="subtitle1">{each.title}</Typography>
-						</Box>
+							<Box>
+								<Typography variant="body2">
+									{each.teacher.firstName} {each.teacher.lastName}
+								</Typography>
+								<Typography variant="caption">
+									{each.dateTime.split(' ').slice(0, 4).join(' ')}
+								</Typography>
+								<Typography sx={{ textTransform: 'upperCase' }} variant="body1">
+									{each.title}
+								</Typography>
+							</Box>
+							<Box sx={{ p: '20px' }}>
+								<ArrowCircleRightIcon />
+							</Box>
+						</Stack>
 					);
 				})}
 			</Stack>

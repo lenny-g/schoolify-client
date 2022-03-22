@@ -102,7 +102,7 @@ export const ViewIncidentTeacher = () => {
 					<PageTitle>Incident Report</PageTitle>
 				</Grid>
 				<Grid container>
-					<Grid item={true} xs={isDesktop ? 4 : 12}>
+					<Grid item={true} md={isMobile ? 12 : 4} sm={12} xs={12}>
 						<IncidentListDesktop
 							studentList={studentList?.teacherStudents}
 							setStudent={setStudent}
@@ -113,23 +113,28 @@ export const ViewIncidentTeacher = () => {
 						/>
 					</Grid>
 
-					<Grid item={true} xs={isMobile ? 12 : 8}>
-						<IncidentChannel
-							incidentReportDataById={incidentReportDataById?.id}
-							studentIncidents={studentIncidents}
-						/>
+					<Grid item={true} md={isMobile ? 12 : 8} sm={12} xs={12}>
+						{student && showCommentSection && (
+							<IncidentChannel
+								incidentReportDataById={incidentReportDataById?.id}
+								studentIncidents={studentIncidents}
+							/>
+						)}
 					</Grid>
 				</Grid>
-				<Grid container>
-					<IncidentComment
-						showCommentSection={showCommentSection}
-						executeAddComment={executeAddComment}
-						incidentReportDataById={incidentReportDataById}
-						mutationError={mutationError}
-						setIncidentReportDataById={setIncidentReportDataById}
-						refetch={refetch}
-					/>
-				</Grid>
+
+				{student && showCommentSection && (
+					<Grid container>
+						<IncidentComment
+							showCommentSection={showCommentSection}
+							executeAddComment={executeAddComment}
+							incidentReportDataById={incidentReportDataById}
+							mutationError={mutationError}
+							setIncidentReportDataById={setIncidentReportDataById}
+							refetch={refetch}
+						/>
+					</Grid>
+				)}
 			</>
 		);
 	};

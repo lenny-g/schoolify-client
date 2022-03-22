@@ -16,7 +16,6 @@ export const IncidentChannel = ({
 
 	return (
 		<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-			{/* <Grid item xs={12}> */}
 			<Typography
 				variant="h6"
 				gutterBottom
@@ -24,14 +23,8 @@ export const IncidentChannel = ({
 				sx={{ textAlign: 'center' }}>
 				{incidentReportData?.title}
 			</Typography>
-			{/* </Grid> */}
 			<Stack spacing={2}>
-				{/* <Grid
-					item={true}
-					xs={12}
-					sx={{ display: 'flex', justifyContent: 'end' }}> */}
-				<Box>
-					{/* <Box sx={item.teacherComment}> */}
+				<Box sx={item.incident}>
 					<Typography variant="body1">
 						{incidentReportData?.description}
 					</Typography>
@@ -41,18 +34,11 @@ export const IncidentChannel = ({
 						{incidentReportData?.teacher.lastName}
 					</Typography>
 				</Box>
-				{/* </Grid> */}
+
 				{incidentReportData?.comments?.map((each, index) => {
 					return (
-						// <Grid
-						// 	key={index}
-						// 	item={true}
-						// 	xs={12}
-						// 	sx={{
-						// 		display: 'flex',
-						// 		justifyContent: each.name === userRole ? 'start' : 'end',
-						// 	}}>
 						<Box
+							key={index}
 							sx={
 								each.name === userRole
 									? item.teacherComment
@@ -63,7 +49,6 @@ export const IncidentChannel = ({
 								{each.dateTime.split(' ').slice(4, 5).join(' ')}
 							</Typography>
 						</Box>
-						// </Grid>
 					);
 				})}
 			</Stack>
