@@ -128,71 +128,6 @@ export const largeButtons = {
 	},
 };
 
-export const colors = {
-	container: {
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '15px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#e9c6d66e',
-	},
-	blue: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '15px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#82caec82',
-	},
-	green: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '15px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#81c78469',
-	},
-	pink: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '15px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#e9c6d66e',
-	},
-	yellow: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '15px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#f4e4715c',
-	},
-	purple: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '15px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#b7cbf88a',
-	},
-};
 export const brand = {
 	container: {
 		display: 'flex',
@@ -203,15 +138,8 @@ export const brand = {
 	},
 };
 
-export const headers = {
-	font: {
-		textAlign: 'center',
-		fontFamily: "'Gochi Hand', cursive,",
-		letterSpacing: '2px',
-	},
-};
-
 export const getContainerStyles = (isMobile) => ({
+	backgroundColor: '#d9f3ee70',
 	padding: '1rem',
 	borderRadius: '10px',
 	boxShadow: isMobile
@@ -220,5 +148,3 @@ export const getContainerStyles = (isMobile) => ({
 });
 
 export const GREEN = '#b2e2d8';
-
-// buttons #dd9148

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,11 +13,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ErrorIcon from '@mui/icons-material/Error';
 
-import { item, colors } from '../../styles';
+import { forms, GREEN } from '../../styles';
 import { ADD_INCIDENT_REPORT } from '../../graphql/mutations';
 import { GET_TEACHER_STUDENTS } from '../../graphql/query';
 // import { useAuth } from "../../context/AppProvider";
 import { useQuery, useMutation } from '@apollo/client';
+import { PageTitle } from '../PageTitle';
 
 export const IncidentReportForm = () => {
 	//   const { user } = useAuth();
@@ -74,32 +75,18 @@ export const IncidentReportForm = () => {
 	}
 
 	return (
-		<Grid
-			container
-			component='form'
-			sx={item.outerContainer}
-			onSubmit={handleSubmit(onSubmit)}>
-			<Grid item xs={12}>
-				<Typography
-					variant='h5'
-					gutterBottom
-					component='div'
-					sx={{ textAlign: 'center' }}>
-					Incident . Report . Form
-				</Typography>
-			</Grid>
-			<Box sx={colors.green}>
+		<Stack component='form' onSubmit={handleSubmit(onSubmit)}>
+			<PageTitle>Incident Report Form</PageTitle>
+
+			<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
-					<InputLabel color='success' id='childName'>
-						Select child name
-					</InputLabel>
+					<InputLabel id='childName'>Select child name</InputLabel>
 					<Controller
 						control={control}
 						name='student'
 						render={({ field: { onChange, value } }) => (
 							<Select
 								autoFocus
-								color='warning'
 								labelId='student'
 								id='student'
 								label='Select Student'
@@ -118,7 +105,6 @@ export const IncidentReportForm = () => {
 					/>
 				</FormControl>
 				<TextField
-					color='success'
 					margin='normal'
 					id='incidentTitle'
 					label='Incident Title'
@@ -130,7 +116,6 @@ export const IncidentReportForm = () => {
 					error={!!errors.incidentTitle}
 				/>
 				<TextField
-					color='success'
 					margin='normal'
 					id='incidentDetail'
 					label='Incident details'
@@ -151,7 +136,7 @@ export const IncidentReportForm = () => {
 					type='submit'
 					sx={styles.loadingButton}
 					startIcon={mutationError && <ErrorIcon />}
-					color={mutationError ? 'error' : 'secondary'}>
+					color={mutationError ? 'error' : 'warning'}>
 					Send Report
 				</LoadingButton>
 
@@ -160,11 +145,11 @@ export const IncidentReportForm = () => {
 						variant='subtitle2'
 						gutterBottom
 						component='div'
-						sx={{ mt: 2, textAlign: 'center', color: 'secondary' }}>
+						sx={{ mt: 2, textAlign: 'center', color: 'warning' }}>
 						Failed to send report.
 					</Typography>
 				)}
 			</Box>
-		</Grid>
+		</Stack>
 	);
 };

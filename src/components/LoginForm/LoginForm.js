@@ -62,7 +62,7 @@ export const LoginForm = () => {
 	return (
 		<Stack component='form' onSubmit={handleSubmit(onSubmit)}>
 			<PageTitle>
-				{role === 'parent' ? 'Parent' : 'Teacher'} . Login . Page
+				{role === 'parent' ? 'Parent' : 'Teacher'} Login Page
 			</PageTitle>
 			<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
 				<FormControl sx={{ mt: 2 }} fullWidth>
