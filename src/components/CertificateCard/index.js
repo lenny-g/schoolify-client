@@ -26,7 +26,7 @@ export const CertificateCard = ({ backgroundImage, studentName, message }) => {
         textAlign="center"
         marginTop="5px"
         marginLeft="2rem"
-        maxWidth="350px"
+        maxWidth="20px"
       >
         {message}
       </Typography>
