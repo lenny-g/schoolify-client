@@ -36,7 +36,6 @@ export const CertificateForm = () => {
 
   return (
     <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
-      <PageTitle>Certificate . Form</PageTitle>
       <Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
         <FormControl sx={{ mt: 2 }} fullWidth>
           <InputLabel color="secondary" id="certificate">
@@ -59,12 +58,11 @@ export const CertificateForm = () => {
           </Select>
         </FormControl>
         <TextField
-          color="secondary"
           margin="normal"
-          id="email"
-          label="Email"
+          id="name"
+          label="Name"
           variant="outlined"
-          name="email"
+          name="name"
           autoFocus
           fullWidth
           // disabled={loading}
@@ -72,22 +70,21 @@ export const CertificateForm = () => {
           error={!!errors.email}
         />
         <TextField
-          color="secondary"
           margin="normal"
-          id="password"
-          label="Password"
+          id="message"
+          label="Message"
           variant="outlined"
-          name="password"
-          type="password"
+          name="message"
+          type="message"
           fullWidth
           // disabled={loading}
-          {...register("password", { required: true })}
+          {...register("message", { required: true })}
           error={!!errors.password}
         />
         <CertificateCard
           backgroundImage={certificateCardData().backgroundImage}
-          message={certificateCardData().name}
-          studentName={"Student Name"}
+          message={certificateCardData().message}
+          studentName={certificateCardData().name}
         />
         {console.log(certificateCardData())}
         <LoadingButton
@@ -99,7 +96,7 @@ export const CertificateForm = () => {
           // startIcon={error && <ErrorIcon />}
           // color={error ? "error" : "secondary"}
         >
-          Login
+          Create
         </LoadingButton>
       </Box>
     </Stack>

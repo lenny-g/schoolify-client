@@ -1,46 +1,47 @@
 import wellDone from "../assets/img/certificates/wellDone.png";
 import classHelper from "../assets/img/certificates/classHelper.png";
+import brilliantBehaviour from "../assets/img/certificates/brilliantBehaviour.png";
+import excellentAchievement from "../assets/img/certificates/excellentAchievement.png";
+import fantasticFriend from "../assets/img/certificates/fantasicFriend.jpg";
+import incredibleImprovement from "../assets/img/certificates/incredibleImprovement.png";
+import starOfTheDay from "../assets/img/certificates/starOfTheDay.png";
+import studentOfTheWeek from "../assets/img/certificates/studentOfTheWeek.png";
 
 export const certificateOptions = [
   {
     name: "Brilliant Behaviour",
     value: "brilliantBehaviour",
-    backgroundImage:
-      "https://i.ibb.co/BqfqPrf/Watercolour-Illustration-Preschool-Graduation-Certificate-9.png",
+    backgroundImage: brilliantBehaviour,
   },
   {
     name: "Class Helper",
     value: "classHelper",
-    backgroundImage:
-      "https://i.ibb.co/nMd8ZZQ/Watercolour-Illustration-Preschool-Graduation-Certificate-8.png",
+    backgroundImage: classHelper,
   },
   {
     name: "Excellent Achievement",
     value: "excellentAchievement",
-    backgroundImage:
-      "https://i.ibb.co/cTycVgW/Watercolour-Illustration-Preschool-Graduation-Certificate-10.png",
+    backgroundImage: excellentAchievement,
   },
   {
     name: "Fantastic Friend",
     value: "fantasticFriend",
-    backgroundImage:
-      "https://i.ibb.co/NnV1hWf/Watercolour-Illustration-Preschool-Graduation-Certificate.jpg",
+    backgroundImage: fantasticFriend,
   },
   {
     name: "Incredible Improvement",
     value: "incredibleImprovement",
-    backgroundImage:
-      "https://i.ibb.co/3NPmgKD/Watercolour-Illustration-Preschool-Graduation-Certificate-11.png",
+    backgroundImage: incredibleImprovement,
   },
   {
     name: "Star Of The Day",
     value: "starOfTheDay",
-    backgroundImage: "../../assets/img/certificates/starOfTheDay.png",
+    backgroundImage: starOfTheDay,
   },
   {
     name: "Student Of The Week",
     value: "studentOfTheWeek",
-    backgroundImage: "../../assets/img/certificates/studentOfTheWeek.png",
+    backgroundImage: studentOfTheWeek,
   },
   {
     name: "Well Done",
