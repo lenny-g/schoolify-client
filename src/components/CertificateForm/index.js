@@ -1,98 +1,105 @@
-const certificateArray = [
-  {
-    name: "Brilliant Behaviour",
-    value: "brilliantBehaviour",
-    backgroundImage: "../../assets/img/certificates/brilliantBehavior.png",
-  },
-  {
-    name: "Class Helper",
-    value: "classHelper",
-    backgroundImage: "../../assets/img/certificates/classHelper.png",
-  },
-  {
-    name: "Excellent Achievement",
-    value: "excellentAchievement",
-    backgroundImage: "../../assets/img/certificates/excellentAchievement.png",
-  },
-  {
-    name: "Fantastic Friend",
-    value: "fantasticFriend",
-    backgroundImage: "../../assets/img/certificates/fantasticFriend.png",
-  },
-  {
-    name: "Star Of The Day",
-    value: "starOfTheDay",
-    backgroundImage: "../../assets/img/certificates/starOfTheDay.png",
-  },
-  {
-    name: "Student Of The Week",
-    value: "studentOfTheWeek",
-    backgroundImage: "../../assets/img/certificates/studentOfTheWeek.png",
-  },
-  {
-    name: "Well Done",
-    value: "wellDone",
-    backgroundImage: "../../assets/img/certificates/wellDone.png",
-  },
-];
+import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import { certificateOptions } from "../../data/certificateTypes";
+import FormControl from "@mui/material/FormControl";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import ErrorIcon from "@mui/icons-material/Error";
+import { CertificateCard } from "../CertificateCard";
+import { PageTitle } from "../PageTitle";
+import { useAuth } from "../../context/AppProvider";
+import { LOGIN_USER } from "../../graphql/mutations";
+import { forms, item, PURPLE } from "../../styles";
 
 export const CertificateForm = () => {
-  return (fgdzfszgsgszsz
-    <Stack container component="form" onSubmit={handleSubmit(onSubmit)}>
-      <PageTitle>Create . Certificate</PageTitle>
-      <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const certificate = watch("certificate", "wellDone");
+  console.log(certificate);
+
+  const certificateCardData = () => {
+    return certificateOptions.find((each) => each.value === certificate);
+  };
+  const onSubmit = async (formData) => {};
+
+  return (
+    <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
+      <PageTitle>Certificate . Form</PageTitle>
+      <Box sx={{ ...forms.container, backgroundColor: PURPLE }}>
         <FormControl sx={{ mt: 2 }} fullWidth>
-          <InputLabel id="type">Please Choose Certificate</InputLabel>
+          <InputLabel color="secondary" id="certificate">
+            Please choose your certificate
+          </InputLabel>
           <Select
-            color="secondary"
-            defaultValue={"parent"}
-            labelId="role"
-            id="role"
-            label="role"
-            {...register("role")}
+            defaultValue={"wellDone"}
+            labelId="certificate"
+            id="certificate"
+            label="certificate"
+            {...register("certificate")}
             autoFocus
-            disabled={loading}
+            // disabled={loading}
           >
-            {certificateArray.map((certificate, index) => (
-              <MenuItem key={index} value={certificate.value}>
-                {certificate.name}
+            {certificateOptions.map((certificateType, index) => (
+              <MenuItem key={index} value={certificateType.value}>
+                {certificateType.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <TextField
+          color="secondary"
           margin="normal"
-          id="childName"
-          label="Child's Name"
+          id="email"
+          label="Email"
           variant="outlined"
-          name="name"
+          name="email"
           autoFocus
           fullWidth
-          disabled={loading}
-          error={!!errors.childName}
+          // disabled={loading}
+          {...register("email", { required: true })}
+          error={!!errors.email}
         />
         <TextField
+          color="secondary"
           margin="normal"
-          id="certificateDetail"
-          label="Description"
+          id="password"
+          label="Password"
           variant="outlined"
-          name="description"
-          multiline
-          rows={4}
+          name="password"
+          type="password"
           fullWidth
-          {...register("certificateDetail", { required: true })}
-          error={!!errors.certificateDetail}
+          // disabled={loading}
+          {...register("password", { required: true })}
+          error={!!errors.password}
         />
+        <CertificateCard
+          backgroundImage={certificateCardData().backgroundImage}
+          message={certificateCardData().name}
+          studentName={"Student Name"}
+        />
+        {console.log(certificateCardData())}
         <LoadingButton
-          loading={loading}
-          disabled={loading}
+          // loading={loading}
+          // disabled={loading}
           type="submit"
           variant="contained"
           sx={item.actionButtons}
-          startIcon={error && <ErrorIcon />}
-          color={error ? "error" : "warning"}
+          // startIcon={error && <ErrorIcon />}
+          // color={error ? "error" : "secondary"}
         >
-          Create Certificate
+          Login
         </LoadingButton>
       </Box>
     </Stack>
