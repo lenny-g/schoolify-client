@@ -16,6 +16,9 @@ import { PageTitle } from "../components/PageTitle";
 import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
 import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
 import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
+import { CertificateCard } from "../components/CertificateCard";
+import { certificateOptions } from "../data/certificateTypes";
+import { RemoveRedEyeSharp } from "@mui/icons-material";
 
 export const StudentInfo = () => {
   const { studentId } = useParams();
@@ -41,6 +44,13 @@ export const StudentInfo = () => {
     );
   }
 
+  const certificateImg = (value) => {
+    const certificateData = certificateOptions.find((each) => {
+      return each.value === value;
+    });
+    return certificateData.backgroundImage;
+  };
+
   return (
     <PageContainer>
       <Grid container sx={item.outerContainer}>
@@ -60,7 +70,18 @@ export const StudentInfo = () => {
               <MedicalInfo childData={childData} />
             </Box>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              <ChildCertificates />
+              {childData?.certificates?.map((certificate, index) => {
+                return (
+                  <CertificateCard
+                    key={index}
+                    backgroundImage={certificateImg(
+                      certificate.certificateType
+                    )}
+                    studentName={certificate.name}
+                    message={certificate.message}
+                  />
+                );
+              })}
             </Box>
           </Grid>
 
