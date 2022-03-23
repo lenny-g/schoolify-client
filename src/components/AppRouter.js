@@ -1,7 +1,8 @@
+import Box from "@mui/material/Box";
+
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import { GiveCertificate } from "../pages/GiveCertificate";
 import { useAuth } from "../context/AppProvider";
 import { Login } from "../pages/Login";
@@ -65,7 +66,14 @@ export const AppRouter = () => {
         component="main"
         sx={{
           backgroundImage:
-            'url("https://cdn.wallpapersafari.com/13/73/AQ4CSR.jpg")',
+            user?.role === "teacher"
+              ? 'url("https://i.pinimg.com/736x/2a/1a/91/2a1a91d417c99110d88a9da04c8e11b0.jpg")'
+              : 'url("https://cdn.wallpapersafari.com/13/73/AQ4CSR.jpg")',
+
+          webkitBackgroundSize: "cover",
+          mozBackgroundSize: "cover",
+          oBackgroundSize: "cover",
+          backgroundSize: "cover",
           display: "flex",
           flexGrow: 1,
           p: 3,

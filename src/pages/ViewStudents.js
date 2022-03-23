@@ -57,7 +57,7 @@ export const ViewStudents = () => {
             gutterBottom
             sx={{ textAlign: "center" }}
           >
-            Select your child's card to go to their dashboard
+            Select your student's card to go to their dashboard
           </Typography>
 
           <StudentCards studentData={data?.teacherStudents} />

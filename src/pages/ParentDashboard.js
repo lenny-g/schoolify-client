@@ -44,8 +44,17 @@ export const ParentDashboard = () => {
       return (
         <Stack spacing={2}>
           <PageTitle>
-            Hi {user.firstName} {user.lastName}!
+            WELCOME {user.firstName} {user.lastName}!
           </PageTitle>
+
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ textAlign: "center", textTransform: "uppercase" }}
+          >
+            My Children
+          </Typography>
+
           <Typography
             variant="subtitle1"
             gutterBottom
