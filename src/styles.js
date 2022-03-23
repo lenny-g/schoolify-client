@@ -28,6 +28,10 @@ export const forms = {
 };
 
 export const item = {
+	scrollContainer: {
+		height: '450px',
+		overflow: 'auto',
+	},
 	btnContainer: {
 		display: 'flex',
 		justifyContent: 'center',
@@ -78,28 +82,47 @@ export const item = {
 		justifyContent: 'center',
 		borderRadius: '15px',
 	},
-
-	teacherComment: {
-		width: 'fitContent',
-		backgroundColor: 'orange',
+	incident: {
+		backgroundColor: '#837d78',
+		color: '#ffffff',
 		padding: '5px',
 		margin: '2px',
 		borderRadius: '10px',
-		width: '#ffa500',
+	},
+	teacherComment: {
+		textAlign: 'right',
+		width: 'fitContent',
+		backgroundColor: '#ffffff',
+		padding: '5px 10px',
+		margin: '2px',
+		borderRadius: '10px',
 	},
 	parentComment: {
+		textAlign: 'left',
 		width: 'fitContent',
-		backgroundColor: '#5acdb8',
-		padding: '5px',
+		backgroundColor: '#d0fbf3',
+		padding: '5px 10px',
 		margin: '2px',
 		borderRadius: '10px',
-		width: 'fitContent',
 	},
 	ChildCardFlex: {
 		display: 'flex',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
+	},
+};
+
+export const modal = {
+	container: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		backgroundColor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
 	},
 };
 
@@ -124,3 +147,5 @@ export const getContainerStyles = (isMobile) => ({
 
 export const GREEN = '#b2e2d8';
 export const ORANGE = '#dd9148';
+
+// #5acdb8 button on hover

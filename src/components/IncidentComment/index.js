@@ -4,8 +4,9 @@ import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { item, forms, GREEN } from '../../styles';
-import { DESKTOP, MOBILE } from '../../media';
+import { DESKTOP } from '../../media';
 import { useMediaQuery } from 'react-responsive';
+import { useState } from 'react';
 
 export const IncidentComment = ({
 	mutationError,
@@ -16,7 +17,8 @@ export const IncidentComment = ({
 	refetch,
 }) => {
 	const isDesktop = useMediaQuery(DESKTOP);
-
+	const [commentMessage, setCommentMessage] = useState('');
+	console.log(commentMessage);
 	const {
 		register,
 		formState: { errors },
@@ -52,6 +54,11 @@ export const IncidentComment = ({
 					variant="outlined"
 					name="comment"
 					rows={4}
+					// value={commentMessage}
+					onChange={(e) => {
+						console.log(e.target.value());
+						setCommentMessage(e.target.value);
+					}}
 					multiline
 					fullWidth
 					{...register('comment', { required: true })}
@@ -60,7 +67,6 @@ export const IncidentComment = ({
 			</Grid>
 			<Grid item={true} sx={item.comment} xs={12}>
 				<LoadingButton
-					// loading={mutationLoading}
 					color="warning"
 					disabled={!showCommentSection}
 					type="submit"

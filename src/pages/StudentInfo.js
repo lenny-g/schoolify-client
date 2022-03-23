@@ -29,9 +29,6 @@ export const StudentInfo = (props) => {
 		return <LinearProgress style={{ backgroundColor: 'purple' }} />;
 	}
 
-	console.log(childData);
-	console.log(data.viewChild);
-
 	return (
 		<PageContainer>
 			<Grid container sx={item.outerContainer}>

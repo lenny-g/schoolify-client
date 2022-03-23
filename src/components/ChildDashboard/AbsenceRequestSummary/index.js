@@ -17,14 +17,13 @@ const checkStatus = (absenceRequest) => {
 };
 
 export const AbsenceRequestSummary = ({ childData }) => {
-	console.log(childData);
 	return (
 		<Box>
 			<Typography
-				className='headingFont'
-				variant='subtitle1'
+				className="headingFont"
+				variant="subtitle1"
 				gutterBottom
-				component='Box'>
+				component="Box">
 				Absence Requests:
 			</Typography>
 			{childData?.absenceRequests?.map((absenceRequest, index) => {

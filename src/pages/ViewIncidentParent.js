@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -51,9 +51,11 @@ export const ViewIncidentParent = () => {
 	const [showCommentSection, setShowCommentSection] = useState(false);
 
 	const studentIncidents = () => {
-		return incidentReportList?.viewIncidentReports?.filter((each) => {
-			return each.student.id === student;
-		});
+		return incidentReportList?.viewIncidentReports
+			?.filter((each) => {
+				return each.student.id === student;
+			})
+			.reverse();
 	};
 
 	const renderIncidentReportOnClick = async (selectedIncidentId) => {
@@ -93,6 +95,13 @@ export const ViewIncidentParent = () => {
 		return (
 			<>
 				<PageTitle>Incident Report</PageTitle>
+				<Typography variant="h5" sx={{ textAlign: 'center', mb: 2 }}>
+					Select your child to view incident
+				</Typography>
+				<Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+					Please note: You are unable to edit and delete your comments, as this
+					will remain on record for audit and safeguarding purposes.
+				</Typography>
 				<Grid container>
 					<Grid item={true} md={isMobile ? 12 : 4} sm={12} xs={12}>
 						<IncidentListDesktop

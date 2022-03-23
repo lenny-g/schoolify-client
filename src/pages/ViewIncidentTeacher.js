@@ -57,9 +57,11 @@ export const ViewIncidentTeacher = () => {
 	const [showCommentSection, setShowCommentSection] = useState(false);
 
 	const studentIncidents = () => {
-		return incidentReportList?.viewIncidentReports?.filter((each) => {
-			return each.student.id === student;
-		});
+		return incidentReportList?.viewIncidentReports
+			?.filter((each) => {
+				return each.student.id === student;
+			})
+			.reverse();
 	};
 
 	const renderIncidentReportOnClick = async (selectedIncidentId) => {
@@ -100,9 +102,16 @@ export const ViewIncidentTeacher = () => {
 			<>
 				<Grid item xs={12}>
 					<PageTitle>Incident Report</PageTitle>
+					<Typography variant="h5" sx={{ textAlign: 'center', mb: 2 }}>
+						Select Student to view/ respond to incident
+					</Typography>
+					<Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+						Please note: You are unable to edit and delete your comments, as
+						this will remain on record for audit and safeguarding purposes.
+					</Typography>
 				</Grid>
 				<Grid container>
-					<Grid item={true} xs={isDesktop ? 4 : 12}>
+					<Grid item={true} md={isMobile ? 12 : 4} sm={12} xs={12}>
 						<IncidentListDesktop
 							studentList={studentList?.teacherStudents}
 							setStudent={setStudent}
@@ -113,23 +122,28 @@ export const ViewIncidentTeacher = () => {
 						/>
 					</Grid>
 
-					<Grid item={true} xs={isMobile ? 12 : 8}>
-						<IncidentChannel
-							incidentReportDataById={incidentReportDataById?.id}
-							studentIncidents={studentIncidents}
-						/>
+					<Grid item={true} md={isMobile ? 12 : 8} sm={12} xs={12}>
+						{student && showCommentSection && (
+							<IncidentChannel
+								incidentReportDataById={incidentReportDataById?.id}
+								studentIncidents={studentIncidents}
+							/>
+						)}
 					</Grid>
 				</Grid>
-				<Grid container>
-					<IncidentComment
-						showCommentSection={showCommentSection}
-						executeAddComment={executeAddComment}
-						incidentReportDataById={incidentReportDataById}
-						mutationError={mutationError}
-						setIncidentReportDataById={setIncidentReportDataById}
-						refetch={refetch}
-					/>
-				</Grid>
+
+				{student && showCommentSection && (
+					<Grid container>
+						<IncidentComment
+							showCommentSection={showCommentSection}
+							executeAddComment={executeAddComment}
+							incidentReportDataById={incidentReportDataById}
+							mutationError={mutationError}
+							setIncidentReportDataById={setIncidentReportDataById}
+							refetch={refetch}
+						/>
+					</Grid>
+				)}
 			</>
 		);
 	};

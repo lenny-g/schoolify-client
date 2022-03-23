@@ -31,7 +31,7 @@ const theme = createTheme({
   palette: {
     warning: {
       light: "#ffc570",
-      main: "#dd9148",
+      main: "#ffa500",
       dark: "#b28035",
     },
   },

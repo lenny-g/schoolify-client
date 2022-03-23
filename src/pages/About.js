@@ -12,7 +12,7 @@ export const About = () => {
 		<PageContainer>
 			<PageTitle>Team . behind . Schoolify</PageTitle>
 			<Stack sx={{ textAlign: 'center' }}>
-				<Typography variant='subtitle1' sx={{ m: '1rem' }}>
+				<Typography variant="subtitle1" sx={{ m: '1rem' }}>
 					Schoolify works towards cutting green emissions, by reducing paper
 					communication, and streamlining conversations between teachers and
 					parents, Schoolify also documents conversations and progress of
@@ -26,8 +26,8 @@ export const About = () => {
 						flexDirection: 'row',
 						justifyContent: 'space-around',
 					}}>
-					{teamMemberFromApi.map((member) => {
-						return <TeamMemberCard {...member} />;
+					{teamMemberFromApi.map((member, index) => {
+						return <TeamMemberCard {...member} key={index} />;
 					})}
 				</Box>
 			</Stack>

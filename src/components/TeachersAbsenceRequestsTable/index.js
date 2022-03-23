@@ -33,6 +33,12 @@ const stylingRowColor = (status) => {
 	if (status === 'REJECTED') return '#ef8080';
 };
 
+const actionButtons = (status) => {
+	if (status === 'PENDING') return true;
+	if (status === 'APPROVED') return false;
+	if (status === 'REJECTED') return false;
+};
+
 export const TeachersAbsenceRequestsTable = () => {
 	const isMobile = useMediaQuery(MOBILE);
 	const isDesktop = useMediaQuery(DESKTOP);
@@ -123,19 +129,26 @@ export const TeachersAbsenceRequestsTable = () => {
 
 	if (!loading && error) {
 		return (
-			<Alert severity='error'>
+			<Alert severity="error">
 				Something went wrong, please tray again later.
 			</Alert>
 		);
 	}
 
 	return (
-		<Stack spacing={2}>
-			<PageTitle>Absence Requests Made</PageTitle>
+		<Stack spacing={2} sx={{ alignItems: isMobile ? 'center' : 'normal' }}>
+			<PageTitle>Student Absence Requests</PageTitle>
+			<Typography variant="h5" sx={{ textAlign: 'center' }}>
+				Please accept or reject absence requests made.
+			</Typography>
+			<Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+				Please note: Absence requests work on a traffic light system, once a
+				decision has been made, this will remain on record.
+			</Typography>
 			<TextField
-				color='warning'
-				label='Filter by child name'
-				variant='outlined'
+				color="warning"
+				label="Filter by child name"
+				variant="outlined"
 				style={{
 					marginBottom: 20,
 					maxWidth: '250px',
@@ -145,16 +158,16 @@ export const TeachersAbsenceRequestsTable = () => {
 
 			{!!mutationError && (
 				<Typography
-					variant='subtitle2'
+					variant="subtitle2"
 					gutterBottom
-					component='div'
+					component="div"
 					sx={forms.errorContainer}>
 					Failed to respond to absence request, please try again.
 				</Typography>
 			)}
 
 			{absenceRequestData.length === 0 && (
-				<Alert severity='info'>
+				<Alert severity="info">
 					No absence requests have been made by any parents
 				</Alert>
 			)}
@@ -192,25 +205,29 @@ export const TeachersAbsenceRequestsTable = () => {
 									<TableRow
 										key={index}
 										sx={{ backgroundColor: stylingRowColor(row.status) }}>
-										<TableCell align='center'>{row.name} </TableCell>
-										<TableCell align='center'>{row.yearGroup}</TableCell>
-										<TableCell align='center'>{row.type}</TableCell>
-										<TableCell align='center'>{row.description}</TableCell>
-										<TableCell align='center'>{row.dateTime}</TableCell>
-										<TableCell align='center'>{row.status}</TableCell>
-										<TableCell align='center'>
-											<Button
-												onClick={() => {
-													onAccept(row.absenceRequestId, row.studentId);
-												}}>
-												<CheckIcon sx={{ color: '#06a206' }} />
-											</Button>
-											<Button
-												onClick={() => {
-													onReject(row.absenceRequestId, row.studentId);
-												}}>
-												<CloseIcon sx={{ color: '#c13030' }} />
-											</Button>
+										<TableCell align="center">{row.name} </TableCell>
+										<TableCell align="center">{row.yearGroup}</TableCell>
+										<TableCell align="center">{row.type}</TableCell>
+										<TableCell align="center">{row.description}</TableCell>
+										<TableCell align="center">{row.dateTime}</TableCell>
+										<TableCell align="center">{row.status}</TableCell>
+										<TableCell align="center">
+											{actionButtons(row.status) && (
+												<>
+													<Button
+														onClick={() => {
+															onAccept(row.absenceRequestId, row.studentId);
+														}}>
+														<CheckIcon sx={{ color: '#06a206' }} />
+													</Button>
+													<Button
+														onClick={() => {
+															onReject(row.absenceRequestId, row.studentId);
+														}}>
+														<CloseIcon sx={{ color: '#c13030' }} />
+													</Button>
+												</>
+											)}
 										</TableCell>
 									</TableRow>
 								);
@@ -226,6 +243,7 @@ export const TeachersAbsenceRequestsTable = () => {
 							<AbsenceRequestCard
 								{...each}
 								colorStyling={stylingRowColor(each.status)}
+								cardButtons={actionButtons(each.status)}
 								onApproved={onAccept}
 								onRejected={onReject}
 								key={index}
