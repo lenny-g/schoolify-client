@@ -88,7 +88,7 @@ export const ViewIncidentParent = () => {
     ) {
       return (
         <Alert severity="error">
-          Something went wrong, please tray again later.
+          Something went wrong, please try again later.
         </Alert>
       );
     }

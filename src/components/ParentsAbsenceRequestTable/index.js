@@ -85,7 +85,7 @@ export const ParentsAbsenceRequestTable = () => {
   };
 
   const deleteAbsenceOnClick = async (studentId, absenceRequestId) => {
-    if (window.confirm("Are You sure u want to delete")) {
+    if (window.confirm("Are you sure you want to delete")) {
       await executeDeleteAbsenceRequest({
         variables: {
           input: {
@@ -106,7 +106,7 @@ export const ParentsAbsenceRequestTable = () => {
   if (!loading && error) {
     return (
       <Alert severity="error">
-        Something went wrong, please tray again later.
+        Something went wrong, please try again later.
       </Alert>
     );
   }

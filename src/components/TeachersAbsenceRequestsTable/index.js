@@ -61,7 +61,7 @@ export const TeachersAbsenceRequestsTable = () => {
   );
 
   const onAccept = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are You sure u want to Approve")) {
+    if (window.confirm("Are you sure you want to Approve")) {
       await executeTeacherResponse({
         variables: {
           input: {
@@ -77,7 +77,7 @@ export const TeachersAbsenceRequestsTable = () => {
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are You sure u want to Reject")) {
+    if (window.confirm("Are you sure you want to Reject")) {
       await executeTeacherResponse({
         variables: {
           input: {
@@ -130,7 +130,7 @@ export const TeachersAbsenceRequestsTable = () => {
   if (!loading && error) {
     return (
       <Alert severity="error">
-        Something went wrong, please tray again later.
+        Something went wrong, please try again later.
       </Alert>
     );
   }

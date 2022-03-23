@@ -69,7 +69,7 @@ export const ParentSignupForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid item xs={12}>
-        <PageTitle>Parent . Signup . Page</PageTitle>
+        <PageTitle>Parent Signup Page</PageTitle>
       </Grid>
       <Grid container>
         <Grid item xs={12} md={6}>

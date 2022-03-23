@@ -91,14 +91,17 @@ export const AddChildForm = () => {
   if (error) {
     return (
       <Alert severity="error">
-        Something went wrong, please tray again later.
+        Something went wrong, please try again later.
       </Alert>
     );
   }
 
   return (
     <Stack spacing={2}>
-      <PageTitle>Child . Registration . Form</PageTitle>
+      <PageTitle>Child Registration Form</PageTitle>
+      <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+        Please note: Don't forget to include an image!
+      </Typography>
       <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
         <UploadChildImage
           uploadedImage={childImage}

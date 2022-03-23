@@ -78,7 +78,7 @@ export const TeacherSignupForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid item xs={12}>
-        <PageTitle>Teacher . Signup . Page</PageTitle>
+        <PageTitle>Teacher Signup Page</PageTitle>
       </Grid>
       <Grid item xs={12} md={6}>
         <Box sx={{ ...forms.container, backgroundColor: GREEN }}>

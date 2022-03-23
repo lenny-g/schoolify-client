@@ -37,7 +37,7 @@ export const StudentInfo = () => {
   if (!loading && error) {
     return (
       <Alert severity="error">
-        Something went wrong, please tray again later.
+        Something went wrong, please try again later.
       </Alert>
     );
   }
