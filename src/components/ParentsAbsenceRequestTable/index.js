@@ -32,6 +32,12 @@ const stylingRowColor = (status) => {
 	if (status === 'REJECTED') return '#ef8080';
 };
 
+const actionButtons = (status) => {
+	if (status === 'PENDING') return true;
+	if (status === 'APPROVED') return false;
+	if (status === 'REJECTED') return false;
+};
+
 export const ParentsAbsenceRequestTable = () => {
 	const isMobile = useMediaQuery(MOBILE);
 	const isDesktop = useMediaQuery(DESKTOP);
@@ -99,19 +105,26 @@ export const ParentsAbsenceRequestTable = () => {
 
 	if (!loading && error) {
 		return (
-			<Alert severity='error'>
+			<Alert severity="error">
 				Something went wrong, please tray again later.
 			</Alert>
 		);
 	}
 
 	return (
-		<Stack spacing={2} sx={{ mb: 3 }}>
+		<Stack spacing={2} sx={{ alignItems: isMobile ? 'center' : 'normal' }}>
 			<PageTitle>Absence Requests</PageTitle>
+			<Typography variant="h5" sx={{ textAlign: 'center' }}>
+				Keep track of your absence requests, using our traffic light system.
+			</Typography>
+			<Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+				Please note: You are able to delete requests whilst pending, else the
+				request will remain on your child's record.
+			</Typography>
 			<TextField
-				color='warning'
-				label='Filter by child name'
-				variant='outlined'
+				color="warning"
+				label="Filter by child name"
+				variant="outlined"
 				style={{
 					marginBottom: 20,
 					maxWidth: '250px',
@@ -120,16 +133,16 @@ export const ParentsAbsenceRequestTable = () => {
 			/>
 			{!!mutationError && (
 				<Typography
-					variant='subtitle2'
+					variant="subtitle2"
 					gutterBottom
-					component='div'
+					component="div"
 					sx={forms.errorContainer}>
 					Failed to respond to absence request, please try again.
 				</Typography>
 			)}
 
 			{absenceRequestData.length === 0 && (
-				<Alert severity='info'>
+				<Alert severity="info">
 					You have made no absence requests yet, click on the 'request absence'
 					button to submit one.
 				</Alert>
@@ -171,19 +184,21 @@ export const ParentsAbsenceRequestTable = () => {
 									<TableRow
 										key={index}
 										sx={{ backgroundColor: stylingRowColor(row.status) }}>
-										<TableCell align='center'>{row.name} </TableCell>
-										<TableCell align='center'>{row.yearGroup}</TableCell>
-										<TableCell align='center'>{row.type}</TableCell>
-										<TableCell align='center'>{row.description}</TableCell>
-										<TableCell align='center'>{row.dateTime}</TableCell>
-										<TableCell align='center'>{row.status}</TableCell>
-										<TableCell align='center'>
-											<Button
-												onClick={() => {
-													deleteAbsenceOnClick(row.id, row.absenceRequestId);
-												}}>
-												<DeleteIcon sx={{ color: '#c13030' }} />
-											</Button>
+										<TableCell align="center">{row.name} </TableCell>
+										<TableCell align="center">{row.yearGroup}</TableCell>
+										<TableCell align="center">{row.type}</TableCell>
+										<TableCell align="center">{row.description}</TableCell>
+										<TableCell align="center">{row.dateTime}</TableCell>
+										<TableCell align="center">{row.status}</TableCell>
+										<TableCell align="center">
+											{actionButtons(row.status) && (
+												<Button
+													onClick={() => {
+														deleteAbsenceOnClick(row.id, row.absenceRequestId);
+													}}>
+													<DeleteIcon sx={{ color: '#c13030' }} />
+												</Button>
+											)}
 										</TableCell>
 									</TableRow>
 								);
@@ -199,6 +214,7 @@ export const ParentsAbsenceRequestTable = () => {
 							<AbsenceRequestCard
 								{...each}
 								colorStyling={stylingRowColor(each.status)}
+								cardButtons={actionButtons(each.status)}
 								onDelete={deleteAbsenceOnClick}
 								key={index}
 							/>
