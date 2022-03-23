@@ -13,6 +13,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import QuizIcon from "@mui/icons-material/Quiz";
 
 const publicNavArray = [
   {
@@ -40,9 +41,19 @@ const publicNavArray = [
     icon: <InfoIcon />,
     link: "/about",
   },
+  {
+    name: "Quiz",
+    icon: <QuizIcon />,
+    link: "/quiz",
+  },
 ];
 
 const parentNavArray = [
+  {
+    name: "Home",
+    icon: <HomeIcon />,
+    link: "/",
+  },
   {
     name: "Dashboard",
     icon: <GridViewIcon />,
@@ -86,6 +97,11 @@ const parentNavArray = [
 ];
 
 const teacherNavArray = [
+  {
+    name: "Home",
+    icon: <HomeIcon />,
+    link: "/",
+  },
   {
     name: "Dashboard",
     icon: <GridViewIcon />,

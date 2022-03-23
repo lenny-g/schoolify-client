@@ -10,23 +10,21 @@ import { ParentSignup } from "../pages/ParentSignup";
 import { TeacherSignup } from "../pages/TeacherSignup";
 import { About } from "../pages/About";
 import { Home } from "../pages/Home";
-import { Appointment } from "../pages/Appointment";
 import { AddChild } from "../pages/AddChild";
 import { ParentDashboard } from "../pages/ParentDashboard";
-import { ViewAppointments } from "../pages/ViewAppointments";
 import { AbsenceRequest } from "../pages/AbsenceRequest";
 import { StudentInfo } from "../pages/StudentInfo";
 import { Medical } from "../pages/Medical";
 import { ViewParentsAbsenceRequests } from "../pages/ViewParentsAbsenceRequests";
 import { ViewAbsenceRequestTeacher } from "../pages/ViewAbsenceRequestTeacher";
 import { ViewStudents } from "../pages/ViewStudents";
-
 import { TopNavbar } from "../components/NavigationBar/TopNavbar";
 import { SideNavbar } from "../components/NavigationBar/SideNavbar";
 import { MOBILE } from "../media";
 import { TeacherIncidentReport } from "../pages/TeacherIncidentReport";
 import { ViewIncidentTeacher } from "../pages/ViewIncidentTeacher";
 import { ViewIncidentParent } from "../pages/ViewIncidentParent";
+import { Quiz } from "../pages/Quiz";
 
 const theme = createTheme({
   palette: {
@@ -82,71 +80,78 @@ export const AppRouter = () => {
       >
         <ThemeProvider theme={theme}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <>
+              {!isLoggedIn && (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/sign-up/parent" element={<ParentSignup />} />
+                  <Route path="/sign-up/teacher" element={<TeacherSignup />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/quiz" element={<Quiz />} />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </>
+              )}
 
-            {!isLoggedIn ? (
-              <>
-                <Route path="/sign-up/parent" element={<ParentSignup />} />
-                <Route path="/sign-up/teacher" element={<TeacherSignup />} />
-                <Route path="/login" element={<Login />} />
-              </>
-            ) : (
-              <Route path="*" element={<Navigate to="/dashboard" />} />
-            )}
+              {user?.role === "parent" && isLoggedIn && (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route
+                    path="/incident-report/view/parent"
+                    element={<ViewIncidentParent />}
+                  />
+                  <Route path="/medical/new" element={<Medical />} />
+                  <Route path="/children/new" element={<AddChild />} />
+                  <Route
+                    path="/children/view/:studentId"
+                    element={<StudentInfo />}
+                  />
+                  <Route
+                    path="/absenceRequest/new"
+                    element={<AbsenceRequest />}
+                  />
+                  <Route
+                    path="/absenceRequest/view"
+                    element={<ViewParentsAbsenceRequests />}
+                  />
+                  <Route path="/dashboard" element={<ParentDashboard />} />
 
-            {isLoggedIn ? (
-              <>
-                <Route path="/certificate/new" element={<GiveCertificate />} />
-                <Route
-                  path="/incident-report/new"
-                  element={<TeacherIncidentReport />}
-                />
-                <Route
-                  path="/incident-report/view/teacher"
-                  element={<ViewIncidentTeacher />}
-                />
-                <Route
-                  path="/incident-report/view/parent"
-                  element={<ViewIncidentParent />}
-                />
-                <Route path="/medical/new" element={<Medical />} />
-                <Route
-                  path="/dashboard"
-                  element={
-                    user.role === "parent" ? (
-                      <ParentDashboard />
-                    ) : (
-                      <ViewStudents />
-                    )
-                  }
-                />
-                <Route path="/children/new" element={<AddChild />} />
-                <Route
-                  path="/children/view/:studentId"
-                  element={<StudentInfo />}
-                />
-                <Route path="/appointment/new" element={<Appointment />} />
-                <Route
-                  path="/appointment/view"
-                  element={<ViewAppointments />}
-                />
-                <Route
-                  path="/absenceRequest/new"
-                  element={<AbsenceRequest />}
-                />
-                <Route
-                  path="/absenceRequest/view"
-                  element={<ViewParentsAbsenceRequests />}
-                />
-                <Route
-                  path="/absence-requests"
-                  element={<ViewAbsenceRequestTeacher />}
-                />
-              </>
-            ) : (
-              <Route path="*" element={<Navigate to="/" />} />
-            )}
+                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                </>
+              )}
+
+              {user?.role === "teacher" && isLoggedIn && (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route
+                    path="/certificate/new"
+                    element={<GiveCertificate />}
+                  />
+                  <Route
+                    path="/incident-report/new"
+                    element={<TeacherIncidentReport />}
+                  />
+                  <Route
+                    path="/incident-report/view/teacher"
+                    element={<ViewIncidentTeacher />}
+                  />
+                  <Route
+                    path="/children/view/:studentId"
+                    element={<StudentInfo />}
+                  />
+                  <Route
+                    path="/absence-requests"
+                    element={<ViewAbsenceRequestTeacher />}
+                  />
+
+                  <Route path="/dashboard" element={<ViewStudents />} />
+
+                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                </>
+              )}
+            </>
           </Routes>
         </ThemeProvider>
       </Box>
