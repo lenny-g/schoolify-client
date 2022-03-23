@@ -16,17 +16,18 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { forms, GREEN } from "../../styles";
 import { ADD_INCIDENT_REPORT } from "../../graphql/mutations";
 import { GET_TEACHER_STUDENTS } from "../../graphql/query";
-// import { useAuth } from "../../context/AppProvider";
+import { useAuth } from "../../context/AppProvider";
 import { useQuery, useMutation } from "@apollo/client";
 import { PageTitle } from "../PageTitle";
 
 export const IncidentReportForm = () => {
-  //   const { user } = useAuth();
-  const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+  const { user } = useAuth();
+
   const { loading, error, data } = useQuery(GET_TEACHER_STUDENTS, {
     variables: {
-      yearGroupId: yearGroupId,
+      yearGroupId: user.yearGroup.id,
     },
+    pollInterval: 1000,
   });
 
   const [

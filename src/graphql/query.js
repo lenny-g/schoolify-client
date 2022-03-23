@@ -148,6 +148,13 @@ export const VIEW_CHILD = gql`
           email
         }
       }
+      certificates {
+        id
+        name
+        certificateType
+        message
+        date
+      }
     }
   }
 `;
