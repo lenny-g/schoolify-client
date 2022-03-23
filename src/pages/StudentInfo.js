@@ -15,6 +15,8 @@ import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard"
 import { PageTitle } from "../components/PageTitle";
 
 import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
+import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
+import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
 
 export const StudentInfo = () => {
   const { studentId } = useParams();
@@ -69,7 +71,7 @@ export const StudentInfo = () => {
             </Box>
 
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              Container4
+              <ChildIncidentReports childData={childData} />
             </Box>
           </Grid>
         </Grid>
