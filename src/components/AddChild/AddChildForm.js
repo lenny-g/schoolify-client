@@ -2,17 +2,15 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import { forms } from "../../styles";
-import { ADD_STUDENT } from "../../graphql/mutations";
-import { GET_YEAR_GROUP_DATA } from "../../graphql/query";
-
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -20,7 +18,11 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
-import { item, colors, headers } from "../../styles";
+import { ADD_STUDENT } from "../../graphql/mutations";
+import { GET_YEAR_GROUP_DATA } from "../../graphql/query";
+import { GREEN, forms } from "../../styles";
+import { UploadChildImage } from "../UploadChildImage";
+import { PageTitle } from "../PageTitle";
 
 export const AddChildForm = () => {
   const { loading, error, data } = useQuery(GET_YEAR_GROUP_DATA);
@@ -29,6 +31,8 @@ export const AddChildForm = () => {
     executeAddStudent,
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(ADD_STUDENT);
+
+  const [childImage, setChildImage] = useState("");
 
   const [dateOfBirth, setDateOfBirth] = useState(null);
 
@@ -43,7 +47,7 @@ export const AddChildForm = () => {
     control,
   } = useForm();
 
-  const value = getValues("enrollDate");
+  const value = getValues("dob");
 
   useEffect(() => {
     register("dob");
@@ -54,18 +58,21 @@ export const AddChildForm = () => {
   }, [setDateOfBirth, value]);
 
   const onSubmit = async (studentData) => {
-    const { data, error } = await executeAddStudent({
+    const { data } = await executeAddStudent({
       variables: {
         input: {
           firstName: studentData.childFirstName,
           lastName: studentData.childLastName,
           dob: studentData.dob,
           yearGroup: studentData.yearGroup,
+          profileImageUrl: childImage.src,
         },
       },
     });
 
-    navigate("/children/view", { replace: true });
+    if (data?.addStudent) {
+      navigate("/dashboard", { replace: true });
+    }
   };
 
   const styles = {
@@ -77,31 +84,28 @@ export const AddChildForm = () => {
     },
   };
 
+  if (loading) {
+    return <CircularProgress color="warning" />;
+  }
+
   if (error) {
-    return <div>ERROR</div>;
+    return (
+      <Alert severity="error">
+        Something went wrong, please tray again later.
+      </Alert>
+    );
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Grid
-        container
-        component="form"
-        sx={item.outerContainer}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Grid item xs={12}>
-          <Typography
-            variant="h5"
-            gutterBottom
-            component="div"
-            sx={{ textAlign: "center" }}
-          >
-            Child . Registration . Form
-          </Typography>
-        </Grid>
-        <Box sx={colors.purple}>
+    <Stack spacing={2}>
+      <PageTitle>Child . Registration . Form</PageTitle>
+      <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+        <UploadChildImage
+          uploadedImage={childImage}
+          setUploadedImage={setChildImage}
+        />
+        <Box onSubmit={handleSubmit(onSubmit)} component="form">
           <TextField
-            color="secondary"
             autoFocus
             margin="normal"
             id="childFirstName"
@@ -111,9 +115,9 @@ export const AddChildForm = () => {
             fullWidth
             {...register("childFirstName", { required: true })}
             error={!!errors.childFirstName}
+            disabled={mutationLoading}
           />
           <TextField
-            color="secondary"
             margin="normal"
             id="childLastName"
             label="Last Name"
@@ -122,44 +126,42 @@ export const AddChildForm = () => {
             fullWidth
             {...register("childLastName", { required: true })}
             error={!!errors.childLastName}
+            disabled={mutationLoading}
           />
-
-          <DesktopDatePicker
-            label="Date of Birth"
-            inputFormat="MM/dd/yyyy"
-            value={dateOfBirth}
-            onChange={(value) => {
-              setDateOfBirth(value);
-              setValue("dob", value, {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                {...register("dob", { required: true })}
-                error={!!errors.dob}
-                color="secondary"
-                margin="normal"
-                id="dob"
-                variant="outlined"
-                name="dob"
-                fullWidth
-              />
-            )}
-          />
-
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DesktopDatePicker
+              disabled={mutationLoading}
+              label="Date of Birth"
+              inputFormat="MM/dd/yyyy"
+              value={dateOfBirth}
+              onChange={(value) => {
+                setDateOfBirth(value);
+                setValue("dob", value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  {...register("dob", { required: true })}
+                  error={!!errors.dob}
+                  margin="normal"
+                  id="dob"
+                  variant="outlined"
+                  name="dob"
+                  fullWidth
+                />
+              )}
+            />
+          </LocalizationProvider>
           <FormControl sx={{ mt: 2 }} fullWidth>
-            <InputLabel id="yearGroup" color="secondary">
-              Year Group
-            </InputLabel>
+            <InputLabel id="yearGroup">Year Group</InputLabel>
             <Controller
               control={control}
               name="yearGroup"
               render={({ field: { onChange, value } }) => (
                 <Select
-                  color="secondary"
                   labelId="yearGroup"
                   id="yearGroup"
                   value={value || ""}
@@ -180,31 +182,31 @@ export const AddChildForm = () => {
               )}
             />
           </FormControl>
-          <LoadingButton
-            loading={mutationLoading}
-            loadingIndicator="Loading..."
-            variant="contained"
-            fullWidth
-            type="submit"
-            sx={styles.loadingButton}
-            startIcon={mutationError && <ErrorIcon />}
-            color={mutationError ? "error" : "secondary"}
-          >
-            Add Child
-          </LoadingButton>
-
-          {!!mutationError && (
-            <Typography
-              variant="subtitle2"
-              gutterBottom
-              component="div"
-              sx={{ mt: 2, textAlign: "center", color: "#d32f2f" }}
+          <Box sx={{ textAlign: "center", marginBottom: "30px" }}>
+            <LoadingButton
+              loading={mutationLoading}
+              loadingIndicator="Loading..."
+              variant="contained"
+              type="submit"
+              sx={styles.loadingButton}
+              startIcon={mutationError && <ErrorIcon />}
+              color={mutationError ? "error" : "warning"}
             >
-              Failed to add child.
-            </Typography>
-          )}
+              Add Child
+            </LoadingButton>
+            {!!mutationError && (
+              <Typography
+                variant="subtitle2"
+                gutterBottom
+                component="div"
+                sx={{ mt: 2, textAlign: "center", color: "#d32f2f" }}
+              >
+                Failed to add child.
+              </Typography>
+            )}
+          </Box>
         </Box>
-      </Grid>
-    </LocalizationProvider>
+      </Box>
+    </Stack>
   );
 };

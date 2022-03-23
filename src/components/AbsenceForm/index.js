@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { colors, forms, item } from "../../styles";
-import { GET_PARENTS_CHILDREN } from "../../graphql/query";
-import { MAKE_AN_ABSENCE_REQUEST } from "../../graphql/mutations";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TextField from "@mui/material/TextField";
@@ -18,7 +11,17 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 import Typography from "@mui/material/Typography";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { GREEN, forms } from "../../styles";
+import { PageTitle } from "../PageTitle";
+
+import { GET_PARENTS_CHILDREN } from "../../graphql/query";
+import { MAKE_AN_ABSENCE_REQUEST } from "../../graphql/mutations";
 
 const appointmentOptions = ["Medical", "Dental", "Other"];
 
@@ -32,7 +35,6 @@ export const AbsenceForm = () => {
   ] = useMutation(MAKE_AN_ABSENCE_REQUEST);
 
   const [absenceDate, setAbsenceDate] = useState(null);
-
   const {
     register,
     formState: { errors },
@@ -52,9 +54,6 @@ export const AbsenceForm = () => {
   useEffect(() => {
     setAbsenceDate(value || null);
   }, [setAbsenceDate, value]);
-
-  const [absenceType, setAbsenceType] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState("");
 
   const onSubmit = async (formData) => {
     await executeAbsenceRequest({
@@ -76,94 +75,99 @@ export const AbsenceForm = () => {
   }
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <CircularProgress color="warning" />;
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Grid
-        component="form"
-        container
-        sx={item.outerContainer}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Grid item xs={12}>
-          <Typography
-            variant="h5"
-            gutterBottom
-            component="div"
-            sx={{ textAlign: "center" }}
-          >
-            Absence . Request . Form
-          </Typography>
-        </Grid>
-        <Box sx={colors.yellow}>
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="student" color="warning">
-              Select Child
-            </InputLabel>
-            <Controller
-              control={control}
-              name="student"
-              render={({ field: { onChange, value } }) => (
-                <Select
-                  color="warning"
-                  labelId="student"
-                  id="student"
-                  label="Select Student"
-                  value={value || ""}
-                  disabled={mutationLoading}
-                  onChange={onChange}
-                  {...register("student", { required: true })}
-                  error={!!errors.student}
-                >
-                  {studentOptions?.map(({ firstName, lastName, id }, index) => (
-                    <MenuItem key={index} value={id}>
-                      {firstName} {lastName}
-                    </MenuItem>
-                  ))}
-                </Select>
-              )}
-            />
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="absenceType" color="warning">
-              Absence type
-            </InputLabel>
-            <Select
-              color="warning"
-              labelId="absenceType"
-              id="absenceType"
-              label="Absence Type"
-              defaultValue="Medical"
-              disabled={mutationLoading}
-              onChange={(event) => {
-                setAbsenceType(event.target.value);
-              }}
-              {...register("absenceType")}
-              error={!!errors.absenceType}
-            >
-              {appointmentOptions.map((title, index) => {
-                return (
-                  <MenuItem key={index} value={title}>
-                    {title}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-          <TextField
-            color="warning"
-            id="description"
-            label="Description"
-            multiline
-            fullWidth
-            rows={4}
-            {...register("description", { required: true })}
-            error={!!errors.description}
-            disabled={mutationLoading}
-          />
+    <Stack spacing={2}>
+      <PageTitle>Absence Request Form</PageTitle>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          component="span"
+          variant="subtitle1"
+          sx={{ textAlign: "center" }}
+        >
+          All absences will require approval. You are able to check progress by
+          clicking
+        </Typography>
+        &nbsp;
+        <Typography
+          component={RouterLink}
+          to={"/absenceRequest/view"}
+          sx={{ textAlign: "center", textDecoration: "none", color: "#ffa500" }}
+        >
+          here!
+        </Typography>
+      </Box>
 
+      <Box
+        onSubmit={handleSubmit(onSubmit)}
+        component="form"
+        sx={{ ...forms.container, backgroundColor: GREEN }}
+      >
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel id="student" color="warning">
+            Select Child
+          </InputLabel>
+          <Controller
+            control={control}
+            name="student"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                color="warning"
+                labelId="student"
+                id="student"
+                label="Select Student"
+                value={value || ""}
+                disabled={mutationLoading}
+                onChange={onChange}
+                {...register("student", { required: true })}
+                error={!!errors.student}
+              >
+                {studentOptions?.map(({ firstName, lastName, id }, index) => (
+                  <MenuItem key={index} value={id}>
+                    {firstName} {lastName}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+        </FormControl>
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel id="absenceType" color="warning">
+            Absence type
+          </InputLabel>
+          <Select
+            color="warning"
+            labelId="absenceType"
+            id="absenceType"
+            label="Absence Type"
+            defaultValue="Medical"
+            disabled={mutationLoading}
+            {...register("absenceType")}
+            error={!!errors.absenceType}
+          >
+            {appointmentOptions.map((title, index) => {
+              return (
+                <MenuItem key={index} value={title}>
+                  {title}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <TextField
+          color="warning"
+          id="description"
+          label="Description"
+          multiline
+          fullWidth
+          rows={4}
+          {...register("description", { required: true })}
+          error={!!errors.description}
+          disabled={mutationLoading}
+        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
             label="Please select date and time"
             inputFormat="MM/dd/yyyy hh:mm"
@@ -190,30 +194,29 @@ export const AbsenceForm = () => {
               />
             )}
           />
-
-          <LoadingButton
-            loading={mutationLoading}
-            disabled={mutationLoading}
-            type="submit"
-            variant="contained"
-            sx={forms.loadingButton}
-            startIcon={error && <ErrorIcon />}
-            color={error ? "error" : "secondary"}
+        </LocalizationProvider>
+        <LoadingButton
+          loading={mutationLoading}
+          disabled={mutationLoading}
+          type="submit"
+          variant="contained"
+          sx={forms.loadingButton}
+          startIcon={error && <ErrorIcon />}
+          color={error ? "error" : "warning"}
+        >
+          Send Request
+        </LoadingButton>
+        {!!mutationError && (
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            component="div"
+            sx={forms.errorContainer}
           >
-            Send Request
-          </LoadingButton>
-          {!!mutationError && (
-            <Typography
-              variant="subtitle2"
-              gutterBottom
-              component="div"
-              sx={forms.errorContainer}
-            >
-              Failed to request absence, please try again.
-            </Typography>
-          )}
-        </Box>
-      </Grid>
-    </LocalizationProvider>
+            Failed to request absence, please try again.
+          </Typography>
+        )}
+      </Box>
+    </Stack>
   );
 };

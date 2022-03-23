@@ -1,14 +1,10 @@
-
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
+import { PageContainer } from "../components/PageContainer";
 import { TeachersAbsenceRequestsTable } from "../components/TeachersAbsenceRequestsTable";
 
 export const ViewAbsenceRequestTeacher = () => {
   return (
-    <Container component="main" maxWidth="md">
-      <Box>
-        <TeachersAbsenceRequestsTable />
-      </Box>
-    </Container>
+    <PageContainer>
+      <TeachersAbsenceRequestsTable />
+    </PageContainer>
   );
 };

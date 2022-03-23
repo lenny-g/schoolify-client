@@ -1,12 +1,9 @@
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-import { useAuth } from "../../context/AppProvider";
-import { LOGIN_USER } from "../../graphql/mutations";
-import { forms, item, colors } from "../../styles";
+import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -17,13 +14,13 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import ErrorIcon from "@mui/icons-material/Error";
 
-const roleOptions = [
-  { value: "parent", title: "Parent" },
-  { value: "teacher", title: "Teacher" },
-];
+import { PageTitle } from "../PageTitle";
+import { useAuth } from "../../context/AppProvider";
+import { LOGIN_USER } from "../../graphql/mutations";
+import { forms, item, GREEN } from "../../styles";
 
 export const LoginForm = () => {
-  const [executeLogin, { loading, error, data }] = useMutation(LOGIN_USER);
+  const [executeLogin, { loading, error }] = useMutation(LOGIN_USER);
 
   const navigate = useNavigate();
 
@@ -31,10 +28,12 @@ export const LoginForm = () => {
 
   const {
     register,
-    formState: { errors },
     handleSubmit,
-    control,
+    watch,
+    formState: { errors },
   } = useForm();
+
+  const role = watch("role", "parent");
 
   const onSubmit = async (formData) => {
     const { data } = await executeLogin({
@@ -42,46 +41,36 @@ export const LoginForm = () => {
         input: formData,
       },
     });
-
     if (data?.login) {
       const { token, parent, teacher } = data.login;
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(parent || teacher));
 
+      setUser(teacher || parent);
       setIsLoggedIn(true);
-      setUser(parent || teacher);
 
-      parent
-        ? navigate("/dashboard/parent", { replace: true })
-        : navigate("/dashboard/teacher", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
   };
 
+  const roleOptions = [
+    { value: "parent", title: "Parent" },
+    { value: "teacher", title: "Teacher" },
+  ];
+
   return (
-    <Grid
-      container
-      component="form"
-      sx={item.outerContainer}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Grid item xs={12}>
-        <Typography
-          variant="h5"
-          gutterBottom
-          component="div"
-          sx={{ textAlign: "center" }}
-        >
-          Login Form
-        </Typography>
-      </Grid>
-      <Box sx={colors.green}>
+    <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
+      <PageTitle>
+        {role === "parent" ? "Parent" : "Teacher"} Login Page
+      </PageTitle>
+      <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
         <FormControl sx={{ mt: 2 }} fullWidth>
-          <InputLabel color="secondary" id="role">
+          <InputLabel id="role" color="warning">
             Role
           </InputLabel>
           <Select
-            color="secondary"
+            color="warning"
             defaultValue={"parent"}
             labelId="role"
             id="role"
@@ -97,9 +86,8 @@ export const LoginForm = () => {
             ))}
           </Select>
         </FormControl>
-
         <TextField
-          color="secondary"
+          color="warning"
           margin="normal"
           id="email"
           label="Email"
@@ -112,8 +100,8 @@ export const LoginForm = () => {
           error={!!errors.email}
         />
         <TextField
-          color="secondary"
           margin="normal"
+          color="warning"
           id="password"
           label="Password"
           variant="outlined"
@@ -124,7 +112,6 @@ export const LoginForm = () => {
           {...register("password", { required: true })}
           error={!!errors.password}
         />
-
         <LoadingButton
           loading={loading}
           disabled={loading}
@@ -132,17 +119,18 @@ export const LoginForm = () => {
           variant="contained"
           sx={item.actionButtons}
           startIcon={error && <ErrorIcon />}
-          color={error ? "error" : "secondary"}
+          color={error ? "error" : "warning"}
         >
           Login
         </LoadingButton>
         <Link
           component={RouterLink}
           variant="body2"
-          to="/sign-up"
+          to={`/sign-up/${role}`}
           underline="none"
+          color="warning.dark"
         >
-          Don't have an account? Sign up
+          Don't have an account? Sign up as a {role}
         </Link>
         {!!error && (
           <Typography
@@ -155,6 +143,6 @@ export const LoginForm = () => {
           </Typography>
         )}
       </Box>
-    </Grid>
+    </Stack>
   );
 };

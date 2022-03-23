@@ -1,22 +1,19 @@
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Avatar from "@mui/material/Avatar";
 
-import { colors, item } from "../../../styles";
-import { MedicalInfo } from "./MedicalInfo";
+import { YearGroupInfo } from "./YearGroupInfo";
 
 export const ChildProfileCard = ({ childData }) => {
   return (
-    <Box sx={item.inputBox} width="250px">
+    <Stack sx={{ width: "100%" }}>
       <Avatar
         alt="teacher signup"
-        src="https://cdn.24.co.za/files/Cms/General/d/10868/da4178db584e45fab43b01ea0f9aad30.jpg"
-        sx={{ width: 200, height: 200 }}
+        src={childData?.profileImageUrl}
+        sx={{ alignSelf: "center", width: 150, height: 150 }}
       />
-      <MedicalInfo childData={childData} />
-    </Box>
+      <Divider variant="middle" sx={{ m: "20px", color: "black" }} />
+      <YearGroupInfo yearGroupData={childData.yearGroup} />
+    </Stack>
   );
 };

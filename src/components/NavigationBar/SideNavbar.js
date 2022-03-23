@@ -16,7 +16,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { getNavItems } from "./getNavItems";
 import { useAuth } from "../../context/AppProvider";
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -44,7 +44,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -68,10 +67,20 @@ const Drawer = styled(MuiDrawer, {
 export const SideNavbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, setUser, setIsLoggedIn } = useAuth();
 
   const handleDrawerToggle = () => {
     setOpen(!open);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setUser();
+    setIsLoggedIn(false);
+
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -88,7 +97,7 @@ export const SideNavbar = () => {
         }}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerToggle}>
+          <IconButton onClick={handleDrawerToggle} sx={{ color: "white" }}>
             {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
@@ -98,10 +107,15 @@ export const SideNavbar = () => {
           {getNavItems(user).map((each, index) => (
             <ListItemButton
               onClick={() => {
-                navigate(each.link, { replace: true });
+                if (each.name === "Logout") {
+                  handleLogout();
+                } else {
+                  navigate(each.link, { replace: true });
+                }
               }}
               key={each.name}
               sx={{
+                color: "white",
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
@@ -109,6 +123,7 @@ export const SideNavbar = () => {
             >
               <ListItemIcon
                 sx={{
+                  color: "white",
                   minWidth: 0,
                   mr: open ? 3 : "auto",
                   justifyContent: "center",
@@ -118,7 +133,7 @@ export const SideNavbar = () => {
               </ListItemIcon>
               <ListItemText
                 primary={each.name}
-                sx={{ opacity: open ? 1 : 0 }}
+                sx={{ color: "white", opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
           ))}

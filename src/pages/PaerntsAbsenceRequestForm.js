@@ -1,11 +1,10 @@
-import { AbsenceForm } from "../components/AbsenceForm";
-import { ParentNavBar } from "../components/NavigationBar/ParentNavBar";
-import Container from "@mui/material/Container";
+import { AbsenceForm } from '../components/AbsenceForm';
+import PageContainer from '../components/PageContainer';
 
 export const ParentsAbsenceRequestForm = () => {
-  return (
-    <Container component="main" maxWidth="md">
-      <AbsenceForm />
-    </Container>
-  );
+	return (
+		<PageContainer>
+			<AbsenceForm />
+		</PageContainer>
+	);
 };

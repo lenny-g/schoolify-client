@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Link as RouterLink } from "react-router-dom";
 import { PARENT_SIGN_UP } from "../../graphql/mutations";
-import { item, colors, headers } from "../../styles";
+import { item, colors, GREEN, forms } from "../../styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
+import { PageTitle } from "../PageTitle";
 
 const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Dr"];
 
@@ -68,21 +69,12 @@ export const ParentSignupForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Grid item xs={12}>
-        <Typography
-          className="headingFont"
-          variant="h5"
-          gutterBottom
-          component="div"
-          sx={headers.font}
-        >
-          Parent . Signup . Page
-        </Typography>
+        <PageTitle>Parent . Signup . Page</PageTitle>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Box sx={colors.pink}>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
             <Typography
-              color="primary"
               variant="subtitle1"
               component="div"
               sx={{ padding: "0px 8px" }}
@@ -90,11 +82,11 @@ export const ParentSignupForm = () => {
               Enter personal details
             </Typography>
             <FormControl sx={{ mt: 2 }} fullWidth>
-              <InputLabel color="primary" id="title">
+              <InputLabel color="warning" id="title">
                 Title
               </InputLabel>
               <Select
-                color="primary"
+                color="warning"
                 labelId="title"
                 id="title"
                 label="Title"
@@ -111,7 +103,7 @@ export const ParentSignupForm = () => {
               </Select>
             </FormControl>
             <TextField
-              color="primary"
+              color="warning"
               margin="normal"
               id="firstName"
               label="First Name"
@@ -123,7 +115,7 @@ export const ParentSignupForm = () => {
               error={!!errors.firstName}
             />
             <TextField
-              color="primary"
+              color="warning"
               margin="normal"
               id="lastName"
               label="Last Name"
@@ -136,7 +128,7 @@ export const ParentSignupForm = () => {
             />
           </Box>
           <Box sx={{ mt: "2rem" }}>
-            <Box sx={colors.green}>
+            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <Typography
                 color="success.dark"
                 variant="subtitle1"
@@ -162,7 +154,7 @@ export const ParentSignupForm = () => {
               />
               <TextField
                 sx={{ position: "relative" }}
-                color="success"
+                color="warning"
                 margin="normal"
                 id="password"
                 label="Password"
@@ -178,7 +170,6 @@ export const ParentSignupForm = () => {
                 })}
                 error={!!errors.password}
               />
-
               <Typography
                 color="text.disabled"
                 variant="caption"
@@ -188,9 +179,8 @@ export const ParentSignupForm = () => {
                 Password must be 8 characters, and include both lowercase and
                 uppercase characters, with 1 special character required
               </Typography>
-
               <TextField
-                color="success"
+                color="warning"
                 margin="normal"
                 id="confirmPassword"
                 label="Confirm Password"
@@ -214,8 +204,8 @@ export const ParentSignupForm = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box sx={colors.yellow}>
+        <Grid item xs={12} md={6}>
+          <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
             <Typography
               color="warning.dark"
               variant="subtitle1"
@@ -285,7 +275,7 @@ export const ParentSignupForm = () => {
               error={!!errors.phoneNumber}
             />
           </Box>
-          <Box sx={item.inputBox}>
+          <Box sx={{ ...forms.container }}>
             <LoadingButton
               loading={loading}
               disabled={loading}
@@ -293,17 +283,17 @@ export const ParentSignupForm = () => {
               variant="contained"
               sx={item.actionButtons}
               startIcon={error && <ErrorIcon />}
-              color={error ? "error" : "secondary"}
+              color={error ? "error" : "warning"}
             >
               Sign Up
             </LoadingButton>
             <Link
               component={RouterLink}
-              color="black"
               variant="body2"
               to="/login"
               underline="none"
               sx={{ textAlign: "center" }}
+              color="warning.dark"
             >
               Already have an account? Login
             </Link>

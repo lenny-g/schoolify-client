@@ -3,12 +3,11 @@
 export const forms = {
 	container: {
 		display: 'flex',
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		width: '100%',
+		flexDirection: 'column',
 		alignItems: 'center',
-		border: '1px solid black',
-		padding: '1rem',
+		margin: '10px',
+		padding: '20px',
+		borderRadius: '15px',
 	},
 	errorContainer: {
 		marginTop: 2,
@@ -29,6 +28,21 @@ export const forms = {
 };
 
 export const item = {
+	scrollContainer: {
+		height: '450px',
+		overflow: 'auto',
+	},
+	btnContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+		minWidth: '160px',
+	},
+	btn: {
+		padding: '15px',
+		minWidth: '200px',
+		margin: '10px',
+		borderRadius: '10px',
+	},
 	outerContainer: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -36,7 +50,7 @@ export const item = {
 		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: '1rem',
+		// padding: "1rem",
 	},
 	errorContainer: {
 		marginTop: 2,
@@ -53,6 +67,13 @@ export const item = {
 		flexBasis: '100%',
 		flex: 1,
 	},
+	comment: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		borderRadius: '25px',
+		flexBasis: '100%',
+	},
 	actionButtons: {
 		marginBottom: 2,
 		width: '6rem',
@@ -61,85 +82,70 @@ export const item = {
 		justifyContent: 'center',
 		borderRadius: '15px',
 	},
+	incident: {
+		backgroundColor: '#837d78',
+		color: '#ffffff',
+		padding: '5px',
+		margin: '2px',
+		borderRadius: '10px',
+	},
+	teacherComment: {
+		textAlign: 'right',
+		width: 'fitContent',
+		backgroundColor: '#ffffff',
+		padding: '5px 10px',
+		margin: '2px',
+		borderRadius: '10px',
+	},
+	parentComment: {
+		textAlign: 'left',
+		width: 'fitContent',
+		backgroundColor: '#d0fbf3',
+		padding: '5px 10px',
+		margin: '2px',
+		borderRadius: '10px',
+	},
+	ChildCardFlex: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'center',
+	},
 };
 
-export const largeButtons = {
+export const modal = {
 	container: {
-		width: '10rem',
-		height: '10rem',
-		display: 'flex',
-		alignItems: 'center',
-		flexDirection: 'column',
-		justifyContent: 'end',
-		padding: '10px',
-		m: '1rem',
-		borderRadius: '25px',
-		backgroundColor: 'lightBlue',
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		backgroundColor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
 	},
 };
 
-export const colors = {
+export const brand = {
 	container: {
-		margin: '2rem',
-		backgroundColor: 'red',
-		// display: 'flex',
-		// justifyContent: 'center',
-	},
-	green: {
 		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '25px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#81c78469',
+		justifyContent: 'center',
 	},
-	pink: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '25px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#e9c6d66e',
-	},
-	yellow: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '25px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#f4e4715c',
-	},
-	purple: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		margin: '10px',
-		padding: '20px',
-		borderRadius: '25px',
-		flexBasis: '100%',
-		flex: 1,
-		backgroundColor: '#b7cbf88a',
+	logo: {
+		width: '5rem',
 	},
 };
 
-export const headers = {
-	font: {
-		textAlign: 'center',
-		fontFamily: "'Gochi Hand', cursive,",
-		letterSpacing: '2px',
-	},
-};
+export const getContainerStyles = (isMobile) => ({
+	backgroundColor: '#d9f3ee70',
+	padding: '1rem',
+	borderRadius: '10px',
+	boxShadow: isMobile
+		? 'none'
+		: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
+});
 
-// backgroundColor: '#9DD8C8', light green
-// backgroundColor: '#F4E471', light yellow
-// backgroundColor: '#E9C6D6', light pink
-// backgroundColor: '#B7CBF8', light purple
+export const GREEN = '#b2e2d8';
+export const ORANGE = '#dd9148';
+
+// #5acdb8 button on hover

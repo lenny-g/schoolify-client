@@ -1,33 +1,25 @@
-import { useQuery } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
-import { GET_ALL_CHILDREN } from '../../graphql/query';
-import { ChildCard } from './ChildCard';
-import Grid from '@mui/material/Grid';
-import LinearProgress from '@mui/material/LinearProgress';
+import { useNavigate } from "react-router-dom";
+import { ChildCard } from "./ChildCard";
+import Grid from "@mui/material/Grid";
 
-export const ChildrenCards = () => {
-	const { loading, error, data } = useQuery(GET_ALL_CHILDREN);
-	const childrenData = data?.parentsChildren?.children;
+export const ChildrenCards = ({ data }) => {
+  const navigate = useNavigate();
 
-	const navigate = useNavigate();
+  const onclick = (e) => {
+    if (e.target.id) {
+      navigate(`/children/view/${e.target.id}`, { replace: true });
+    }
+  };
 
-	const onclick = (e) => {
-		navigate(`/children/view/${e.target.id}`, { replace: true });
-	};
-
-	if (error) {
-		return <div>ERROR</div>;
-	}
-
-	if (loading) {
-		return <LinearProgress style={{ backgroundColor: 'purple' }} />;
-	}
-
-	return (
-		<Grid container onClick={onclick}>
-			{childrenData?.map((child, index) => {
-				return <ChildCard {...child} key={index} />;
-			})}
-		</Grid>
-	);
+  return (
+    <Grid
+      container
+      onClick={onclick}
+      sx={{ display: "flex", justifyContent: "center" }}
+    >
+      {data?.parentsChildren?.children.map((child, index) => {
+        return <ChildCard {...child} key={index} />;
+      })}
+    </Grid>
+  );
 };

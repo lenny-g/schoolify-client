@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import parseISO from "date-fns/parseISO";
 import { GET_ALL_PARENT_ABSENCE_REQUESTS } from "../../graphql/query";
 import { useQuery, useMutation } from "@apollo/client";
 import { DELETE_ABSENCE_REQUEST } from "../../graphql/mutations";
-import { AbsenceRequestCard } from "../AbsenceRequestCard/parentAbsenceRequestCard";
-import Box from "@mui/material/Box";
+import { AbsenceRequestCard } from "../AbsenceRequestCard/ParentAbsenceRequestCard";
+import { PageTitle } from "../PageTitle";
+import { MOBILE, DESKTOP } from "../../media";
+import { useMediaQuery } from "react-responsive";
+
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -14,19 +18,31 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import LinearProgress from "@mui/material/LinearProgress";
+import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import { forms } from "../../styles";
 
 const stylingRowColor = (status) => {
-  if (status === "PENDING") return "lightGray";
-  if (status === "APPROVED") return "lightGreen";
-  if (status === "REJECTED") return "red";
+  if (status === "PENDING") return "#ead885";
+  if (status === "APPROVED") return "#79d8a5";
+  if (status === "REJECTED") return "#ef8080";
+};
+
+const actionButtons = (status) => {
+  if (status === "PENDING") return true;
+  if (status === "APPROVED") return false;
+  if (status === "REJECTED") return false;
 };
 
 export const ParentsAbsenceRequestTable = () => {
+  const isMobile = useMediaQuery(MOBILE);
+  const isDesktop = useMediaQuery(DESKTOP);
+
   const [search, setSearch] = useState("");
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const { data, loading, error, refetch } = useQuery(
     GET_ALL_PARENT_ABSENCE_REQUESTS,
@@ -35,10 +51,9 @@ export const ParentsAbsenceRequestTable = () => {
     }
   );
 
-  const [
-    executeDeleteAbsenceRequest,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(DELETE_ABSENCE_REQUEST);
+  const [executeDeleteAbsenceRequest, { error: mutationError }] = useMutation(
+    DELETE_ABSENCE_REQUEST
+  );
 
   let absenceRequestData = [];
 
@@ -84,48 +99,67 @@ export const ParentsAbsenceRequestTable = () => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWindowWidth(window.innerWidth);
-    });
-
-    return () => {
-      window.removeEventListener("resize", () => {
-        setWindowWidth(window.innerWidth);
-      });
-    };
-  }, []);
-
-  if (error) {
-    return <div>ERROR</div>;
+  if (loading) {
+    return <CircularProgress color="warning" />;
   }
 
-  if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+  if (!loading && error) {
+    return (
+      <Alert severity="error">
+        Something went wrong, please tray again later.
+      </Alert>
+    );
   }
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-      <Typography
-        variant="h3"
-        gutterBottom
-        component="div"
-        sx={{ textAlign: "center" }}
-      >
-        Absence Requests
+    <Stack spacing={2} sx={{ alignItems: isMobile ? "center" : "normal" }}>
+      <PageTitle>Absence Requests</PageTitle>
+
+      <Typography variant="h5" sx={{ textAlign: "center" }}>
+        Absence requests work on a traffic light system, once a decision has
+        been made, this will remain on record.
+      </Typography>
+
+      <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+        Please note: You can only delete requests made whilst pending
       </Typography>
 
       <TextField
-        label="Enter Child Name"
+        color="warning"
+        label="Filter by child name"
         variant="outlined"
-        style={{ marginBottom: 20, width: "100%" }}
+        style={{
+          marginBottom: 20,
+          maxWidth: "250px",
+        }}
         onChange={(e) => setSearch(e.target.value)}
       />
+      {!!mutationError && (
+        <Typography
+          variant="subtitle2"
+          gutterBottom
+          component="div"
+          sx={forms.errorContainer}
+        >
+          Failed to respond to absence request, please try again.
+        </Typography>
+      )}
 
-      {windowWidth > 700 ? (
+      {absenceRequestData.length === 0 && (
+        <Alert severity="info">
+          You have made no absence requests yet, click on the 'request absence'
+          button to submit one.
+        </Alert>
+      )}
+
+      {isDesktop && (
         <TableContainer component={Paper}>
           <Table>
-            <TableHead style={{ backgroundColor: "#EEBC1D" }}>
+            <TableHead
+              style={{
+                backgroundColor: "#5BCCB6",
+              }}
+            >
               <TableRow>
                 {[
                   "Name",
@@ -139,8 +173,8 @@ export const ParentsAbsenceRequestTable = () => {
                   <TableCell
                     style={{
                       color: "black",
-                      fontWeight: "700",
-                      fontFamily: "Montserrat",
+                      fontWeight: "500",
+                      textAlign: "center",
                     }}
                     align={head === "Name" ? "left" : "right"}
                     key={head}
@@ -157,28 +191,22 @@ export const ParentsAbsenceRequestTable = () => {
                     key={index}
                     sx={{ backgroundColor: stylingRowColor(row.status) }}
                   >
-                    <TableCell align="left">{row.name} </TableCell>
-                    <TableCell align="right">{row.yearGroup}</TableCell>
-                    <TableCell align="right">{row.type}</TableCell>
-                    <TableCell align="right">{row.description}</TableCell>
-                    <TableCell align="right">{row.dateTime}</TableCell>
-                    <TableCell align="right">{row.status}</TableCell>
-                    <TableCell align="right">
-                      {" "}
-                      <Button
-                        onClick={() => {
-                          // onAccept(row.absenceRequestId, row.studentId);
-                        }}
-                      >
-                        EDIT
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          deleteAbsenceOnClick(row.id, row.absenceRequestId);
-                        }}
-                      >
-                        DELETE
-                      </Button>
+                    <TableCell align="center">{row.name} </TableCell>
+                    <TableCell align="center">{row.yearGroup}</TableCell>
+                    <TableCell align="center">{row.type}</TableCell>
+                    <TableCell align="center">{row.description}</TableCell>
+                    <TableCell align="center">{row.dateTime}</TableCell>
+                    <TableCell align="center">{row.status}</TableCell>
+                    <TableCell align="center">
+                      {actionButtons(row.status) && (
+                        <Button
+                          onClick={() => {
+                            deleteAbsenceOnClick(row.id, row.absenceRequestId);
+                          }}
+                        >
+                          <DeleteIcon sx={{ color: "#c13030" }} />
+                        </Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 );
@@ -186,13 +214,15 @@ export const ParentsAbsenceRequestTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      ) : (
-        <Grid container>
+      )}
+      {isMobile && (
+        <Grid>
           {handleUserSearch().map((each, index) => {
             return (
               <AbsenceRequestCard
                 {...each}
                 colorStyling={stylingRowColor(each.status)}
+                cardButtons={actionButtons(each.status)}
                 onDelete={deleteAbsenceOnClick}
                 key={index}
               />
@@ -200,6 +230,6 @@ export const ParentsAbsenceRequestTable = () => {
           })}
         </Grid>
       )}
-    </Box>
+    </Stack>
   );
 };

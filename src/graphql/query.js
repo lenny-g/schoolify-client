@@ -51,6 +51,7 @@ export const GET_ALL_CHILDREN = gql`
         firstName
         lastName
         dob
+        profileImageUrl
         yearGroup {
           id
           title
@@ -99,6 +100,7 @@ export const GET_TEACHER_STUDENTS = gql`
     teacherStudents(yearGroupId: $yearGroupId) {
       firstName
       lastName
+      profileImageUrl
       id
       dob
     }
@@ -106,12 +108,13 @@ export const GET_TEACHER_STUDENTS = gql`
 `;
 
 export const VIEW_CHILD = gql`
-  query ViewChild($studentId: ID!) {
+  query Query($studentId: ID!) {
     viewChild(studentId: $studentId) {
       id
       firstName
       lastName
       dob
+      profileImageUrl
       yearGroup {
         id
         title
@@ -119,8 +122,8 @@ export const VIEW_CHILD = gql`
       }
       medical {
         id
-        disabilities
         allergies
+        disabilities
         medications
         additionalInfo
       }
@@ -130,6 +133,65 @@ export const VIEW_CHILD = gql`
         description
         dateTime
         status
+      }
+      certificates {
+        id
+        name
+        certificateType
+        message
+        date
+      }
+    }
+  }
+`;
+
+export const VIEW_INCIDENT_REPORTS = gql`
+  query Query {
+    viewIncidentReports {
+      id
+      title
+      description
+      dateTime
+      teacher {
+        title
+        firstName
+        lastName
+      }
+      student {
+        id
+        firstName
+        lastName
+        yearGroup {
+          title
+        }
+      }
+      comments {
+        name
+        message
+        dateTime
+        id
+      }
+    }
+  }
+`;
+
+export const VIEW_INCIDENT_REPORT_BY_ID = gql`
+  query Query($incidentReportId: ID!) {
+    viewIncidentReport(incidentReportId: $incidentReportId) {
+      title
+      id
+      description
+      dateTime
+      comments {
+        name
+        message
+        dateTime
+        id
+      }
+      teacher {
+        title
+        firstName
+        lastName
       }
     }
   }

@@ -1,86 +1,99 @@
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { item, colors, headers } from "../styles";
-import { AbsenceRequestSummary } from "../components/ChildDashboard/AbsenceRequestSummary";
-import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard";
-import logo from "../assets/img/logo.png";
-
-import { VIEW_CHILD } from "../graphql/query";
-
 import LinearProgress from "@mui/material/LinearProgress";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
 
-const styles = {
-  paperContainer: {
-    margin: "2rem 0",
-    borderRadius: "25px",
-  },
-};
+import { VIEW_CHILD } from "../graphql/query";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
-export const StudentInfo = (props) => {
+import { item, forms, GREEN } from "../styles";
+
+import { PageContainer } from "../components/PageContainer/";
+import { AbsenceRequestSummary } from "../components/ChildDashboard/AbsenceRequestSummary";
+import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard";
+import { PageTitle } from "../components/PageTitle";
+import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
+import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
+import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
+import { CertificateCard } from "../components/CertificateCard";
+import { certificateOptions } from "../data/certificateTypes";
+import { RemoveRedEyeSharp } from "@mui/icons-material";
+
+export const StudentInfo = () => {
   const { studentId } = useParams();
 
-  const { data, loading, error, refetch } = useQuery(VIEW_CHILD, {
+  const { data, loading, error } = useQuery(VIEW_CHILD, {
     variables: { studentId },
 
     pollInterval: 1000,
   });
   const childData = data?.viewChild;
-  if (error) {
-    return <div>ERROR</div>;
-  }
+
   if (loading) {
     return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }
 
-  console.log(childData);
-  console.log(data.viewChild);
+  if (!loading && error) {
+    return (
+      <Alert severity="error">
+        Something went wrong, please tray again later.
+      </Alert>
+    );
+  }
+
+  const certificateImg = (value) => {
+    const certificateData = certificateOptions.find((each) => {
+      return each.value === value;
+    });
+    return certificateData.backgroundImage;
+  };
 
   return (
-    <Container>
-      <Container component="main">
-        <Paper elevation={6} style={styles.paperContainer}>
-          <div className="logoContainer">
-            <img src={logo} className="logo" alt="logo" />
-          </div>
-          <Grid container sx={item.outerContainer}>
-            <Grid item xs={12}>
-              <Typography
-                className="headingFont"
-                variant="h5"
-                gutterBottom
-                component="div"
-                sx={headers.font}
-              >
-                {childData.firstName} {childData.lastName}'s Dashboard
-              </Typography>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
-                <Box sx={colors.purple}>
-                  <ChildProfileCard childData={childData} />
-                </Box>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Box sx={colors.pink}>Box1</Box>
-                <Box sx={colors.green}>box2</Box>
-              </Grid>
-
-              <Grid item xs={12} sm={4}>
-                <Box sx={colors.yellow}>
-                  <AbsenceRequestSummary childData={childData} />
-                </Box>
-
-                <Box sx={item.inputBox}>box4</Box>
-              </Grid>
-            </Grid>
+    <PageContainer>
+      <Grid container sx={item.outerContainer}>
+        <Grid item xs={12}>
+          <PageTitle>
+            {childData?.firstName} {childData?.lastName}'s Dashboard
+          </PageTitle>
+        </Grid>
+        <Grid container>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+              <ChildProfileCard childData={childData} />
+            </Box>
           </Grid>
-        </Paper>
-      </Container>
-    </Container>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+              <MedicalInfo childData={childData} />
+            </Box>
+            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+              {childData?.certificates?.map((certificate, index) => {
+                return (
+                  <CertificateCard
+                    key={index}
+                    backgroundImage={certificateImg(
+                      certificate.certificateType
+                    )}
+                    studentName={certificate.name}
+                    message={certificate.message}
+                  />
+                );
+              })}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+              <AbsenceRequestSummary childData={childData} />
+            </Box>
+
+            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+              {/* <ChildIncidentReports childData={childData} /> */}
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+    </PageContainer>
   );
 };
