@@ -108,7 +108,7 @@ export const GET_TEACHER_STUDENTS = gql`
 `;
 
 export const VIEW_CHILD = gql`
-  query ViewChild($studentId: ID!) {
+  query Query($studentId: ID!) {
     viewChild(studentId: $studentId) {
       id
       firstName
@@ -123,8 +123,8 @@ export const VIEW_CHILD = gql`
       medical {
         id
         allergies
-        medications
         disabilities
+        medications
         additionalInfo
       }
       absenceRequests {
@@ -145,7 +145,12 @@ export const VIEW_CHILD = gql`
           title
           firstName
           lastName
-          email
+        }
+        comments {
+          name
+          message
+          dateTime
+          id
         }
       }
       certificates {

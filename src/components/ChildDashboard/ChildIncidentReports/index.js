@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import Link from "@mui/material/Link";
 
 export const ChildIncidentReports = ({ childData }) => {
+  console.log(childData);
   return (
     <Stack sx={{ width: "100%" }}>
       <Typography
@@ -15,12 +16,12 @@ export const ChildIncidentReports = ({ childData }) => {
       >
         Incident Reports:
       </Typography>
-      {childData.incidentReports.length === 0 && (
+      {childData?.incidentReports?.length === 0 && (
         <Alert severity="info">
-          {childData.firstName} {childData.lastName} has no incident reports.
+          {childData?.firstName} {childData?.lastName} has no incident reports.
         </Alert>
       )}
-      {childData.incidentReports?.map((incidentReport, index) => {
+      {childData?.incidentReports?.map((incidentReport, index) => {
         return (
           <Box
             component={Link}
@@ -31,12 +32,12 @@ export const ChildIncidentReports = ({ childData }) => {
             }}
           >
             <Stack sx={{ width: "100%" }}>
-              <Typography align="center">{incidentReport.title}</Typography>
+              <Typography align="center">{incidentReport?.title}</Typography>
               <Typography align="center">
-                {incidentReport.description}
+                {incidentReport?.description}
               </Typography>
-              <Typography align="center">{incidentReport.teacher}</Typography>
-              <Typography align="center">{incidentReport.dateTime}</Typography>
+              <Typography align="center">{incidentReport?.teacher}</Typography>
+              <Typography align="center">{incidentReport?.dateTime}</Typography>
             </Stack>
           </Box>
         );

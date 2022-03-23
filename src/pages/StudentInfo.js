@@ -56,7 +56,7 @@ export const StudentInfo = () => {
       <Grid container sx={item.outerContainer}>
         <Grid item xs={12}>
           <PageTitle>
-            {childData.firstName} {childData.lastName}'s Dashboard
+            {childData?.firstName} {childData?.lastName}'s Dashboard
           </PageTitle>
         </Grid>
         <Grid container>
