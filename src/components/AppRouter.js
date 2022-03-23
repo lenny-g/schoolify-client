@@ -24,7 +24,7 @@ import { MOBILE } from "../media";
 import { TeacherIncidentReport } from "../pages/TeacherIncidentReport";
 import { ViewIncidentTeacher } from "../pages/ViewIncidentTeacher";
 import { ViewIncidentParent } from "../pages/ViewIncidentParent";
-import { Quiz } from "../pages/Quiz";
+import { QuizGame } from "../pages/QuizGame";
 
 const theme = createTheme({
   palette: {
@@ -88,7 +88,7 @@ export const AppRouter = () => {
                   <Route path="/sign-up/parent" element={<ParentSignup />} />
                   <Route path="/sign-up/teacher" element={<TeacherSignup />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/quiz" element={<Quiz />} />
+                  <Route path="/quiz" element={<QuizGame />} />
                   <Route path="*" element={<Navigate to="/" />} />
                 </>
               )}
