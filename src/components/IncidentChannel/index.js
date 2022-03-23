@@ -15,18 +15,24 @@ export const IncidentChannel = ({
 	});
 
 	return (
-		<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+		<Box
+			sx={{
+				...forms.container,
+				backgroundColor: GREEN,
+				maxHeight: '450px',
+				overflow: 'auto',
+			}}>
 			<Typography
 				variant="h6"
 				gutterBottom
 				component="div"
-				sx={{ textAlign: 'center' }}>
+				sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
 				{incidentReportData?.title}
 			</Typography>
 			<Stack
 				spacing={2}
 				sx={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
-				<Box sx={item.incident}>
+				<Stack sx={{ ...item.incident, textAlign: 'center' }}>
 					<Typography variant="body1">
 						{incidentReportData?.description}
 					</Typography>
@@ -35,22 +41,19 @@ export const IncidentChannel = ({
 						{incidentReportData?.teacher.firstName}
 						{incidentReportData?.teacher.lastName}
 					</Typography>
-				</Box>
+					<Typography variant="caption">
+						{incidentReportData?.dateTime.split(' ').slice(4, 5).join(' ')}
+					</Typography>
+				</Stack>
 
 				{incidentReportData?.comments?.map((each, index) => {
-					{
-						console.log(each.name);
-					}
 					return (
+						// {each.name === userRole ?}
 						<Box
 							key={index}
 							sx={
 								each.name === userRole
-									? {
-											...item.teacherComment,
-											display: 'flex',
-											justifyContent: each.name === userRole ? 'start' : 'end',
-									  }
+									? item.teacherComment
 									: item.parentComment
 							}>
 							<Typography variant="body1">{each.message}</Typography>

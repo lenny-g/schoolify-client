@@ -83,28 +83,27 @@ export const item = {
 		borderRadius: '15px',
 	},
 	incident: {
-		backgroundColor: '#ef8080',
-		width: 'inherit',
+		backgroundColor: '#837d78',
+		color: '#ffffff',
 		padding: '5px',
 		margin: '2px',
 		borderRadius: '10px',
-		width: '#ffa500',
 	},
 	teacherComment: {
+		textAlign: 'right',
 		width: 'fitContent',
-		backgroundColor: 'orange',
-		padding: '5px',
+		backgroundColor: '#ffffff',
+		padding: '5px 10px',
 		margin: '2px',
 		borderRadius: '10px',
-		width: '#ffa500',
 	},
 	parentComment: {
+		textAlign: 'left',
 		width: 'fitContent',
-		backgroundColor: '#5acdb8',
-		padding: '5px',
+		backgroundColor: '#d0fbf3',
+		padding: '5px 10px',
 		margin: '2px',
 		borderRadius: '10px',
-		width: 'fitContent',
 	},
 	ChildCardFlex: {
 		display: 'flex',
@@ -148,3 +147,5 @@ export const getContainerStyles = (isMobile) => ({
 
 export const GREEN = '#b2e2d8';
 export const ORANGE = '#dd9148';
+
+// #5acdb8 button on hover

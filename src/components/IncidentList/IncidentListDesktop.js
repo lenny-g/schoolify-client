@@ -19,7 +19,12 @@ export const IncidentListDesktop = ({
 	//   setShowCommentSection,
 }) => {
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				flex: 1,
+			}}>
 			<FormControl sx={{ mt: 2, padding: '10px' }} fullWidth>
 				<InputLabel color="warning" id="child" sx={{ padding: '10px' }}>
 					Child's name
@@ -44,6 +49,8 @@ export const IncidentListDesktop = ({
 			<Stack
 				sx={{
 					padding: '10px',
+					maxHeight: '370px',
+					overflow: 'auto',
 				}}>
 				{studentIncidents()?.length === 0 && student ? (
 					<Alert severity="info">

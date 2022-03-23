@@ -114,13 +114,7 @@ export const ParentsAbsenceRequestTable = () => {
 	return (
 		<Stack spacing={2} sx={{ alignItems: isMobile ? 'center' : 'normal' }}>
 			<PageTitle>Absence Requests</PageTitle>
-			<Typography variant="h5" sx={{ textAlign: 'center' }}>
-				Keep track of your absence requests, using our traffic light system.
-			</Typography>
-			<Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-				Please note: You are able to delete requests whilst pending, else the
-				request will remain on your child's record.
-			</Typography>
+
 			<TextField
 				color="warning"
 				label="Filter by child name"

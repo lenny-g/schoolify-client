@@ -57,9 +57,11 @@ export const ViewIncidentTeacher = () => {
 	const [showCommentSection, setShowCommentSection] = useState(false);
 
 	const studentIncidents = () => {
-		return incidentReportList?.viewIncidentReports?.filter((each) => {
-			return each.student.id === student;
-		});
+		return incidentReportList?.viewIncidentReports
+			?.filter((each) => {
+				return each.student.id === student;
+			})
+			.reverse();
 	};
 
 	const renderIncidentReportOnClick = async (selectedIncidentId) => {
@@ -100,6 +102,13 @@ export const ViewIncidentTeacher = () => {
 			<>
 				<Grid item xs={12}>
 					<PageTitle>Incident Report</PageTitle>
+					<Typography variant="h5" sx={{ textAlign: 'center', mb: 2 }}>
+						Select Student to view/ respond to incident
+					</Typography>
+					<Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+						Please note: You are unable to edit and delete your comments, as
+						this will remain on record for audit and safeguarding purposes.
+					</Typography>
 				</Grid>
 				<Grid container>
 					<Grid item={true} md={isMobile ? 12 : 4} sm={12} xs={12}>
