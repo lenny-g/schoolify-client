@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container';
 
 import { HomePageIntro } from '../components/HomePageIntro';
+import { ConfirmModal } from '../components/ConfirmModal';
 
 const styles = {
 	paperContainer: {
@@ -11,7 +12,8 @@ const styles = {
 
 export const Home = () => {
 	return (
-		<Container component='main'>
+		<Container component="main">
+			<ConfirmModal />
 			<HomePageIntro />
 		</Container>
 	);

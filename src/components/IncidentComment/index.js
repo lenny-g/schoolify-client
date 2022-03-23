@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { item, forms, GREEN } from '../../styles';
-import { DESKTOP, MOBILE } from '../../media';
+import { DESKTOP } from '../../media';
 import { useMediaQuery } from 'react-responsive';
 
 export const IncidentComment = ({

@@ -28,6 +28,10 @@ export const forms = {
 };
 
 export const item = {
+	scrollContainer: {
+		height: '450px',
+		overflow: 'auto',
+	},
 	btnContainer: {
 		display: 'flex',
 		justifyContent: 'center',
@@ -107,6 +111,19 @@ export const item = {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
+	},
+};
+
+export const modal = {
+	container: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		backgroundColor: 'background.paper',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
 	},
 };
 

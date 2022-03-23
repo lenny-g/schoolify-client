@@ -23,7 +23,9 @@ export const IncidentChannel = ({
 				sx={{ textAlign: 'center' }}>
 				{incidentReportData?.title}
 			</Typography>
-			<Stack spacing={2}>
+			<Stack
+				spacing={2}
+				sx={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
 				<Box sx={item.incident}>
 					<Typography variant="body1">
 						{incidentReportData?.description}
@@ -36,12 +38,19 @@ export const IncidentChannel = ({
 				</Box>
 
 				{incidentReportData?.comments?.map((each, index) => {
+					{
+						console.log(each.name);
+					}
 					return (
 						<Box
 							key={index}
 							sx={
 								each.name === userRole
-									? item.teacherComment
+									? {
+											...item.teacherComment,
+											display: 'flex',
+											justifyContent: each.name === userRole ? 'start' : 'end',
+									  }
 									: item.parentComment
 							}>
 							<Typography variant="body1">{each.message}</Typography>
