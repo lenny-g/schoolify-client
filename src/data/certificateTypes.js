@@ -9,6 +9,11 @@ import studentOfTheWeek from "../assets/img/certificates/studentOfTheWeek.png";
 
 export const certificateOptions = [
   {
+    name: "Well Done",
+    value: "wellDone",
+    backgroundImage: wellDone,
+  },
+  {
     name: "Brilliant Behaviour",
     value: "brilliantBehaviour",
     backgroundImage: brilliantBehaviour,
@@ -42,10 +47,5 @@ export const certificateOptions = [
     name: "Student Of The Week",
     value: "studentOfTheWeek",
     backgroundImage: studentOfTheWeek,
-  },
-  {
-    name: "Well Done",
-    value: "wellDone",
-    backgroundImage: wellDone,
   },
 ];

@@ -8,20 +8,32 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import ErrorIcon from "@mui/icons-material/Error";
 
-import { useMutation } from "@apollo/client";
-import { Link as RouterLink } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AppProvider";
-import { useQuery } from "@apollo/client";
-import { GET_PARENTS_CHILDREN } from "../../graphql/query";
-import { forms, item, GREEN } from "../../styles";
+
+import { GET_TEACHER_STUDENTS } from "../../graphql/query";
+import { CREATE_STUDENT_CERTIFICATE } from "../../graphql/mutations";
+
+import { forms, GREEN } from "../../styles";
 import { certificateOptions } from "../../data/certificateTypes";
 import { CertificateCard } from "../CertificateCard";
 
 export const CertificateForm = () => {
-  const { loading, error, data } = useQuery(GET_PARENTS_CHILDREN);
-  const studentOptions = data?.parentsChildren?.children;
+  const { user } = useAuth();
+
+  const { loading, error, data } = useQuery(GET_TEACHER_STUDENTS, {
+    variables: {
+      yearGroupId: user?.yearGroup?.id,
+    },
+  });
+
+  const [
+    executeCreateCertificate,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(CREATE_STUDENT_CERTIFICATE);
 
   const {
     register,
@@ -33,11 +45,38 @@ export const CertificateForm = () => {
 
   const certificate = watch("certificate", "wellDone");
   const message = watch("message", "");
+  const studentId = watch("student", "");
 
   const certificateCardData = () => {
     return certificateOptions.find((each) => each.value === certificate);
   };
-  const onSubmit = async (formData) => {};
+
+  const studentFullName = () => {
+    const student = data?.teacherStudents?.find(
+      (each) => each.id === studentId
+    );
+
+    return student
+      ? `${student?.firstName} ${student?.lastName}`
+      : "Student Name";
+  };
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (formData) => {
+    await executeCreateCertificate({
+      variables: {
+        input: {
+          name: studentFullName(),
+          message: formData.message,
+          studentId: formData.student,
+          certificateType: formData.certificate,
+        },
+      },
+    });
+
+    navigate(`/children/view/${formData.student}`, { replace: true });
+  };
 
   return (
     <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -52,8 +91,7 @@ export const CertificateForm = () => {
             id="certificate"
             label="certificate"
             {...register("certificate")}
-            autoFocus
-            // disabled={loading}
+            disabled={mutationLoading}
           >
             {certificateOptions.map((certificateType, index) => (
               <MenuItem key={index} value={certificateType.value}>
@@ -76,16 +114,19 @@ export const CertificateForm = () => {
                 id="student"
                 label="Select Student"
                 value={value || ""}
-                // disabled={mutationLoading}
+                autoFocus
+                disabled={mutationLoading}
                 onChange={onChange}
                 {...register("student", { required: true })}
                 error={!!errors.student}
               >
-                {studentOptions?.map(({ firstName, lastName, id }, index) => (
-                  <MenuItem key={index} value={id}>
-                    {firstName} {lastName}
-                  </MenuItem>
-                ))}
+                {data?.teacherStudents?.map(
+                  ({ firstName, lastName, id }, index) => (
+                    <MenuItem key={index} value={id}>
+                      {firstName} {lastName}
+                    </MenuItem>
+                  )
+                )}
               </Select>
             )}
           />
@@ -99,22 +140,22 @@ export const CertificateForm = () => {
           name="message"
           type="message"
           fullWidth
-          // disabled={loading}
+          disabled={loading}
           {...register("message", { required: true })}
-          error={!!errors.password}
+          error={!!errors.message}
         />
         <CertificateCard
           backgroundImage={certificateCardData().backgroundImage}
           message={message}
-          studentName={"Student Name"}
+          studentName={studentFullName()}
         />
 
         <LoadingButton
-          // loading={loading}
-          // disabled={loading}
+          loading={mutationLoading}
+          disabled={mutationLoading}
           type="submit"
           variant="contained"
-          // startIcon={error && <ErrorIcon />}
+          startIcon={error && <ErrorIcon />}
           color={error ? "error" : "warning"}
         >
           Send certificate

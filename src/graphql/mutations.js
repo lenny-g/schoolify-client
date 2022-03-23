@@ -110,3 +110,11 @@ export const ADD_INCIDENT_REPORT_COMMENT = gql`
     }
   }
 `;
+
+export const CREATE_STUDENT_CERTIFICATE = gql`
+  mutation Mutation($input: CertificateInput) {
+    addCertificate(input: $input) {
+      success
+    }
+  }
+`;

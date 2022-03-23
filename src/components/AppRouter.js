@@ -19,7 +19,7 @@ import { Medical } from "../pages/Medical";
 import { ViewParentsAbsenceRequests } from "../pages/ViewParentsAbsenceRequests";
 import { ViewAbsenceRequestTeacher } from "../pages/ViewAbsenceRequestTeacher";
 import { ViewStudents } from "../pages/ViewStudents";
-import { TeacherDashboard } from "../pages/TeacherDashboard";
+
 import { TopNavbar } from "../components/NavigationBar/TopNavbar";
 import { SideNavbar } from "../components/NavigationBar/SideNavbar";
 import { MOBILE } from "../media";
@@ -82,7 +82,6 @@ export const AppRouter = () => {
                 <Route path="/sign-up/parent" element={<ParentSignup />} />
                 <Route path="/sign-up/teacher" element={<TeacherSignup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/certificate/new" element={<GiveCertificate />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/dashboard" />} />
@@ -90,6 +89,7 @@ export const AppRouter = () => {
 
             {isLoggedIn ? (
               <>
+                <Route path="/certificate/new" element={<GiveCertificate />} />
                 <Route
                   path="/incident-report/new"
                   element={<TeacherIncidentReport />}
@@ -109,7 +109,7 @@ export const AppRouter = () => {
                     user.role === "parent" ? (
                       <ParentDashboard />
                     ) : (
-                      <TeacherDashboard />
+                      <ViewStudents />
                     )
                   }
                 />
@@ -135,7 +135,6 @@ export const AppRouter = () => {
                   path="/absence-requests"
                   element={<ViewAbsenceRequestTeacher />}
                 />
-                <Route path="/view/students" element={<ViewStudents />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/" />} />

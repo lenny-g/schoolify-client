@@ -12,6 +12,7 @@ import SchoolSharpIcon from "@mui/icons-material/SchoolSharp";
 import InfoIcon from "@mui/icons-material/Info";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 const publicNavArray = [
   {
@@ -91,11 +92,6 @@ const teacherNavArray = [
     link: "/dashboard",
   },
   {
-    name: "My Classroom",
-    icon: <GroupsIcon />,
-    link: "/view/students",
-  },
-  {
     name: "View Absence Requests",
     icon: <EventIcon />,
     link: "/absence-requests",
@@ -109,6 +105,11 @@ const teacherNavArray = [
     name: "View incident Reports",
     icon: <NotificationsIcon />,
     link: "/incident-report/view/teacher",
+  },
+  {
+    name: "Create Certificate",
+    icon: <CardGiftcardIcon />,
+    link: "/certificate/new",
   },
   {
     name: "About",

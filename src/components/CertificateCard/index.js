@@ -21,7 +21,12 @@ export const CertificateCard = ({ backgroundImage, studentName, message }) => {
       <Typography variant="h5" textAlign="center" marginTop="140px">
         {studentName}
       </Typography>
-      <Typography variant="subititle1" textAlign="center" marginTop="5px">
+      <Typography
+        variant="subititle1"
+        textAlign="center"
+        marginTop="5px"
+        sx={{ padding: "0 4px" }}
+      >
         {message}
       </Typography>
     </Box>
