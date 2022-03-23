@@ -114,11 +114,10 @@ export const CertificateForm = () => {
           // disabled={loading}
           type="submit"
           variant="contained"
-          sx={item.actionButtons}
           // startIcon={error && <ErrorIcon />}
-          // color={error ? "error" : "secondary"}
+          color={error ? "error" : "warning"}
         >
-          Create
+          Send certificate
         </LoadingButton>
       </Box>
     </Stack>
