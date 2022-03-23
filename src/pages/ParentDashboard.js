@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
@@ -25,7 +25,7 @@ export const ParentDashboard = () => {
 
   const renderLoading = () => {
     if (loading) {
-      return <LinearProgress style={{ backgroundColor: "purple" }} />;
+      return <CircularProgress color="warning" />;
     }
   };
 

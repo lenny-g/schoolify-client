@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
@@ -71,7 +71,7 @@ export const IncidentReportForm = () => {
   }
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <CircularProgress color="warning" />;
   }
 
   return (

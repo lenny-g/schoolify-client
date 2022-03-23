@@ -83,7 +83,6 @@ export const TeacherSignupForm = () => {
       <Grid item xs={12} md={6}>
         <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
           <Typography
-            color="warning.dark"
             variant="subtitle1"
             component="div"
             sx={{ padding: "0px 8px" }}
@@ -170,7 +169,6 @@ export const TeacherSignupForm = () => {
       <Grid item xs={12} md={6}>
         <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
           <Typography
-            color="warning.dark"
             variant="subtitle1"
             component="div"
             sx={{ padding: "0px 8px" }}

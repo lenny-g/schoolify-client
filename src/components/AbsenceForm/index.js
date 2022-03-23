@@ -11,8 +11,8 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 import Typography from "@mui/material/Typography";
-import LinearProgress from "@mui/material/LinearProgress";
-
+import CircularProgress from "@mui/material/CircularProgress";
+import { Link as RouterLink } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm, Controller } from "react-hook-form";
@@ -75,12 +75,31 @@ export const AbsenceForm = () => {
   }
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <CircularProgress color="warning" />;
   }
 
   return (
     <Stack spacing={2}>
-      <PageTitle>Absence . Request . Form</PageTitle>
+      <PageTitle>Absence Request Form</PageTitle>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          component="span"
+          variant="subtitle1"
+          sx={{ textAlign: "center" }}
+        >
+          All absences will require approval. You are able to check progress by
+          clicking
+        </Typography>
+        &nbsp;
+        <Typography
+          component={RouterLink}
+          to={"/absenceRequest/view"}
+          sx={{ textAlign: "center", textDecoration: "none", color: "#ffa500" }}
+        >
+          here!
+        </Typography>
+      </Box>
+
       <Box
         onSubmit={handleSubmit(onSubmit)}
         component="form"

@@ -8,7 +8,7 @@ import { useQuery } from "@apollo/client";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ViewStudents = () => {
   const { user } = useAuth();
@@ -22,7 +22,7 @@ export const ViewStudents = () => {
 
   const renderLoading = () => {
     if (loading) {
-      return <LinearProgress style={{ backgroundColor: "purple" }} />;
+      return <CircularProgress color="warning" />;
     }
   };
 

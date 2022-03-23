@@ -17,7 +17,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -124,7 +124,7 @@ export const TeachersAbsenceRequestsTable = () => {
   };
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <CircularProgress color="warning" />;
   }
 
   if (!loading && error) {

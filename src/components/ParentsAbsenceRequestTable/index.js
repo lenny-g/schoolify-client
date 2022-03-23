@@ -21,7 +21,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { forms } from "../../styles";
@@ -100,7 +100,7 @@ export const ParentsAbsenceRequestTable = () => {
   };
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <CircularProgress color="warning" />;
   }
 
   if (!loading && error) {
