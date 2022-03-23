@@ -5,7 +5,6 @@ import Alert from "@mui/material/Alert";
 import Link from "@mui/material/Link";
 
 export const ChildIncidentReports = ({ childData }) => {
-  console.log(childData);
   return (
     <Stack sx={{ width: "100%" }}>
       <Typography

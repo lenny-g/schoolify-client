@@ -30,8 +30,6 @@ export const StudentInfo = () => {
   });
   const childData = data?.viewChild;
 
-  console.log(childData);
-
   if (loading) {
     return <LinearProgress style={{ backgroundColor: "purple" }} />;
   }

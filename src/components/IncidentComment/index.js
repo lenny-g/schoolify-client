@@ -18,7 +18,6 @@ export const IncidentComment = ({
 }) => {
   const isDesktop = useMediaQuery(DESKTOP);
   const [commentMessage, setCommentMessage] = useState("");
-  console.log(commentMessage);
   const {
     register,
     formState: { errors },
@@ -56,7 +55,6 @@ export const IncidentComment = ({
           rows={4}
           //   value={commentMessage}
           onChange={(e) => {
-            console.log(e.target.value());
             setCommentMessage(e.target.value);
           }}
           multiline
