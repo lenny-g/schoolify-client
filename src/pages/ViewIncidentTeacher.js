@@ -14,6 +14,8 @@ import { IncidentComment } from "../components/IncidentComment";
 import { useState } from "react";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_INCIDENT_REPORT_COMMENT } from "../graphql/mutations";
+import { useAuth } from "../context/AppProvider";
+
 import {
   GET_TEACHER_STUDENTS,
   VIEW_INCIDENT_REPORTS,
@@ -24,7 +26,7 @@ export const ViewIncidentTeacher = () => {
   const isMobile = useMediaQuery(MOBILE);
   const isDesktop = useMediaQuery(DESKTOP);
 
-  const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+  const { user } = useAuth();
 
   const {
     loading: studentListLoading,
@@ -32,7 +34,7 @@ export const ViewIncidentTeacher = () => {
     data: studentList,
   } = useQuery(GET_TEACHER_STUDENTS, {
     variables: {
-      yearGroupId: yearGroupId,
+      yearGroupId: user.yearGroup.id,
     },
     pollInterval: 1000,
   });
@@ -125,6 +127,7 @@ export const ViewIncidentTeacher = () => {
           <Grid item={true} md={isMobile ? 12 : 8} sm={12} xs={12}>
             {student && showCommentSection && (
               <IncidentChannel
+                user={user}
                 incidentReportDataById={incidentReportDataById?.id}
                 studentIncidents={studentIncidents}
               />
@@ -135,6 +138,7 @@ export const ViewIncidentTeacher = () => {
         {student && showCommentSection && (
           <Grid container>
             <IncidentComment
+              user={user}
               showCommentSection={showCommentSection}
               executeAddComment={executeAddComment}
               incidentReportDataById={incidentReportDataById}

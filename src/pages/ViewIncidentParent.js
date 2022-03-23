@@ -12,6 +12,7 @@ import { DESKTOP, MOBILE } from "../media";
 import { useMediaQuery } from "react-responsive";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
+import { useAuth } from "../context/AppProvider";
 import { ADD_INCIDENT_REPORT_COMMENT } from "../graphql/mutations";
 import {
   GET_PARENTS_CHILDREN,
@@ -22,6 +23,8 @@ import {
 export const ViewIncidentParent = () => {
   const isDesktop = useMediaQuery(DESKTOP);
   const isMobile = useMediaQuery(MOBILE);
+
+  const { user } = useAuth();
 
   const {
     loading,
@@ -117,6 +120,7 @@ export const ViewIncidentParent = () => {
           <Grid item={true} md={isMobile ? 12 : 8} sm={12} xs={12}>
             {student && showCommentSection && (
               <IncidentChannel
+                user={user}
                 incidentReportDataById={incidentReportDataById?.id}
                 studentIncidents={studentIncidents}
               />
@@ -127,6 +131,7 @@ export const ViewIncidentParent = () => {
         {student && showCommentSection && (
           <Grid container>
             <IncidentComment
+              user={user}
               executeAddComment={executeAddComment}
               incidentReportDataById={incidentReportDataById}
               mutationError={mutationError}

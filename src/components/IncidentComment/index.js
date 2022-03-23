@@ -13,7 +13,7 @@ export const IncidentComment = ({
   executeAddComment,
   incidentReportDataById,
   showCommentSection,
-
+  user,
   refetch,
 }) => {
   const isDesktop = useMediaQuery(DESKTOP);
@@ -25,9 +25,18 @@ export const IncidentComment = ({
     handleSubmit,
   } = useForm();
 
-  const [commentValue, setCommentValue] = useState("");
-
-  console.log(commentValue);
+  const onSubmit = async (data) => {
+    await executeAddComment({
+      variables: {
+        input: {
+          incidentReportId: incidentReportDataById.id,
+          name: `${user?.firstName} ${user?.lastName}`,
+          message: data.comment,
+        },
+      },
+    });
+    refetch();
+  };
 
   return (
     <Grid container component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -45,7 +54,7 @@ export const IncidentComment = ({
           variant="outlined"
           name="comment"
           rows={4}
-          // value={commentMessage}
+          //   value={commentMessage}
           onChange={(e) => {
             console.log(e.target.value());
             setCommentMessage(e.target.value);
