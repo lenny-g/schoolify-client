@@ -1,17 +1,19 @@
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Avatar from "@mui/material/Avatar";
 
-import { MedicalInfo } from './MedicalInfo';
+import { YearGroupInfo } from "./YearGroupInfo";
 
 export const ChildProfileCard = ({ childData }) => {
-	return (
-		<Box>
-			<Avatar
-				alt='teacher signup'
-				src={childData?.profileImageUrl}
-				sx={{ width: 150, height: 150 }}
-			/>
-			<MedicalInfo childData={childData} />
-		</Box>
-	);
+  return (
+    <Stack sx={{ width: "100%" }}>
+      <Avatar
+        alt="teacher signup"
+        src={childData?.profileImageUrl}
+        sx={{ alignSelf: "center", width: 150, height: 150 }}
+      />
+      <Divider variant="middle" sx={{ m: "20px", color: "black" }} />
+      <YearGroupInfo yearGroupData={childData.yearGroup} />
+    </Stack>
+  );
 };

@@ -6,10 +6,8 @@ import Alert from "@mui/material/Alert";
 
 export const MedicalInfo = ({ childData }) => {
   return (
-    <Stack spacing={2} sx={{ textAlign: "center", mt: 4 }}>
-      <Typography variant="subtitle1" gutterBottom>
-        Medical Requirements:
-      </Typography>
+    <Stack spacing={2} sx={{ textAlign: "center" }}>
+      <Typography variant="subtitle1">Medical Requirements:</Typography>
 
       {!childData.medical ? (
         <Alert severity="info">
