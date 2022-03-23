@@ -37,7 +37,12 @@ export const AbsenceRequestSummary = ({ childData }) => {
 
   return (
     <Box width="100%">
-      <Typography className="headingFont" variant="subtitle1" gutterBottom>
+      <Typography
+        className="headingFont"
+        variant="subtitle1"
+        gutterBottom
+        align="center"
+      >
         Absence Requests:
       </Typography>
       {formattedChildData.length === 0 && (

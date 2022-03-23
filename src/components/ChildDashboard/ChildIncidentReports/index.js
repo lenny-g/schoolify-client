@@ -7,7 +7,12 @@ import Link from "@mui/material/Link";
 export const ChildIncidentReports = ({ childData }) => {
   return (
     <Stack sx={{ width: "100%" }}>
-      <Typography className="headingFont" variant="subtitle1" gutterBottom>
+      <Typography
+        className="headingFont"
+        variant="subtitle1"
+        gutterBottom
+        align="center"
+      >
         Incident Reports:
       </Typography>
       {childData.incidentReports.length === 0 && (

@@ -13,7 +13,6 @@ import { PageContainer } from "../components/PageContainer/";
 import { AbsenceRequestSummary } from "../components/ChildDashboard/AbsenceRequestSummary";
 import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard";
 import { PageTitle } from "../components/PageTitle";
-
 import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
 import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
 import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
@@ -61,7 +60,7 @@ export const StudentInfo = () => {
               <MedicalInfo childData={childData} />
             </Box>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              Container2
+              <ChildCertificates />
             </Box>
           </Grid>
 
