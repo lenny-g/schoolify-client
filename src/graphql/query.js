@@ -134,25 +134,6 @@ export const VIEW_CHILD = gql`
         dateTime
         status
       }
-      incidentReports {
-        id
-        title
-        description
-        dateTime
-        teacher {
-          id
-          role
-          title
-          firstName
-          lastName
-        }
-        comments {
-          name
-          message
-          dateTime
-          id
-        }
-      }
       certificates {
         id
         name
