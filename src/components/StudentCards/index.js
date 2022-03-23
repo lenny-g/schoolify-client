@@ -13,7 +13,11 @@ export const StudentCards = ({ studentData }) => {
   };
 
   return (
-    <Grid container onClick={onclick}>
+    <Grid
+      container
+      onClick={onclick}
+      sx={{ display: "flex", justifyContent: "center" }}
+    >
       {studentData?.map((student, index) => {
         return <StudentCard {...student} key={index} />;
       })}

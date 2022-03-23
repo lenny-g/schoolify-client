@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { item, forms, GREEN } from "../../styles";
+import { DESKTOP } from "../../media";
+import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 
 export const IncidentComment = ({
@@ -14,6 +16,9 @@ export const IncidentComment = ({
 
   refetch,
 }) => {
+  const isDesktop = useMediaQuery(DESKTOP);
+  const [commentMessage, setCommentMessage] = useState("");
+  console.log(commentMessage);
   const {
     register,
     formState: { errors },
@@ -24,24 +29,15 @@ export const IncidentComment = ({
 
   console.log(commentValue);
 
-  const onSubmit = async (data) => {
-    await executeAddComment({
-      variables: {
-        input: {
-          incidentReportId: incidentReportDataById.id,
-          name: JSON.parse(localStorage.getItem("user")).firstName,
-          message: data.comment,
-        },
-      },
-    });
-
-    refetch();
-  };
-
   return (
     <Grid container component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Grid sx={{ ...forms.container, backgroundColor: GREEN }} xs={12}>
+      <Grid
+        item={true}
+        sx={{ ...forms.container, backgroundColor: GREEN }}
+        xs={12}
+      >
         <TextField
+          sx={{ minWidth: isDesktop ? "450px" : "unset" }}
           color="warning"
           margin="normal"
           id="comment"
@@ -49,17 +45,19 @@ export const IncidentComment = ({
           variant="outlined"
           name="comment"
           rows={4}
+          // value={commentMessage}
+          onChange={(e) => {
+            console.log(e.target.value());
+            setCommentMessage(e.target.value);
+          }}
           multiline
           fullWidth
           {...register("comment", { required: true })}
           error={!!errors.comment}
-        >
-          {commentValue}
-        </TextField>
+        />
       </Grid>
-      <Grid sx={item.comment} xs={12}>
+      <Grid item={true} sx={item.comment} xs={12}>
         <LoadingButton
-          // loading={mutationLoading}
           color="warning"
           disabled={!showCommentSection}
           type="submit"

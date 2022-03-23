@@ -18,10 +18,10 @@ export const ViewParentsAbsenceRequests = () => {
 				<ParentsAbsenceRequestTable />
 				<Box>
 					<Button
-						variant='contained'
+						variant="contained"
 						sx={item.btn}
 						onClick={handleSubmit}
-						color='warning'>
+						color="warning">
 						Request Absence
 					</Button>
 				</Box>

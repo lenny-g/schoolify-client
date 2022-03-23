@@ -18,6 +18,7 @@ export const AbsenceRequestCard = ({
 	colorStyling,
 	onApproved,
 	onRejected,
+	cardButtons,
 }) => {
 	return (
 		<Box
@@ -28,42 +29,43 @@ export const AbsenceRequestCard = ({
 				margin: 1,
 				textAlign: 'center',
 			}}>
-			<Typography variant='h3' color='text.secondary'>
+			<Typography variant="h3" color="text.secondary">
 				{status}
 			</Typography>
-			<Typography variant='h5' sx={{ mb: 2 }}>
+			<Typography variant="h5" sx={{ mb: 2 }}>
 				{name} {yearGroup}
 			</Typography>
-			<Typography variant='subtitle1' sx={{ mb: 2 }}>
+			<Typography variant="subtitle1" sx={{ mb: 2 }}>
 				{dateTime}
 			</Typography>
-			<Typography variant='subtitle1'>{type}</Typography>
-			<Typography variant='body1'>{description}</Typography>
-
-			<Box>
-				<Button
-					sx={{ m: 1 }}
-					variant='contained'
-					color='warning'
-					size='small'
-					onClick={() => {
-						onApproved(absenceRequestId, studentId);
-					}}>
-					<CheckIcon sx={{ color: '#06a206' }} />
-					APPROVED
-				</Button>
-				<Button
-					sx={{ m: 1 }}
-					variant='contained'
-					color='warning'
-					size='small'
-					onClick={() => {
-						onRejected(absenceRequestId, studentId);
-					}}>
-					<CloseIcon sx={{ color: '#c13030' }} />
-					REJECTED
-				</Button>
-			</Box>
+			<Typography variant="subtitle1">{type}</Typography>
+			<Typography variant="body1">{description}</Typography>
+			{cardButtons && (
+				<Box>
+					<Button
+						sx={{ m: 1 }}
+						variant="contained"
+						color="warning"
+						size="small"
+						onClick={() => {
+							onApproved(absenceRequestId, studentId);
+						}}>
+						<CheckIcon sx={{ color: '#06a206' }} />
+						APPROVED
+					</Button>
+					<Button
+						sx={{ m: 1 }}
+						variant="contained"
+						color="warning"
+						size="small"
+						onClick={() => {
+							onRejected(absenceRequestId, studentId);
+						}}>
+						<CloseIcon sx={{ color: '#c13030' }} />
+						REJECTED
+					</Button>
+				</Box>
+			)}
 		</Box>
 	);
 };

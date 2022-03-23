@@ -1,6 +1,7 @@
 import { item, GREEN, forms } from '../../styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 export const IncidentChannel = ({
@@ -14,54 +15,55 @@ export const IncidentChannel = ({
 	});
 
 	return (
-		<Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-			<Grid item xs={12}>
-				<Typography
-					variant='h6'
-					gutterBottom
-					component='div'
-					sx={{ textAlign: 'center', fontWeight: 700 }}>
-					{incidentReportData?.title}
-				</Typography>
-			</Grid>
-			<Grid container>
-				<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
-					<Box sx={item.teacherComment}>
-						<Typography variant='body1'>
-							{incidentReportData?.description}
-						</Typography>
-						<Typography variant='caption'>
-							{incidentReportData?.teacher.title}
-							{incidentReportData?.teacher.firstName}
-							{incidentReportData?.teacher.lastName}
-						</Typography>
-					</Box>
-				</Grid>
+		<Box
+			sx={{
+				...forms.container,
+				backgroundColor: GREEN,
+				maxHeight: '450px',
+				overflow: 'auto',
+			}}>
+			<Typography
+				variant="h6"
+				gutterBottom
+				component="div"
+				sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
+				{incidentReportData?.title}
+			</Typography>
+			<Stack
+				spacing={2}
+				sx={{ width: '100%', display: 'flex', justifyContent: 'end' }}>
+				<Stack sx={{ ...item.incident, textAlign: 'center' }}>
+					<Typography variant="body1">
+						{incidentReportData?.description}
+					</Typography>
+					<Typography variant="caption">
+						{incidentReportData?.teacher.title}
+						{incidentReportData?.teacher.firstName}
+						{incidentReportData?.teacher.lastName}
+					</Typography>
+					<Typography variant="caption">
+						{incidentReportData?.dateTime.split(' ').slice(4, 5).join(' ')}
+					</Typography>
+				</Stack>
+
 				{incidentReportData?.comments?.map((each, index) => {
 					return (
-						<Grid
+						// {each.name === userRole ?}
+						<Box
 							key={index}
-							item
-							xs={12}
-							sx={{
-								display: 'flex',
-								justifyContent: each.name === userRole ? 'start' : 'end',
-							}}>
-							<Box
-								sx={
-									each.name === userRole
-										? item.teacherComment
-										: item.parentComment
-								}>
-								<Typography variant='body1'>{each.message}</Typography>
-								<Typography variant='caption'>
-									{each.dateTime.split(' ').slice(4, 5).join(' ')}
-								</Typography>
-							</Box>
-						</Grid>
+							sx={
+								each.name === userRole
+									? item.teacherComment
+									: item.parentComment
+							}>
+							<Typography variant="body1">{each.message}</Typography>
+							<Typography variant="caption">
+								{each.dateTime.split(' ').slice(4, 5).join(' ')}
+							</Typography>
+						</Box>
 					);
 				})}
-			</Grid>
+			</Stack>
 		</Box>
 	);
 };

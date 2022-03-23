@@ -12,7 +12,11 @@ export const ChildrenCards = ({ data }) => {
   };
 
   return (
-    <Grid container onClick={onclick}>
+    <Grid
+      container
+      onClick={onclick}
+      sx={{ display: "flex", justifyContent: "center" }}
+    >
       {data?.parentsChildren?.children.map((child, index) => {
         return <ChildCard {...child} key={index} />;
       })}

@@ -1,8 +1,9 @@
+import Box from "@mui/material/Box";
+
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-
+import { GiveCertificate } from "../pages/GiveCertificate";
 import { useAuth } from "../context/AppProvider";
 import { Login } from "../pages/Login";
 import { ParentSignup } from "../pages/ParentSignup";
@@ -19,7 +20,7 @@ import { Medical } from "../pages/Medical";
 import { ViewParentsAbsenceRequests } from "../pages/ViewParentsAbsenceRequests";
 import { ViewAbsenceRequestTeacher } from "../pages/ViewAbsenceRequestTeacher";
 import { ViewStudents } from "../pages/ViewStudents";
-import { TeacherDashboard } from "../pages/TeacherDashboard";
+
 import { TopNavbar } from "../components/NavigationBar/TopNavbar";
 import { SideNavbar } from "../components/NavigationBar/SideNavbar";
 import { MOBILE } from "../media";
@@ -31,7 +32,7 @@ const theme = createTheme({
   palette: {
     warning: {
       light: "#ffc570",
-      main: "#dd9148",
+      main: "#ffa500",
       dark: "#b28035",
     },
   },
@@ -65,7 +66,14 @@ export const AppRouter = () => {
         component="main"
         sx={{
           backgroundImage:
-            'url("https://cdn.wallpapersafari.com/13/73/AQ4CSR.jpg")',
+            user?.role === "teacher"
+              ? 'url("https://i.pinimg.com/736x/2a/1a/91/2a1a91d417c99110d88a9da04c8e11b0.jpg")'
+              : 'url("https://cdn.wallpapersafari.com/13/73/AQ4CSR.jpg")',
+
+          webkitBackgroundSize: "cover",
+          mozBackgroundSize: "cover",
+          oBackgroundSize: "cover",
+          backgroundSize: "cover",
           display: "flex",
           flexGrow: 1,
           p: 3,
@@ -89,6 +97,7 @@ export const AppRouter = () => {
 
             {isLoggedIn ? (
               <>
+                <Route path="/certificate/new" element={<GiveCertificate />} />
                 <Route
                   path="/incident-report/new"
                   element={<TeacherIncidentReport />}
@@ -108,7 +117,7 @@ export const AppRouter = () => {
                     user.role === "parent" ? (
                       <ParentDashboard />
                     ) : (
-                      <TeacherDashboard />
+                      <ViewStudents />
                     )
                   }
                 />
@@ -134,7 +143,6 @@ export const AppRouter = () => {
                   path="/absence-requests"
                   element={<ViewAbsenceRequestTeacher />}
                 />
-                <Route path="/view/students" element={<ViewStudents />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/" />} />

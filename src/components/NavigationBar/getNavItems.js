@@ -1,16 +1,18 @@
-import FaceIcon from "@mui/icons-material/Face";
+import GroupsIcon from "@mui/icons-material/Groups";
 import GridViewIcon from "@mui/icons-material/GridView";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import AddBoxIcon from "@mui/icons-material/AddBox";
+import EventIcon from "@mui/icons-material/Event";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
+import MedicationIcon from "@mui/icons-material/Medication";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
-import LoginIcon from "@mui/icons-material/Login";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import FamilyRestroomSharpIcon from "@mui/icons-material/FamilyRestroomSharp";
 import SchoolSharpIcon from "@mui/icons-material/SchoolSharp";
 import InfoIcon from "@mui/icons-material/Info";
-import ReportIcon from "@mui/icons-material/Report";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 const publicNavArray = [
   {
@@ -20,7 +22,7 @@ const publicNavArray = [
   },
   {
     name: "Login",
-    icon: <LoginIcon />,
+    icon: <VpnKeyIcon />,
     link: "/login",
   },
   {
@@ -53,22 +55,22 @@ const parentNavArray = [
   },
   {
     name: "Add Medical",
-    icon: <MedicalServicesIcon />,
+    icon: <MedicationIcon />,
     link: "/medical/new",
   },
   {
     name: "Add Absence Request",
-    icon: <AddBoxIcon />,
+    icon: <EventAvailableIcon />,
     link: "/absenceRequest/new",
   },
   {
     name: "View Absences",
-    icon: <EventAvailableIcon />,
+    icon: <EventIcon />,
     link: "/absenceRequest/view",
   },
   {
     name: "View incident Reports",
-    icon: <ReportIcon />,
+    icon: <NotificationsIcon />,
     link: "/incident-report/view/parent",
   },
   {
@@ -90,24 +92,24 @@ const teacherNavArray = [
     link: "/dashboard",
   },
   {
-    name: "My Classroom",
-    icon: <FaceIcon />,
-    link: "/view/students",
-  },
-  {
     name: "View Absence Requests",
-    icon: <EventAvailableIcon />,
+    icon: <EventIcon />,
     link: "/absence-requests",
   },
   {
     name: "Create Incident report",
-    icon: <ReportIcon />,
+    icon: <AddAlertIcon />,
     link: "/incident-report/new",
   },
   {
     name: "View incident Reports",
-    icon: <ReportIcon />,
+    icon: <NotificationsIcon />,
     link: "/incident-report/view/teacher",
+  },
+  {
+    name: "Create Certificate",
+    icon: <CardGiftcardIcon />,
+    link: "/certificate/new",
   },
   {
     name: "About",

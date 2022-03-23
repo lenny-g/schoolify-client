@@ -12,7 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
@@ -78,7 +78,6 @@ export const MedicalForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     await executeMedicalRequest({
       variables: {
         input: {
@@ -95,7 +94,7 @@ export const MedicalForm = () => {
   };
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <CircularProgress color="warning" />;
   }
 
   if (error) {
@@ -107,7 +106,10 @@ export const MedicalForm = () => {
   }
   return (
     <Stack spacing={2}>
-      <PageTitle>Child . Medical . Form</PageTitle>
+      <PageTitle>Child Medical Form</PageTitle>
+      <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+        Please note: All inputs will be retained on your child's record
+      </Typography>
       <Box
         onSubmit={handleSubmit(onSubmit)}
         component="form"

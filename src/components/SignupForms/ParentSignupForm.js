@@ -75,7 +75,6 @@ export const ParentSignupForm = () => {
         <Grid item xs={12} md={6}>
           <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
             <Typography
-              color="primary"
               variant="subtitle1"
               component="div"
               sx={{ padding: "0px 8px" }}
@@ -83,11 +82,11 @@ export const ParentSignupForm = () => {
               Enter personal details
             </Typography>
             <FormControl sx={{ mt: 2 }} fullWidth>
-              <InputLabel color="primary" id="title">
+              <InputLabel color="warning" id="title">
                 Title
               </InputLabel>
               <Select
-                color="primary"
+                color="warning"
                 labelId="title"
                 id="title"
                 label="Title"
@@ -104,7 +103,7 @@ export const ParentSignupForm = () => {
               </Select>
             </FormControl>
             <TextField
-              color="primary"
+              color="warning"
               margin="normal"
               id="firstName"
               label="First Name"
@@ -116,7 +115,7 @@ export const ParentSignupForm = () => {
               error={!!errors.firstName}
             />
             <TextField
-              color="primary"
+              color="warning"
               margin="normal"
               id="lastName"
               label="Last Name"
@@ -155,7 +154,7 @@ export const ParentSignupForm = () => {
               />
               <TextField
                 sx={{ position: "relative" }}
-                color="success"
+                color="warning"
                 margin="normal"
                 id="password"
                 label="Password"
@@ -181,7 +180,7 @@ export const ParentSignupForm = () => {
                 uppercase characters, with 1 special character required
               </Typography>
               <TextField
-                color="success"
+                color="warning"
                 margin="normal"
                 id="confirmPassword"
                 label="Confirm Password"

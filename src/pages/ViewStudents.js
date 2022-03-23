@@ -6,8 +6,9 @@ import { GET_TEACHER_STUDENTS } from "../graphql/query";
 import { useQuery } from "@apollo/client";
 
 import Alert from "@mui/material/Alert";
+import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ViewStudents = () => {
   const { user } = useAuth();
@@ -21,7 +22,7 @@ export const ViewStudents = () => {
 
   const renderLoading = () => {
     if (loading) {
-      return <LinearProgress style={{ backgroundColor: "purple" }} />;
+      return <CircularProgress color="warning" />;
     }
   };
 
@@ -39,7 +40,26 @@ export const ViewStudents = () => {
     if (!loading && !error && data?.teacherStudents) {
       return (
         <Stack spacing={2}>
-          <PageTitle> My.{user?.yearGroup?.title}.Classroom</PageTitle>
+          <PageTitle>
+            WELCOME {user.firstName} {user.lastName}!
+          </PageTitle>
+
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ textAlign: "center", textTransform: "uppercase" }}
+          >
+            My {user?.yearGroup?.title} Classroom
+          </Typography>
+
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
+            Select your student's card to go to their dashboard
+          </Typography>
+
           <StudentCards studentData={data?.teacherStudents} />
         </Stack>
       );
