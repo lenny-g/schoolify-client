@@ -31,7 +31,7 @@ export const teamMemberFromApi = [
   },
   {
     id: 4,
-    img: "https://avatars.githubusercontent.com/u/90345382?v=4",
+    img: "https://i.ibb.co/GJcdhpp/tayyib.jpg",
     name: "Tayyib Mahmood",
     description:
       "Full Stack Web Developer studying at University of Birmingham",
