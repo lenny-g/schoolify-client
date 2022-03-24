@@ -21,74 +21,68 @@ export const ChildIncidentReports = ({ childData }) => {
 		}
 	};
 
-  return (
-    <Stack sx={{ width: "100%" }}>
-      <Typography className="headingFont" variant="subtitle1" align="center">
-        Incident Reports:
-      </Typography>
-      <Typography variant="caption" gutterBottom align="center">
-        Click to view Incident
-      </Typography>
-      {childData?.incidentReports?.length === 0 && (
-        <>
-          {isParent === false ? (
-            <>
-              <Alert severity="info">
-                {childData?.firstName} {childData?.lastName} has no incident
-                reports yet, click on the 'Add Incident' button to submit one.
-              </Alert>
-              <Button
-                sx={{ mt: 2, width: "100%" }}
-                variant="contained"
-                color="warning"
-                size="small"
-                onClick={() => {
-                  navigate("/certificate/new", { replace: true });
-                }}
-              >
-                Create Certificate
-              </Button>
-            </>
-          ) : (
-            <Alert severity="info">
-              {childData?.firstName} {childData?.lastName} has no incident
-              reports yet.
-            </Alert>
-          )}
-        </>
-      )}
-      {childData?.incidentReports?.map((incidentReport, index) => {
-        return (
-          <Box
-            component={Link}
-            key={index}
-            sx={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              padding: "10px",
-              backgroundColor: "#D0FBF3",
-              borderRadius: "10px",
-              mb: 2,
-              textDecoration: "none",
-            }}
-          >
-            <Stack
-              id={incidentReport.id}
-              sx={{ width: "100%", color: "black" }}
-              onClick={() => {
-                navigate("/incident-report/view/parent", { replace: true });
-              }}
-            >
-              <Typography variant="subtitle1" align="center">
-                {incidentReport?.title}
-              </Typography>
-              <Typography variant="caption" align="center">
-                {incidentReport?.dateTime?.split(" ").slice(1, 5).join(" ")}
-              </Typography>
-            </Stack>
-          </Box>
-        );
-      })}
-    </Stack>
-  );
+	console.log(childData);
+
+	return (
+		<Stack sx={{ width: '100%' }}>
+			<Typography className="headingFont" variant="subtitle1" align="center">
+				Incident Reports:
+			</Typography>
+			<Typography variant="caption" gutterBottom align="center">
+				Click to view Incident
+			</Typography>
+			{childData?.incidentReports?.length === 0 && (
+				<>
+					{isParent === false ? (
+						<>
+							<Alert variant="outlined" severity="info">
+								{childData?.firstName} {childData?.lastName} has no incident
+								reports yet, click on the 'Add Incident' button to submit one.
+							</Alert>
+							<Button
+								sx={{ mt: 2, width: '100%' }}
+								variant="contained"
+								color="warning"
+								size="small"
+								onClick={() => {
+									navigate('/certificate/new', { replace: true });
+								}}>
+								Create Certificate
+							</Button>
+						</>
+					) : (
+						<Alert variant="outlined" severity="info">
+							{childData?.firstName} {childData?.lastName} has no incident
+							reports yet.
+						</Alert>
+					)}
+				</>
+			)}
+			{childData?.incidentReports?.map((incidentReport, index) => {
+				return (
+					<Box
+						component={Link}
+						key={index}
+						sx={{
+							flexDirection: 'row',
+							justifyContent: 'space-between',
+							padding: '10px',
+							backgroundColor: '#dd9047',
+							borderRadius: '10px',
+							mb: 2,
+							textDecoration: 'none',
+						}}>
+						<Stack sx={{ width: '100%', color: 'black' }}>
+							<Typography variant="subtitle1" align="center">
+								{incidentReport?.title}
+							</Typography>
+							<Typography variant="caption" align="center">
+								{incidentReport?.dateTime?.split(' ').slice(1, 5).join(' ')}
+							</Typography>
+						</Stack>
+					</Box>
+				);
+			})}
+		</Stack>
+	);
 };

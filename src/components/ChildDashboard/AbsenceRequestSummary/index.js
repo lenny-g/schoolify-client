@@ -59,13 +59,13 @@ export const AbsenceRequestSummary = ({ childData }) => {
 			{formattedChildData.length === 0 && (
 				<>
 					{isParent === false ? (
-						<Alert severity="info">
+						<Alert variant="outlined" severity="info">
 							{childData.firstName} {childData.lastName} has no absence requests
 							yet.
 						</Alert>
 					) : (
 						<>
-							<Alert severity="info">
+							<Alert variant="outlined" severity="info">
 								{childData.firstName} {childData.lastName} has no absence
 								requests yet, click on the 'Request Absence' button to submit
 								one.
@@ -86,38 +86,34 @@ export const AbsenceRequestSummary = ({ childData }) => {
 			)}
 			{formattedChildData?.map((absenceRequest, index) => {
 				return (
-					<Accordion
+					<Box
 						disabled={checkStatus(absenceRequest.status)}
 						key={index}
 						sx={{
+							borderRadius: '10px',
 							backgroundColor: stylingAbsenceRequestColor(
 								absenceRequest.status
 							),
 							mb: '10px',
 						}}>
-						<AccordionSummary
+						<Stack
 							sx={{
+								width: '100%',
+								padding: '5px 0px',
+								borderRadius: '10px',
 								backgroundColor: stylingAbsenceRequestColor(
 									absenceRequest.status
 								),
 							}}>
-							<Stack sx={{ width: '100%' }}>
-								<Typography align="center">{absenceRequest.type}</Typography>
-								<Typography align="center">
-									{absenceRequest.dateTime}
-								</Typography>
-								<Typography align="center">{absenceRequest.status}</Typography>
-							</Stack>
-						</AccordionSummary>
-						{absenceRequest.status === 'REJECTED' && (
-							<AccordionDetails>
-								<Typography>
-									We cannot allow child to have a day off for a family trip, as
-									there are ample opportunities during half term break.
-								</Typography>
-							</AccordionDetails>
-						)}
-					</Accordion>
+							<Typography align="center">{absenceRequest.status}</Typography>
+							<Typography variant="subtitle1" align="center">
+								{absenceRequest.dateTime}
+							</Typography>
+							<Typography variant="caption" align="center">
+								{absenceRequest.type}
+							</Typography>
+						</Stack>
+					</Box>
 				);
 			})}
 		</Stack>
