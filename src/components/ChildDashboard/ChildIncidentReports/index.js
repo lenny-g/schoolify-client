@@ -21,8 +21,6 @@ export const ChildIncidentReports = ({ childData }) => {
     }
   };
 
-  console.log(isParent());
-
   return (
     <Stack sx={{ width: "100%" }}>
       <Typography className="headingFont" variant="subtitle1" align="center">
