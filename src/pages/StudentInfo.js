@@ -79,7 +79,7 @@ export const StudentInfo = () => {
             </Box>
 
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              {/* <ChildIncidentReports childData={childData} /> */}
+              <ChildIncidentReports childData={childData} />
             </Box>
           </Grid>
         </Grid>

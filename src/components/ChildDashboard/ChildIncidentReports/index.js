@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AppProvider";
+import { GREEN } from "../../../styles";
+import { color } from "@mui/system";
 
 export const ChildIncidentReports = ({ childData }) => {
   const navigate = useNavigate();
@@ -19,15 +21,15 @@ export const ChildIncidentReports = ({ childData }) => {
     }
   };
 
+  console.log(childData);
+
   return (
     <Stack sx={{ width: "100%" }}>
-      <Typography
-        className="headingFont"
-        variant="subtitle1"
-        gutterBottom
-        align="center"
-      >
+      <Typography className="headingFont" variant="subtitle1" align="center">
         Incident Reports:
+      </Typography>
+      <Typography variant="caption" gutterBottom align="center">
+        Click to view Incident
       </Typography>
       {childData?.incidentReports?.length === 0 && (
         <>
@@ -63,17 +65,22 @@ export const ChildIncidentReports = ({ childData }) => {
             component={Link}
             key={index}
             sx={{
-              backgroundColor: "blue",
-              mb: "10px",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "10px",
+              backgroundColor: "#D0FBF3",
+              borderRadius: "10px",
+              mb: 2,
+              textDecoration: "none",
             }}
           >
-            <Stack sx={{ width: "100%" }}>
-              <Typography align="center">{incidentReport?.title}</Typography>
-              <Typography align="center">
-                {incidentReport?.description}
+            <Stack sx={{ width: "100%", color: "black" }}>
+              <Typography variant="subtitle1" align="center">
+                {incidentReport?.title}
               </Typography>
-              <Typography align="center">{incidentReport?.teacher}</Typography>
-              <Typography align="center">{incidentReport?.dateTime}</Typography>
+              <Typography variant="caption" align="center">
+                {incidentReport?.dateTime?.split(" ").slice(1, 5).join(" ")}
+              </Typography>
             </Stack>
           </Box>
         );
