@@ -1,13 +1,14 @@
+import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-
+import Alert from "@mui/material/Alert";
 import { Loading } from "../components/Loading";
 import { IncidentChannel } from "../components/IncidentChannel";
 import { IncidentListDesktop } from "../components/IncidentList/IncidentListDesktop";
 import { PageContainer } from "../components/PageContainer";
 import { PageTitle } from "../components/PageTitle";
 import { PageError } from "../components/PageError";
-import { MOBILE } from "../media";
+import { MOBILE, DESKTOP } from "../media";
 import { useMediaQuery } from "react-responsive";
 import { IncidentComment } from "../components/IncidentComment";
 import { useState } from "react";
@@ -38,9 +39,9 @@ export const ViewIncidentTeacher = () => {
   });
 
   const {
-    // loading: incidentReportListLoading,
+    loading: incidentReportListLoading,
     data: incidentReportList,
-    // error: incidentReportListError,
+    error: incidentReportListError,
     refetch,
   } = useQuery(VIEW_INCIDENT_REPORTS, {
     pollInterval: 1000,
@@ -76,21 +77,22 @@ export const ViewIncidentTeacher = () => {
     setShowCommentSection(true);
   };
 
-  if (studentListLoading) {
-    return (
-      <PageContainer>
-        <Loading />
-      </PageContainer>
-    );
-  }
+  const renderLoading = () => {
+    if (studentListLoading && incidentReportListLoading) {
+      return <Loading />;
+    }
+  };
 
-  if (!studentListLoading && studentListError) {
-    return (
-      <PageContainer>
-        <PageError />
-      </PageContainer>
-    );
-  }
+  const renderError = () => {
+    if (
+      !studentListLoading &&
+      studentListError &&
+      incidentReportListError &&
+      !incidentReportListLoading
+    ) {
+      return <PageError />;
+    }
+  };
 
   const renderData = () => {
     return (
@@ -145,5 +147,11 @@ export const ViewIncidentTeacher = () => {
     );
   };
 
-  return <PageContainer>{renderData()}</PageContainer>;
+  return (
+    <PageContainer>
+      {renderLoading()}
+      {renderError()}
+      {renderData()}
+    </PageContainer>
+  );
 };
