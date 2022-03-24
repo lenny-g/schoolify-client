@@ -56,13 +56,22 @@ export const ConfirmModal = ({
                   marginTop: "5px",
                 }}
               >
-                <Button onClick={handleClose}>Cancel</Button>
                 <Button
+                  variant="contained"
+                  color="warning"
                   onClick={() => {
                     handleConfirm(selectedRow.id, selectedRow.absenceRequestId);
                   }}
                 >
                   Delete
+                </Button>
+                <Button
+                  sx={{ marginLeft: 2 }}
+                  variant="contained"
+                  color="warning"
+                  onClick={handleClose}
+                >
+                  Cancel
                 </Button>
               </Box>
             </>
@@ -96,6 +105,8 @@ export const ConfirmModal = ({
                 }}
               >
                 <Button
+                  variant="contained"
+                  color="warning"
                   onClick={() => {
                     selectedRow?.onAccept
                       ? handleConfirm(
@@ -111,7 +122,14 @@ export const ConfirmModal = ({
                   {selectedRow?.onAccept ? "Approve" : "Reject"}
                 </Button>
 
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button
+                  sx={{ marginLeft: 2 }}
+                  variant="contained"
+                  color="warning"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
               </Box>
             </>
           )}
