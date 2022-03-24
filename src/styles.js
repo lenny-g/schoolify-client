@@ -129,8 +129,20 @@ export const modal = {
 export const home = {
 	page: {
 		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
 		alignItems: 'center',
-		height: '100vh',
+		height: '80vh',
+	},
+	left: {
+		flex: 1,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		position: 'relative',
+	},
+	right: {
+		flex: 1,
 	},
 };
 
@@ -154,7 +166,7 @@ export const getContainerStyles = (isMobile) => ({
 });
 
 export const homeContainerStyles = (isMobile) => ({
-	backgroundColor: '#d9f3ee9e',
+	backgroundColor: isMobile ? '#d9f3ee9e' : 'transparent',
 	alignItems: 'center',
 	padding: '1rem',
 	borderRadius: '10px',
