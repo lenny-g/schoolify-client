@@ -21,6 +21,7 @@ import { forms, colors, GREEN } from "../../styles";
 import { ADD_MEDICAL_INFO_TO_STUDENT } from "../../graphql/mutations";
 import { GET_PARENTS_CHILDREN } from "../../graphql/query";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 
 const allergyOptions = [
   "cow's milk",
@@ -96,11 +97,7 @@ export const MedicalForm = () => {
   }
 
   if (error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please try again later.
-      </Alert>
-    );
+    return <PageError />;
   }
   return (
     <Stack spacing={2}>

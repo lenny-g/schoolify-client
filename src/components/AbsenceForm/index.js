@@ -19,7 +19,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { GREEN, forms } from "../../styles";
 import { PageTitle } from "../PageTitle";
-
+import { PageError } from "../PageError";
 import { GET_PARENTS_CHILDREN } from "../../graphql/query";
 import { MAKE_AN_ABSENCE_REQUEST } from "../../graphql/mutations";
 
@@ -71,7 +71,7 @@ export const AbsenceForm = () => {
   };
 
   if (error) {
-    return <div>ERROR</div>;
+    return <PageError />;
   }
 
   if (loading) {

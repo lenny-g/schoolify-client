@@ -23,6 +23,7 @@ import { GET_YEAR_GROUP_DATA } from "../../graphql/query";
 import { GREEN, forms } from "../../styles";
 import { UploadChildImage } from "../UploadChildImage";
 import { PageTitle } from "../PageTitle";
+import {PageError} from "../PageError"
 
 export const AddChildForm = () => {
   const { loading, error, data } = useQuery(GET_YEAR_GROUP_DATA);
@@ -89,11 +90,7 @@ export const AddChildForm = () => {
   }
 
   if (error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please try again later.
-      </Alert>
-    );
+    return <PageError />;
   }
 
   return (

@@ -19,6 +19,7 @@ import { GET_TEACHER_STUDENTS } from "../../graphql/query";
 import { useAuth } from "../../context/AppProvider";
 import { useQuery, useMutation } from "@apollo/client";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 
 export const IncidentReportForm = () => {
   const { user } = useAuth();
@@ -68,7 +69,7 @@ export const IncidentReportForm = () => {
   };
 
   if (error) {
-    return <div>ERROR</div>;
+    return <PageError />;
   }
 
   if (loading) {

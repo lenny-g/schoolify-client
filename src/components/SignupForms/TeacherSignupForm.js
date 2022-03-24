@@ -18,6 +18,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 
 import { item, colors, forms, GREEN } from "../../styles";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 
 const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Dr"];
 
@@ -67,7 +68,7 @@ export const TeacherSignupForm = () => {
   };
 
   if (error) {
-    return <div>ERROR</div>;
+    return <PageError />;
   }
 
   return (
