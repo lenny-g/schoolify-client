@@ -1,27 +1,25 @@
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
-import Link from "@mui/material/Link";
-import Button from "@mui/material/Button";
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/AppProvider";
-import { GREEN } from "../../../styles";
-import { color } from "@mui/system";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AppProvider';
+import { GREEN } from '../../../styles';
+import { color } from '@mui/system';
 
 export const ChildIncidentReports = ({ childData }) => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const { user } = useAuth();
+	const { user } = useAuth();
 
-  const isParent = () => {
-    if (user.role === "parent") {
-      return true;
-    }
-  };
-
-  console.log(childData);
+	const isParent = () => {
+		if (user.role === 'parent') {
+			return true;
+		}
+	};
 
   return (
     <Stack sx={{ width: "100%" }}>
