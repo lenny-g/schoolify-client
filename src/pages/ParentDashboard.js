@@ -16,13 +16,13 @@ import { PageTitle } from "../components/PageTitle";
 import { PageError } from "../components/PageError";
 
 export const ParentDashboard = () => {
-  const { loading, error, data } = useQuery(GET_ALL_CHILDREN, {
-    pollInterval: 1000,
-  });
+  const { loading, error, data, refetch } = useQuery(GET_ALL_CHILDREN);
 
   const { user } = useAuth();
 
   const navigate = useNavigate();
+
+  refetch();
 
   const renderLoading = () => {
     if (loading) {

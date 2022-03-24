@@ -24,7 +24,6 @@ import {
 
 export const ViewIncidentTeacher = () => {
   const isMobile = useMediaQuery(MOBILE);
-  const isDesktop = useMediaQuery(DESKTOP);
 
   const { user } = useAuth();
 
