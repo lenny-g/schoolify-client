@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../components/Loading";
 import Button from "@mui/material/Button";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
@@ -13,6 +13,7 @@ import { PageContainer } from "../components/PageContainer";
 import { useAuth } from "../context/AppProvider";
 import { GET_ALL_CHILDREN } from "../graphql/query";
 import { PageTitle } from "../components/PageTitle";
+import { PageError } from "../components/PageError";
 
 export const ParentDashboard = () => {
   const { loading, error, data } = useQuery(GET_ALL_CHILDREN, {
@@ -25,17 +26,13 @@ export const ParentDashboard = () => {
 
   const renderLoading = () => {
     if (loading) {
-      return <CircularProgress color="warning" />;
+      return <Loading />;
     }
   };
 
   const renderError = () => {
     if (!loading && error) {
-      return (
-        <Alert severity="error">
-          Something went wrong, please tray again later.
-        </Alert>
-      );
+      return <PageError />;
     }
   };
 

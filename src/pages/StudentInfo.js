@@ -13,15 +13,17 @@ import { PageContainer } from "../components/PageContainer/";
 import { AbsenceRequestSummary } from "../components/ChildDashboard/AbsenceRequestSummary";
 import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard";
 import { PageTitle } from "../components/PageTitle";
+import { PageError } from "../components/PageError";
+import { Loading } from "../components/Loading";
 import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
 import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
 import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
-import { CertificateCard } from "../components/CertificateCard";
 import { certificateOptions } from "../data/certificateTypes";
-import { RemoveRedEyeSharp } from "@mui/icons-material";
 
 export const StudentInfo = () => {
   const { studentId } = useParams();
+
+  console.log(studentId);
 
   const { data, loading, error } = useQuery(VIEW_CHILD, {
     variables: { studentId },
@@ -31,15 +33,11 @@ export const StudentInfo = () => {
   const childData = data?.viewChild;
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <Loading />;
   }
 
   if (!loading && error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please tray again later.
-      </Alert>
-    );
+    return <PageError />;
   }
 
   const certificateImg = (value) => {
@@ -58,32 +56,24 @@ export const StudentInfo = () => {
           </PageTitle>
         </Grid>
         <Grid container>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <ChildProfileCard childData={childData} />
             </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <MedicalInfo childData={childData} />
             </Box>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              {childData?.certificates?.map((certificate, index) => {
-                return (
-                  <CertificateCard
-                    key={index}
-                    backgroundImage={certificateImg(
-                      certificate.certificateType
-                    )}
-                    studentName={certificate.name}
-                    message={certificate.message}
-                  />
-                );
-              })}
+              <ChildCertificates
+                childData={childData}
+                certificateImg={certificateImg}
+              />
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <AbsenceRequestSummary childData={childData} />
             </Box>

@@ -14,12 +14,14 @@ export const IncidentComment = ({
   incidentReportDataById,
   showCommentSection,
   user,
+  reset,
   refetch,
 }) => {
   const isDesktop = useMediaQuery(DESKTOP);
   const [commentMessage, setCommentMessage] = useState("");
   const {
     register,
+    resetField,
     formState: { errors },
     handleSubmit,
   } = useForm();
@@ -35,6 +37,7 @@ export const IncidentComment = ({
       },
     });
     refetch();
+    resetField("comment");
   };
 
   return (

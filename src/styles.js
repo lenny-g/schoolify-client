@@ -126,6 +126,26 @@ export const modal = {
 	},
 };
 
+export const home = {
+	page: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		alignItems: 'center',
+		height: '80vh',
+	},
+	left: {
+		flex: 1,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		position: 'relative',
+	},
+	right: {
+		flex: 1,
+	},
+};
+
 export const brand = {
 	container: {
 		display: 'flex',
@@ -138,6 +158,16 @@ export const brand = {
 
 export const getContainerStyles = (isMobile) => ({
 	backgroundColor: '#d9f3ee70',
+	padding: '1rem',
+	borderRadius: '10px',
+	boxShadow: isMobile
+		? 'none'
+		: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
+});
+
+export const homeContainerStyles = (isMobile) => ({
+	backgroundColor: isMobile ? '#d9f3ee9e' : 'transparent',
+	alignItems: 'center',
 	padding: '1rem',
 	borderRadius: '10px',
 	boxShadow: isMobile

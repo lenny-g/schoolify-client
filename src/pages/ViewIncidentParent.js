@@ -1,13 +1,13 @@
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
-import CircularProgress from "@mui/material/CircularProgress";
-
+import { Loading } from "../components/Loading";
 import { IncidentChannel } from "../components/IncidentChannel";
 import { IncidentComment } from "../components/IncidentComment";
 import { IncidentListDesktop } from "../components/IncidentList/IncidentListDesktop";
 import { PageContainer } from "../components/PageContainer";
 import { PageTitle } from "../components/PageTitle";
+import { PageError } from "../components/PageError";
 import { DESKTOP, MOBILE } from "../media";
 import { useMediaQuery } from "react-responsive";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
@@ -75,7 +75,7 @@ export const ViewIncidentParent = () => {
 
   const renderLoading = () => {
     if (loading && incidentReportListLoading) {
-      return <CircularProgress color="warning" />;
+      return <Loading />;
     }
   };
 
@@ -86,11 +86,7 @@ export const ViewIncidentParent = () => {
       incidentReportListError &&
       !incidentReportListLoading
     ) {
-      return (
-        <Alert severity="error">
-          Something went wrong, please tray again later.
-        </Alert>
-      );
+      return <PageError />;
     }
   };
 

@@ -5,7 +5,7 @@ import { CertificateForm } from "../components/CertificateForm";
 export const GiveCertificate = () => {
   return (
     <PageContainer>
-      <PageTitle>Certificate . Form</PageTitle>
+      <PageTitle>Certificate Form</PageTitle>
       <CertificateForm />
     </PageContainer>
   );

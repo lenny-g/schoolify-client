@@ -12,7 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
@@ -21,6 +21,7 @@ import { forms, colors, GREEN } from "../../styles";
 import { ADD_MEDICAL_INFO_TO_STUDENT } from "../../graphql/mutations";
 import { GET_PARENTS_CHILDREN } from "../../graphql/query";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 
 const allergyOptions = [
   "cow's milk",
@@ -92,15 +93,11 @@ export const MedicalForm = () => {
   };
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   if (error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please try again later.
-      </Alert>
-    );
+    return <PageError />;
   }
   return (
     <Stack spacing={2}>

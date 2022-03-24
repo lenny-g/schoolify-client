@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
@@ -19,6 +19,7 @@ import { GET_TEACHER_STUDENTS } from "../../graphql/query";
 import { useAuth } from "../../context/AppProvider";
 import { useQuery, useMutation } from "@apollo/client";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 
 export const IncidentReportForm = () => {
   const { user } = useAuth();
@@ -68,11 +69,11 @@ export const IncidentReportForm = () => {
   };
 
   if (error) {
-    return <div>ERROR</div>;
+    return <PageError />;
   }
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   return (
