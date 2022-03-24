@@ -145,6 +145,16 @@ export const getContainerStyles = (isMobile) => ({
 		: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
 });
 
+export const homeContainerStyles = (isMobile) => ({
+	backgroundColor: '#d9f3ee9e',
+	alignItems: 'center',
+	padding: '1rem',
+	borderRadius: '10px',
+	boxShadow: isMobile
+		? 'none'
+		: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
+});
+
 export const GREEN = '#b2e2d8';
 export const ORANGE = '#dd9148';
 

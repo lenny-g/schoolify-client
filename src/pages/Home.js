@@ -1,20 +1,24 @@
 import Container from '@mui/material/Container';
+import { useMediaQuery } from 'react-responsive';
 
-import { HomePageIntro } from '../components/HomePageIntro';
-import { ConfirmModal } from '../components/ConfirmModal';
+import { MOBILE } from '../media';
+import { homeContainerStyles } from '../styles';
+import { HomePageOne } from '../components/HomePageOne';
+import { HomePageTwo } from '../components/HomePageTwo';
+import { HomePageThree } from '../components/HomePageThree';
 
-const styles = {
-	paperContainer: {
-		margin: '2rem 0',
-		borderRadius: '10px',
-	},
-};
+export const Home = ({ children }) => {
+	const isMobile = useMediaQuery(MOBILE);
 
-export const Home = () => {
 	return (
-		<Container component="main">
-			<ConfirmModal />
-			<HomePageIntro />
+		<Container
+			bgColor="white"
+			maxWidth="md"
+			sx={homeContainerStyles(isMobile)}
+			disableGutters={isMobile}>
+			<HomePageOne />
+			<HomePageTwo />
+			<HomePageThree />
 		</Container>
 	);
 };
