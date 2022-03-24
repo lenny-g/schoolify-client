@@ -6,9 +6,9 @@ import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/AppProvider";
 import { GREEN } from "../../../styles";
 import { color } from "@mui/system";
+import { useAuth } from "../../../context/AppProvider";
 
 export const ChildIncidentReports = ({ childData }) => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const ChildIncidentReports = ({ childData }) => {
     }
   };
 
-  console.log(childData);
+  console.log(isParent());
 
   return (
     <Stack sx={{ width: "100%" }}>
@@ -33,7 +33,7 @@ export const ChildIncidentReports = ({ childData }) => {
       </Typography>
       {childData?.incidentReports?.length === 0 && (
         <>
-          {isParent === false ? (
+          {isParent() === true ? (
             <>
               <Alert variant="outlined" severity="info">
                 {childData?.firstName} {childData?.lastName} has no incident
@@ -44,11 +44,11 @@ export const ChildIncidentReports = ({ childData }) => {
                 variant="contained"
                 color="warning"
                 size="small"
-                onClick={(user) => {
-                  navigate("/certificate/new", { replace: true });
+                onClick={() => {
+                  navigate("/incident-report/new", { replace: true });
                 }}
               >
-                Create Certificate
+                Add Incident
               </Button>
             </>
           ) : (

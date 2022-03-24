@@ -192,6 +192,7 @@ export const TeacherSignupForm = () => {
             error={!!errors.emailAddress}
           />
           <TextField
+            color="warning"
             margin="normal"
             id="password"
             label="Password"
@@ -216,6 +217,7 @@ export const TeacherSignupForm = () => {
             uppercase characters, with 1 special character required
           </Typography>
           <TextField
+            color="warning"
             margin="normal"
             id="confirmPassword"
             label="Confirm Password"
