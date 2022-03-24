@@ -10,7 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import Typography from "@mui/material/Typography";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -23,7 +23,7 @@ import { GET_YEAR_GROUP_DATA } from "../../graphql/query";
 import { GREEN, forms } from "../../styles";
 import { UploadChildImage } from "../UploadChildImage";
 import { PageTitle } from "../PageTitle";
-import {PageError} from "../PageError"
+import { PageError } from "../PageError";
 
 export const AddChildForm = () => {
   const { loading, error, data } = useQuery(GET_YEAR_GROUP_DATA);
@@ -86,7 +86,7 @@ export const AddChildForm = () => {
   };
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   if (error) {

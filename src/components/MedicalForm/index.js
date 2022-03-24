@@ -12,7 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
@@ -93,7 +93,7 @@ export const MedicalForm = () => {
   };
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   if (error) {

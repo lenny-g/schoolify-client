@@ -13,6 +13,8 @@ import { PageContainer } from "../components/PageContainer/";
 import { AbsenceRequestSummary } from "../components/ChildDashboard/AbsenceRequestSummary";
 import { ChildProfileCard } from "../components/ChildDashboard/ChildProfileCard";
 import { PageTitle } from "../components/PageTitle";
+import { PageError } from "../components/PageError";
+import { Loading } from "../components/Loading";
 import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
 import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
 import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
@@ -31,15 +33,11 @@ export const StudentInfo = () => {
   const childData = data?.viewChild;
 
   if (loading) {
-    return <LinearProgress style={{ backgroundColor: "purple" }} />;
+    return <Loading />;
   }
 
   if (!loading && error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please try again later.
-      </Alert>
-    );
+    return <PageError />;
   }
 
   const certificateImg = (value) => {

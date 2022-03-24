@@ -11,7 +11,6 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
 import { Link as RouterLink } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
@@ -19,6 +18,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { GREEN, forms } from "../../styles";
 import { PageTitle } from "../PageTitle";
+import { Loading } from "../Loading";
 import { PageError } from "../PageError";
 import { GET_PARENTS_CHILDREN } from "../../graphql/query";
 import { MAKE_AN_ABSENCE_REQUEST } from "../../graphql/mutations";
@@ -75,7 +75,7 @@ export const AbsenceForm = () => {
   }
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   return (

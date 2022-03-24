@@ -7,6 +7,7 @@ import { TEACHER_ABSENCE_REQUEST_RESPONSE } from "../../graphql/mutations";
 import { MOBILE, DESKTOP } from "../../media";
 import { useMediaQuery } from "react-responsive";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 
 import TextField from "@mui/material/TextField";
 import TableContainer from "@mui/material/TableContainer";
@@ -17,7 +18,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -124,15 +125,11 @@ export const TeachersAbsenceRequestsTable = () => {
   };
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   if (!loading && error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please try again later.
-      </Alert>
-    );
+    return <PageError />;
   }
 
   return (

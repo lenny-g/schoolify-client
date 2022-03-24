@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { DELETE_ABSENCE_REQUEST } from "../../graphql/mutations";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/ParentAbsenceRequestCard";
 import { PageTitle } from "../PageTitle";
+import { PageError } from "../PageError";
 import { MOBILE, DESKTOP } from "../../media";
 import { useMediaQuery } from "react-responsive";
 
@@ -21,10 +22,11 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { forms } from "../../styles";
+import { RequestAbsenceButton } from "../RequestAbsenceButton";
 
 const stylingRowColor = (status) => {
   if (status === "PENDING") return "#ead885";
@@ -100,15 +102,11 @@ export const ParentsAbsenceRequestTable = () => {
   };
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    <Loading />;
   }
 
   if (!loading && error) {
-    return (
-      <Alert severity="error">
-        Something went wrong, please try again later.
-      </Alert>
-    );
+    return <PageError />;
   }
 
   return (
@@ -230,6 +228,7 @@ export const ParentsAbsenceRequestTable = () => {
           })}
         </Grid>
       )}
+      <RequestAbsenceButton />
     </Stack>
   );
 };

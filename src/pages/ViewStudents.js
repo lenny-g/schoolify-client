@@ -1,6 +1,7 @@
 import { StudentCards } from "../components/StudentCards";
 import { PageContainer } from "../components/PageContainer";
 import { PageTitle } from "../components/PageTitle";
+import { PageError } from "../components/PageError";
 import { useAuth } from "../context/AppProvider";
 import { GET_TEACHER_STUDENTS } from "../graphql/query";
 import { useQuery } from "@apollo/client";
@@ -8,7 +9,7 @@ import { useQuery } from "@apollo/client";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../components/Loading";
 
 export const ViewStudents = () => {
   const { user } = useAuth();
@@ -22,17 +23,13 @@ export const ViewStudents = () => {
 
   const renderLoading = () => {
     if (loading) {
-      return <CircularProgress color="warning" />;
+      return <Loading />;
     }
   };
 
   const renderError = () => {
     if (!loading && error) {
-      return (
-        <Alert severity="error">
-          Something went wrong, please try again later.
-        </Alert>
-      );
+      return <PageError />;
     }
   };
 

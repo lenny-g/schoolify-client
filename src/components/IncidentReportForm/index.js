@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Loading } from "../Loading";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
@@ -73,7 +73,7 @@ export const IncidentReportForm = () => {
   }
 
   if (loading) {
-    return <CircularProgress color="warning" />;
+    return <Loading />;
   }
 
   return (
