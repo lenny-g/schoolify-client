@@ -6,6 +6,7 @@ import Alert from "@mui/material/Alert";
 import { VIEW_CHILD } from "../graphql/query";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { useMediaQuery } from "react-responsive";
 
 import { item, forms, GREEN } from "../styles";
 
@@ -19,11 +20,14 @@ import { MedicalInfo } from "../components/ChildDashboard/MedicalInfo";
 import { ChildCertificates } from "../components/ChildDashboard/ChildCertificates";
 import { ChildIncidentReports } from "../components/ChildDashboard/ChildIncidentReports";
 import { certificateOptions } from "../data/certificateTypes";
+import { TABLET } from "../media";
 
 export const StudentInfo = () => {
   const { studentId } = useParams();
 
   console.log(studentId);
+
+  const isTablet = useMediaQuery(TABLET);
 
   const { data, loading, error } = useQuery(VIEW_CHILD, {
     variables: { studentId },
@@ -62,7 +66,9 @@ export const StudentInfo = () => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+            <Box
+              sx={{ ...forms.container, backgroundColor: GREEN, display: "" }}
+            >
               <MedicalInfo childData={childData} />
             </Box>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
@@ -72,7 +78,6 @@ export const StudentInfo = () => {
               />
             </Box>
           </Grid>
-
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <AbsenceRequestSummary childData={childData} />

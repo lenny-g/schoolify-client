@@ -74,7 +74,13 @@ export const ChildIncidentReports = ({ childData }) => {
               textDecoration: "none",
             }}
           >
-            <Stack sx={{ width: "100%", color: "black" }}>
+            <Stack
+              id={incidentReport.id}
+              sx={{ width: "100%", color: "black" }}
+              onClick={() => {
+                navigate("/incident-report/view/parent", { replace: true });
+              }}
+            >
               <Typography variant="subtitle1" align="center">
                 {incidentReport?.title}
               </Typography>
