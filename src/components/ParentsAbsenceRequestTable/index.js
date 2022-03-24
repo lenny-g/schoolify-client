@@ -6,7 +6,7 @@ import { DELETE_ABSENCE_REQUEST } from "../../graphql/mutations";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/ParentAbsenceRequestCard";
 import { PageTitle } from "../PageTitle";
 import { PageError } from "../PageError";
-import { MOBILE, DESKTOP } from "../../media";
+import { TABLET } from "../../media";
 import { useMediaQuery } from "react-responsive";
 
 import Grid from "@mui/material/Grid";
@@ -42,8 +42,7 @@ const actionButtons = (status) => {
 };
 
 export const ParentsAbsenceRequestTable = () => {
-  const isMobile = useMediaQuery(MOBILE);
-  const isDesktop = useMediaQuery(DESKTOP);
+  const isTablet = useMediaQuery(TABLET);
 
   const [search, setSearch] = useState("");
 
@@ -70,9 +69,11 @@ export const ParentsAbsenceRequestTable = () => {
           absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
-          dateTime: `${
-            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0]
-          }  `,
+          dateTime:
+            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0] ===
+            "Invalid Date"
+              ? eachRequest.dateTime
+              : parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0],
           status: eachRequest.status,
         };
       });
@@ -113,7 +114,7 @@ export const ParentsAbsenceRequestTable = () => {
   }
 
   return (
-    <Stack spacing={2} sx={{ alignItems: isMobile ? "center" : "normal" }}>
+    <Stack spacing={2} sx={{ alignItems: isTablet ? "center" : "normal" }}>
       <PageTitle>Absence Requests</PageTitle>
 
       <Typography variant="h5" sx={{ textAlign: "center" }}>
@@ -153,7 +154,7 @@ export const ParentsAbsenceRequestTable = () => {
         </Alert>
       )}
 
-      {isDesktop && (
+      {!isTablet && (
         <TableContainer component={Paper}>
           <Table>
             <TableHead
@@ -217,7 +218,7 @@ export const ParentsAbsenceRequestTable = () => {
           </Table>
         </TableContainer>
       )}
-      {isMobile && (
+      {isTablet && (
         <Grid>
           {handleUserSearch().map((each, index) => {
             return (
