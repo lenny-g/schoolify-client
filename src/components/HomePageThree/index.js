@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 
 import { item } from '../../styles';
 import { Logo } from '../Logo/index';
-import confetti from '../../assets/img/confetti.png';
+import chat from '../../assets/img/chat.png';
 
 export const HomePageThree = () => {
 	return (
@@ -13,24 +13,23 @@ export const HomePageThree = () => {
 			container
 			sx={{
 				display: 'flex',
-				alignItems: 'center',
 				margin: 'auto',
+				alignItems: 'center',
+				justifyContent: 'center',
 			}}>
 			<Grid item={true} xs={12} sm={6} sx={{ mt: 6 }}>
 				<Box
 					component="img"
 					sx={{
-						width: '70%',
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
-						margin: 'auto',
 					}}
 					alt="Home Image"
-					src={confetti}
+					src={chat}
 				/>
 			</Grid>
-			<Grid item={true} xs={12} sm={6}>
+			<Grid item={true} xs={12} sm={6} sx={{ marginTop: '2rem' }}>
 				<Stack spacing={2}>
 					<Typography variant="h3">
 						Busy Parents can be notified of incidents immediately
@@ -45,13 +44,21 @@ export const HomePageThree = () => {
 					</Typography>
 				</Stack>
 			</Grid>
-			<Box sx={{ textAlign: 'center', m: '10px' }}>
+			<Box sx={{ textAlign: 'center' }}>
+				<Typography
+					variant="h3"
+					gutterBottom
+					component="div"
+					sx={{ m: '10px' }}>
+					Schoolify
+				</Typography>
 				<Typography
 					variant="h5"
 					gutterBottom
 					component="div"
 					sx={{ m: '10px' }}>
-					Just one app, the <b>ONLY</b> app for teachers, parents and schools.
+					Just <b>one</b> app, the <b>ONLY</b> app for teachers, parents and
+					schools.
 				</Typography>
 				<Typography
 					variant="subtitle1"

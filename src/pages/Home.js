@@ -1,4 +1,5 @@
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import { useMediaQuery } from 'react-responsive';
 
 import { MOBILE } from '../media';
@@ -11,14 +12,12 @@ export const Home = ({ children }) => {
 	const isMobile = useMediaQuery(MOBILE);
 
 	return (
-		<Container
-			bgColor="white"
-			maxWidth="md"
-			sx={homeContainerStyles(isMobile)}
-			disableGutters={isMobile}>
-			<HomePageOne />
-			<HomePageTwo />
-			<HomePageThree />
+		<Container>
+			<Stack spacing={8}>
+				<HomePageOne />
+				<HomePageTwo />
+				<HomePageThree />
+			</Stack>
 		</Container>
 	);
 };

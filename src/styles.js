@@ -126,6 +126,14 @@ export const modal = {
 	},
 };
 
+export const home = {
+	page: {
+		display: 'flex',
+		alignItems: 'center',
+		height: '100vh',
+	},
+};
+
 export const brand = {
 	container: {
 		display: 'flex',
