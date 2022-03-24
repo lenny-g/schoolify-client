@@ -26,8 +26,8 @@ export const Results = ({ results, score }) => {
       </Button>
       {showResults && (
         <Stack spacing={2}>
-          {results.map((result) => (
-            <Box sx={{ minWidth: 275 }}>
+          {results.map((result, index) => (
+            <Box sx={{ minWidth: 275 }} key={index}>
               <Card variant="outlined">
                 <CardContent>
                   <Grid container spacing={2} sx={{ alignItems: "center" }}>
