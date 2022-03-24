@@ -23,8 +23,6 @@ import { certificateOptions } from "../data/certificateTypes";
 export const StudentInfo = () => {
   const { studentId } = useParams();
 
-  console.log(studentId);
-
   const { data, loading, error } = useQuery(VIEW_CHILD, {
     variables: { studentId },
 

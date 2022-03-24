@@ -31,8 +31,20 @@ export const ParentSignupForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (formData) => {
-    if (formData.password !== formData.confirmPassword) {
+  const onSubmit = async ({
+    title,
+    firstName,
+    lastName,
+    emailAddress,
+    password,
+    confirmPassword,
+    postCode,
+    city,
+    street,
+    houseNumber,
+    phoneNumber,
+  }) => {
+    if (password !== confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match",
@@ -41,16 +53,17 @@ export const ParentSignupForm = () => {
       const { data } = await executeSignUp({
         variables: {
           input: {
-            postCode: formData.postCode,
-            city: formData.city,
-            street: formData.street,
-            houseNumber: formData.houseNumber,
-            password: formData.password,
-            email: formData.emailAddress,
-            phoneNumber: formData.phoneNumber,
-            lastName: formData.lastName,
-            firstName: formData.firstName,
-            title: formData.title,
+            postCode: postCode,
+            city: city,
+            street: street,
+            houseNumber: houseNumber,
+            password: password,
+            email: emailAddress,
+            phoneNumber: phoneNumber,
+            lastName: lastName.charAt(0).toUpperCase() + lastName.substring(1),
+            firstName:
+              firstName.charAt(0).toUpperCase() + firstName.substring(1),
+            title: title,
           },
         },
       });
@@ -109,6 +122,7 @@ export const ParentSignupForm = () => {
               label="First Name"
               variant="outlined"
               name="firstName"
+              inputProps={{ style: { textTransform: "capitalize" } }}
               fullWidth
               disabled={loading}
               {...register("firstName", { required: true })}
@@ -121,6 +135,7 @@ export const ParentSignupForm = () => {
               label="Last Name"
               variant="outlined"
               name="lastName"
+              inputProps={{ style: { textTransform: "capitalize" } }}
               fullWidth
               disabled={loading}
               {...register("lastName", { required: true })}
@@ -233,6 +248,7 @@ export const ParentSignupForm = () => {
               label="Street Name"
               variant="outlined"
               name="street"
+              inputProps={{ style: { textTransform: "capitalize" } }}
               fullWidth
               disabled={loading}
               {...register("street", { required: true })}
@@ -245,6 +261,7 @@ export const ParentSignupForm = () => {
               label="City"
               variant="outlined"
               name="city"
+              inputProps={{ style: { textTransform: "capitalize" } }}
               fullWidth
               disabled={loading}
               {...register("city", { required: true })}
@@ -257,6 +274,7 @@ export const ParentSignupForm = () => {
               label="Post Code"
               variant="outlined"
               name="postCode"
+              inputProps={{ style: { textTransform: "uppercase" } }}
               fullWidth
               disabled={loading}
               {...register("postCode", { required: true })}
