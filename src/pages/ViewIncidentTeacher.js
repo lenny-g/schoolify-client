@@ -1,14 +1,13 @@
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
+
 import { Loading } from "../components/Loading";
 import { IncidentChannel } from "../components/IncidentChannel";
 import { IncidentListDesktop } from "../components/IncidentList/IncidentListDesktop";
 import { PageContainer } from "../components/PageContainer";
 import { PageTitle } from "../components/PageTitle";
 import { PageError } from "../components/PageError";
-import { MOBILE, DESKTOP } from "../media";
+import { MOBILE } from "../media";
 import { useMediaQuery } from "react-responsive";
 import { IncidentComment } from "../components/IncidentComment";
 import { useState } from "react";
@@ -24,7 +23,6 @@ import {
 
 export const ViewIncidentTeacher = () => {
   const isMobile = useMediaQuery(MOBILE);
-  const isDesktop = useMediaQuery(DESKTOP);
 
   const { user } = useAuth();
 
@@ -40,9 +38,9 @@ export const ViewIncidentTeacher = () => {
   });
 
   const {
-    loading: incidentReportListLoading,
+    // loading: incidentReportListLoading,
     data: incidentReportList,
-    error: incidentReportListError,
+    // error: incidentReportListError,
     refetch,
   } = useQuery(VIEW_INCIDENT_REPORTS, {
     pollInterval: 1000,
@@ -78,22 +76,21 @@ export const ViewIncidentTeacher = () => {
     setShowCommentSection(true);
   };
 
-  const renderLoading = () => {
-    if (studentListLoading && incidentReportListLoading) {
-      return <Loading />;
-    }
-  };
+  if (studentListLoading) {
+    return (
+      <PageContainer>
+        <Loading />
+      </PageContainer>
+    );
+  }
 
-  const renderError = () => {
-    if (
-      !studentListLoading &&
-      studentListError &&
-      incidentReportListError &&
-      !incidentReportListLoading
-    ) {
-      return <PageError />;
-    }
-  };
+  if (!studentListLoading && studentListError) {
+    return (
+      <PageContainer>
+        <PageError />
+      </PageContainer>
+    );
+  }
 
   const renderData = () => {
     return (
@@ -148,11 +145,5 @@ export const ViewIncidentTeacher = () => {
     );
   };
 
-  return (
-    <PageContainer>
-      {renderLoading()}
-      {renderError()}
-      {renderData()}
-    </PageContainer>
-  );
+  return <PageContainer>{renderData()}</PageContainer>;
 };

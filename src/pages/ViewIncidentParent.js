@@ -1,6 +1,5 @@
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Alert from "@mui/material/Alert";
 import { Loading } from "../components/Loading";
 import { IncidentChannel } from "../components/IncidentChannel";
 import { IncidentComment } from "../components/IncidentComment";
@@ -8,7 +7,7 @@ import { IncidentListDesktop } from "../components/IncidentList/IncidentListDesk
 import { PageContainer } from "../components/PageContainer";
 import { PageTitle } from "../components/PageTitle";
 import { PageError } from "../components/PageError";
-import { DESKTOP, MOBILE } from "../media";
+import { MOBILE } from "../media";
 import { useMediaQuery } from "react-responsive";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
@@ -21,7 +20,6 @@ import {
 } from "../graphql/query";
 
 export const ViewIncidentParent = () => {
-  const isDesktop = useMediaQuery(DESKTOP);
   const isMobile = useMediaQuery(MOBILE);
 
   const { user } = useAuth();
@@ -36,8 +34,8 @@ export const ViewIncidentParent = () => {
 
   const {
     data: incidentReportList,
-    error: incidentReportListError,
-    loading: incidentReportListLoading,
+    // error: incidentReportListError,
+    // loading: incidentReportListLoading,
     refetch,
   } = useQuery(VIEW_INCIDENT_REPORTS, {
     pollInterval: 1000,
@@ -73,22 +71,21 @@ export const ViewIncidentParent = () => {
     setShowCommentSection(true);
   };
 
-  const renderLoading = () => {
-    if (loading && incidentReportListLoading) {
-      return <Loading />;
-    }
-  };
+  if (loading) {
+    return (
+      <PageContainer>
+        <Loading />
+      </PageContainer>
+    );
+  }
 
-  const renderError = () => {
-    if (
-      !loading &&
-      error &&
-      incidentReportListError &&
-      !incidentReportListLoading
-    ) {
-      return <PageError />;
-    }
-  };
+  if (!loading && error) {
+    return (
+      <PageContainer>
+        <PageError />
+      </PageContainer>
+    );
+  }
 
   const renderData = () => {
     return (
@@ -142,11 +139,5 @@ export const ViewIncidentParent = () => {
     );
   };
 
-  return (
-    <PageContainer>
-      {renderLoading()}
-      {renderError()}
-      {renderData()}
-    </PageContainer>
-  );
+  return <PageContainer>{renderData()}</PageContainer>;
 };
