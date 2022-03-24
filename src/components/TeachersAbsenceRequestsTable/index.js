@@ -25,6 +25,7 @@ import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { ConfirmModal } from "../ConfirmModal";
 
 import { forms } from "../../styles";
 
@@ -61,36 +62,38 @@ export const TeachersAbsenceRequestsTable = () => {
     TEACHER_ABSENCE_REQUEST_RESPONSE
   );
 
-  const onAccept = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are you sure you want to Approve")) {
-      await executeTeacherResponse({
-        variables: {
-          input: {
-            teacherResponse: "APPROVED",
-            studentId: studentId,
-            absenceRequestId: absenceRequestId,
-          },
-        },
-      });
+  const [open, setOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState();
+  const handleClose = () => setOpen(false);
 
-      refetch();
-    }
+  const onAccept = async (absenceRequestId, studentId) => {
+    await executeTeacherResponse({
+      variables: {
+        input: {
+          teacherResponse: "APPROVED",
+          studentId: studentId,
+          absenceRequestId: absenceRequestId,
+        },
+      },
+    });
+
+    refetch();
+    setOpen(false);
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are you sure you want to Reject")) {
-      await executeTeacherResponse({
-        variables: {
-          input: {
-            teacherResponse: "REJECTED",
-            studentId: studentId,
-            absenceRequestId: absenceRequestId,
-          },
+    await executeTeacherResponse({
+      variables: {
+        input: {
+          teacherResponse: "REJECTED",
+          studentId: studentId,
+          absenceRequestId: absenceRequestId,
         },
-      });
+      },
+    });
 
-      refetch();
-    }
+    refetch();
+    setOpen(false);
   };
 
   let absenceRequestData = [];
@@ -216,14 +219,18 @@ export const TeachersAbsenceRequestsTable = () => {
                         <>
                           <Button
                             onClick={() => {
-                              onAccept(row.absenceRequestId, row.studentId);
+                              // onAccept(row.absenceRequestId, row.studentId);
+                              setSelectedRow({ row: row, onAccept: true });
+                              setOpen(true);
                             }}
                           >
                             <CheckIcon sx={{ color: "#06a206" }} />
                           </Button>
                           <Button
                             onClick={() => {
-                              onReject(row.absenceRequestId, row.studentId);
+                              setSelectedRow({ row: row, onAccept: false });
+                              setOpen(true);
+                              // onReject(row.absenceRequestId, row.studentId);
                             }}
                           >
                             <CloseIcon sx={{ color: "#c13030" }} />
@@ -254,6 +261,15 @@ export const TeachersAbsenceRequestsTable = () => {
           })}
         </Box>
       )}
+      <ConfirmModal
+        open={open}
+        handleClose={handleClose}
+        handleReject={onReject}
+        handleConfirm={onAccept}
+        selectedRow={selectedRow}
+        title="Approve or Reject absence request"
+        message="Are you sure you want to delete your absence request?"
+      />
     </Stack>
   );
 };
