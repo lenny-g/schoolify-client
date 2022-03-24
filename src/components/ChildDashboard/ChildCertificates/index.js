@@ -5,11 +5,13 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { ChildCertificateCard } from "./ChildCertificateCard";
 import { useState } from "react";
 import { modal } from "../../../styles";
 import { MOBILE } from "../../../media";
+import { useAuth } from "../../../context/AppProvider";
 
 export const ChildCertificates = ({ childData, certificateImg }) => {
   const [open, setOpen] = useState(false);
@@ -22,7 +24,17 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
+
+  const { user } = useAuth();
+
   const isMobile = useMediaQuery(MOBILE);
+
+  const isParent = () => {
+    if (user.role === "parent") {
+      return true;
+    }
+  };
 
   return (
     <Stack sx={{ width: "100%" }}>
@@ -34,11 +46,35 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
       >
         Certificates:
       </Typography>
-      {childData.length === 0 && (
-        <Alert severity="info">
-          {childData.firstName} {childData.lastName} has no absence requests
-          yet, click on the 'request absence' button to submit one.
-        </Alert>
+      {childData?.certificates?.length === 0 && (
+        <>
+          {isParent() === false ? (
+            <>
+              <Alert severity="info">
+                {childData.firstName} {childData.lastName} has no certificate
+                yet, click on the 'Create Certificate' button to submit one.
+              </Alert>
+              <Button
+                sx={{ mt: 2, width: "100%" }}
+                variant="contained"
+                color="warning"
+                size="small"
+                onClick={() => {
+                  navigate("/certificate/new", { replace: true });
+                }}
+              >
+                Create Certificate
+              </Button>
+            </>
+          ) : (
+            <>
+              <Alert severity="info">
+                {childData.firstName} {childData.lastName} has no certificate
+                yet.
+              </Alert>
+            </>
+          )}
+        </>
       )}
       <Stack
         flexDirection="row"
@@ -61,7 +97,11 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
           }
         })}
       </Stack>
-      <Button onClick={handleOpen}>See all Certificates</Button>
+      {childData?.certificates?.length === 0 ? (
+        <></>
+      ) : (
+        <Button onClick={handleOpen}>See all Certificates</Button>
+      )}
       <Modal
         open={open}
         onClose={handleClose}

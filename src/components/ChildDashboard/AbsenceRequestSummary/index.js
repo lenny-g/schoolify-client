@@ -1,4 +1,6 @@
 import parseISO from "date-fns/parseISO";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AppProvider";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,6 +9,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 
 const stylingAbsenceRequestColor = (status) => {
   if (status === "PENDING") return "#ead885";
@@ -21,6 +24,16 @@ const checkStatus = (status) => {
 };
 
 export const AbsenceRequestSummary = ({ childData }) => {
+  const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const isParent = () => {
+    if (user.role === "parent") {
+      return true;
+    }
+  };
+
   const formattedChildData = childData?.absenceRequests?.map(
     (absenceRequest) => {
       return {
@@ -36,7 +49,7 @@ export const AbsenceRequestSummary = ({ childData }) => {
   );
 
   return (
-    <Box width="100%">
+    <Stack width="100%">
       <Typography
         className="headingFont"
         variant="subtitle1"
@@ -46,10 +59,33 @@ export const AbsenceRequestSummary = ({ childData }) => {
         Absence Requests:
       </Typography>
       {formattedChildData.length === 0 && (
-        <Alert severity="info">
-          {childData.firstName} {childData.lastName} has no absence requests
-          yet, click on the 'request absence' button to submit one.
-        </Alert>
+        <>
+          {isParent === false ? (
+            <Alert severity="info">
+              {childData.firstName} {childData.lastName} has no absence requests
+              yet.
+            </Alert>
+          ) : (
+            <>
+              <Alert severity="info">
+                {childData.firstName} {childData.lastName} has no absence
+                requests yet, click on the 'Request Absence' button to submit
+                one.
+              </Alert>
+              <Button
+                sx={{ mt: 2, width: "100%" }}
+                variant="contained"
+                color="warning"
+                size="small"
+                onClick={() => {
+                  navigate("/absenceRequest/new", { replace: true });
+                }}
+              >
+                Request Absence
+              </Button>
+            </>
+          )}
+        </>
       )}
       {formattedChildData?.map((absenceRequest, index) => {
         return (
@@ -89,6 +125,6 @@ export const AbsenceRequestSummary = ({ childData }) => {
           </Accordion>
         );
       })}
-    </Box>
+    </Stack>
   );
 };

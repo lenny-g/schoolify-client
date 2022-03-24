@@ -3,17 +3,56 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AppProvider";
 
 export const MedicalInfo = ({ childData }) => {
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
+
+  const isParent = () => {
+    if (user.role === "parent") {
+      return true;
+    }
+  };
+
   return (
-    <Stack spacing={2} sx={{ textAlign: "center" }}>
-      <Typography variant="subtitle1">Medical Requirements:</Typography>
+    <Stack spacing={2}>
+      <Typography variant="subtitle1" align="center">
+        Medical Requirements:
+      </Typography>
 
       {!childData.medical ? (
-        <Alert severity="info">
-          {childData.firstName} {childData.lastName} doesn't have any medical
-          information yet, click on the 'add medical' button to submit one.
-        </Alert>
+        <>
+          {isParent === false ? (
+            <Alert severity="info">
+              {childData.firstName} {childData.lastName} doesn't have any
+              medical information yet.
+            </Alert>
+          ) : (
+            <>
+              <Alert severity="info">
+                {childData.firstName} {childData.lastName} doesn't have any
+                medical information yet, click on the 'Add Medical' button to
+                add information.
+              </Alert>
+              <Button
+                sx={{ mt: 2, width: "100%" }}
+                variant="contained"
+                color="warning"
+                size="small"
+                onClick={() => {
+                  navigate("/medical/new", { replace: true });
+                }}
+              >
+                Add Medical
+              </Button>
+            </>
+          )}
+        </>
       ) : (
         <>
           <Typography variant="subtitle2" gutterBottom>
