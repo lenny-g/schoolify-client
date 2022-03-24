@@ -35,7 +35,7 @@ export const ChildIncidentReports = ({ childData }) => {
 				<>
 					{isParent === false ? (
 						<>
-							<Alert severity="info">
+							<Alert variant="outlined" severity="info">
 								{childData?.firstName} {childData?.lastName} has no incident
 								reports yet, click on the 'Add Incident' button to submit one.
 							</Alert>
@@ -51,7 +51,7 @@ export const ChildIncidentReports = ({ childData }) => {
 							</Button>
 						</>
 					) : (
-						<Alert severity="info">
+						<Alert variant="outlined" severity="info">
 							{childData?.firstName} {childData?.lastName} has no incident
 							reports yet.
 						</Alert>
@@ -67,7 +67,7 @@ export const ChildIncidentReports = ({ childData }) => {
 							flexDirection: 'row',
 							justifyContent: 'space-between',
 							padding: '10px',
-							backgroundColor: '#ffa500',
+							backgroundColor: '#dd9047',
 							borderRadius: '10px',
 							mb: 2,
 							textDecoration: 'none',
