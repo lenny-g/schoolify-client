@@ -117,6 +117,8 @@ export const ConfirmModal = ({
                           selectedRow.row.absenceRequestId,
                           selectedRow.row.studentId
                         );
+
+                    handleClose();
                   }}
                 >
                   {selectedRow?.onAccept ? "Approve" : "Reject"}
@@ -126,7 +128,9 @@ export const ConfirmModal = ({
                   sx={{ marginLeft: 2 }}
                   variant="contained"
                   color="warning"
-                  onClick={handleClose}
+                  onClick={() => {
+                    handleClose();
+                  }}
                 >
                   Cancel
                 </Button>

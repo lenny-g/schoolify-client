@@ -16,7 +16,7 @@ export const ViewStudents = () => {
 
   const { loading, error, data } = useQuery(GET_TEACHER_STUDENTS, {
     variables: {
-      yearGroupId: user?.yearGroup.id,
+      yearGroupId: user?.yearGroup?.id,
     },
     pollInterval: 1000,
   });
