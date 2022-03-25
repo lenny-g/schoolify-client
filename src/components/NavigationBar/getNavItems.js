@@ -80,7 +80,7 @@ const parentNavArray = [
     link: "/absenceRequest/view",
   },
   {
-    name: "View incident Reports",
+    name: "View Incident Reports",
     icon: <NotificationsIcon />,
     link: "/incident-report/view/parent",
   },
@@ -113,12 +113,12 @@ const teacherNavArray = [
     link: "/absence-requests",
   },
   {
-    name: "Create Incident report",
+    name: "Create Incident Report",
     icon: <AddAlertIcon />,
     link: "/incident-report/new",
   },
   {
-    name: "View incident Reports",
+    name: "View Incident Reports",
     icon: <NotificationsIcon />,
     link: "/incident-report/view/teacher",
   },

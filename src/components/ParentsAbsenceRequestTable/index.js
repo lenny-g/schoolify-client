@@ -69,6 +69,7 @@ export const ParentsAbsenceRequestTable = () => {
           absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
+
           dateTime:
             parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0] ===
             "Invalid Date"
@@ -90,6 +91,7 @@ export const ParentsAbsenceRequestTable = () => {
 
   const [open, setOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
+
   const handleClose = () => setOpen(false);
 
   const deleteAbsenceOnClick = async (studentId, absenceRequestId) => {
@@ -155,6 +157,7 @@ export const ParentsAbsenceRequestTable = () => {
       )}
 
       {!isTablet && (
+
         <TableContainer component={Paper}>
           <Table>
             <TableHead
@@ -218,6 +221,7 @@ export const ParentsAbsenceRequestTable = () => {
           </Table>
         </TableContainer>
       )}
+
       {isTablet && (
         <Grid>
           {handleUserSearch().map((each, index) => {
