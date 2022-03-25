@@ -6,12 +6,12 @@ import { getContainerStyles } from "../../styles";
 import { Logo } from "../Logo";
 import { DateAndTime } from "../DateAndTime";
 
-export const PageContainer = ({ children }) => {
+export const PageContainer = ({ children, maxWidth }) => {
   const isMobile = useMediaQuery(MOBILE);
 
   return (
     <Container
-      maxWidth="md"
+      maxWidth={maxWidth || "md"}
       sx={getContainerStyles(isMobile)}
       disableGutters={isMobile}
     >

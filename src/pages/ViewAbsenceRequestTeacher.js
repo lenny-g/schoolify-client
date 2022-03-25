@@ -3,7 +3,7 @@ import { TeachersAbsenceRequestsTable } from "../components/TeachersAbsenceReque
 
 export const ViewAbsenceRequestTeacher = () => {
   return (
-    <PageContainer>
+    <PageContainer maxWidth="lg">
       <TeachersAbsenceRequestsTable />
     </PageContainer>
   );
