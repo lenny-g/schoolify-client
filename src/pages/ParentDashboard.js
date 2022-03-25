@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -14,10 +14,11 @@ import { useAuth } from "../context/AppProvider";
 import { GET_ALL_CHILDREN } from "../graphql/query";
 import { PageTitle } from "../components/PageTitle";
 import { PageError } from "../components/PageError";
+import { useEffect } from "react";
 
 export const ParentDashboard = () => {
-  const { loading, error, data, refetch } = useQuery(GET_ALL_CHILDREN, {
-    pollInterval: 1000,
+  const { loading, error, data } = useQuery(GET_ALL_CHILDREN, {
+    fetchPolicy: "network-only",
   });
 
   const { user } = useAuth();
@@ -86,8 +87,8 @@ export const ParentDashboard = () => {
             </Button>
           </Box>
           {data?.parentsChildren?.children?.length === 0 && (
-            <Alert severity="info">
-              There are no children register on this account. Please click on
+            <Alert severity="info" sx={{ justifyContent: "center" }}>
+              There are no children registered on this account. Please click on
               the "Add Child" button to get started.
             </Alert>
           )}
@@ -96,6 +97,8 @@ export const ParentDashboard = () => {
       );
     }
   };
+
+  console.log(data);
 
   return (
     <PageContainer>

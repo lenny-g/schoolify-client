@@ -20,7 +20,7 @@ const checkStatus = (status) => {
   return true;
 };
 
-export const AbsenceRequestSummary = ({ childData }) => {
+export const AbsenceRequestSummary = ({ childData, fullName }) => {
   const navigate = useNavigate();
 
   const { user } = useAuth();
@@ -89,11 +89,11 @@ export const AbsenceRequestSummary = ({ childData }) => {
           <Box
             onClick={() => {
               if (user.role === "parent") {
-                return navigate("/absenceRequest/view", {
+                return navigate(`/absenceRequest/view`, {
                   replace: true,
                 });
               } else {
-                return navigate("/absence-requests", {
+                return navigate(`/absence-requests?studentName=${fullName}`, {
                   replace: true,
                 });
               }

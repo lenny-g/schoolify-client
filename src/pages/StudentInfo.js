@@ -72,7 +72,10 @@ export const StudentInfo = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              <AbsenceRequestSummary childData={childData} />
+              <AbsenceRequestSummary
+                childData={childData}
+                fullName={`${childData.firstName} ${childData.lastName}`}
+              />
             </Box>
 
             <Box

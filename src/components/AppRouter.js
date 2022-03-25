@@ -65,8 +65,8 @@ export const AppRouter = () => {
         sx={{
           backgroundImage:
             user?.role === "teacher"
-              ? 'url("https://i.pinimg.com/736x/2a/1a/91/2a1a91d417c99110d88a9da04c8e11b0.jpg")'
-              : 'url("https://cdn.wallpapersafari.com/13/73/AQ4CSR.jpg")',
+              ? 'url("https://schoolify-resources.s3.eu-west-2.amazonaws.com/teacherBackground.jpeg")'
+              : 'url("https://schoolify-resources.s3.eu-west-2.amazonaws.com/backrgound-schoolify.png")',
 
           webkitBackgroundSize: "cover",
           mozBackgroundSize: "cover",

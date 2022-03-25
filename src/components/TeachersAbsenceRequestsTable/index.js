@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import parseISO from "date-fns/parseISO";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
@@ -47,7 +48,9 @@ export const TeachersAbsenceRequestsTable = () => {
 
   const { user } = useAuth();
 
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [search, setSearch] = useState(searchParams.get("studentName") || "");
 
   const { data, loading, error, refetch } = useQuery(
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
@@ -55,7 +58,7 @@ export const TeachersAbsenceRequestsTable = () => {
       variables: {
         yearGroupId: user.yearGroup.id,
       },
-      pollInterval: 100,
+      pollInterval: 1000,
     }
   );
 
@@ -156,6 +159,7 @@ export const TeachersAbsenceRequestsTable = () => {
           marginBottom: 20,
           maxWidth: "250px",
         }}
+        value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
