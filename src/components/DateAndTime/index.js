@@ -1,23 +1,28 @@
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-import { render } from "react-dom";
+export const DateAndTime = () => {
+  const [date, setDate] = useState(
+    new Date().toUTCString().split(" ").splice(0, 5).join(" ")
+  );
 
-class App extends Component {
-  constructor() {
-    this.state = {
-      currentDateTime: Date().toLocaleString(),
+  useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+    return () => {
+      clearInterval(timerID);
     };
-  }
+  }, []);
 
-  render() {
-    return (
-      <Box>
-        <Typography>{this.state.currentDateTime}</Typography>
-      </Box>
-    );
-  }
-}
+  const tick = () => {
+    setDate(new Date().toUTCString().split(" ").splice(0, 5).join(" "));
+  };
 
-render(<App />, document.getElementById("root"));
+  return (
+    <Box>
+      <Typography variant="h6" textAlign={"center"}>
+        {date}
+      </Typography>
+    </Box>
+  );
+};

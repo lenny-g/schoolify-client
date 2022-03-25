@@ -58,14 +58,22 @@ export const AddChildForm = () => {
     setDateOfBirth(value || null);
   }, [setDateOfBirth, value]);
 
-  const onSubmit = async (studentData) => {
+  const onSubmit = async ({
+    childFirstName,
+    childLastName,
+    dob,
+    yearGroup,
+  }) => {
     const { data } = await executeAddStudent({
       variables: {
         input: {
-          firstName: studentData.childFirstName,
-          lastName: studentData.childLastName,
-          dob: studentData.dob,
-          yearGroup: studentData.yearGroup,
+          firstName:
+            childFirstName.charAt(0).toUpperCase() +
+            childFirstName.substring(1),
+          lastName:
+            childLastName.charAt(0).toUpperCase() + childLastName.substring(1),
+          dob: dob,
+          yearGroup: yearGroup,
           profileImageUrl: childImage.src,
         },
       },
@@ -112,6 +120,7 @@ export const AddChildForm = () => {
             label="First Name"
             variant="outlined"
             name="childFirstName"
+            inputProps={{ style: { textTransform: "capitalize" } }}
             fullWidth
             {...register("childFirstName", { required: true })}
             error={!!errors.childFirstName}
@@ -123,6 +132,7 @@ export const AddChildForm = () => {
             label="Last Name"
             variant="outlined"
             name="childLastName"
+            inputProps={{ style: { textTransform: "capitalize" } }}
             fullWidth
             {...register("childLastName", { required: true })}
             error={!!errors.childLastName}

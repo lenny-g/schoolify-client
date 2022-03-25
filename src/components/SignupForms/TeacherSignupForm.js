@@ -16,7 +16,7 @@ import Link from "@mui/material/Link";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
-import { item, colors, forms, GREEN } from "../../styles";
+import { item, forms, GREEN } from "../../styles";
 import { PageTitle } from "../PageTitle";
 import { PageError } from "../PageError";
 
@@ -41,8 +41,16 @@ export const TeacherSignupForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (formData) => {
-    if (formData.password !== formData.confirmPassword) {
+  const onSubmit = async ({
+    firstName,
+    lastName,
+    password,
+    confirmPassword,
+    title,
+    emailAddress,
+    yearGroup,
+  }) => {
+    if (password !== confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match",
@@ -51,12 +59,13 @@ export const TeacherSignupForm = () => {
       const { data } = await executeSignUp({
         variables: {
           input: {
-            title: formData.title,
-            password: formData.password,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.emailAddress,
-            yearGroup: formData.yearGroup,
+            title: title,
+            password: password,
+            firstName:
+              firstName.charAt(0).toUpperCase() + firstName.substring(1),
+            lastName: lastName.charAt(0).toUpperCase() + lastName.substring(1),
+            email: emailAddress,
+            yearGroup: yearGroup,
           },
         },
       });
@@ -148,6 +157,7 @@ export const TeacherSignupForm = () => {
             label="First Name"
             variant="outlined"
             name="firstName"
+            inputProps={{ style: { textTransform: "capitalize" } }}
             fullWidth
             disabled={loading}
             {...register("firstName", { required: true })}
@@ -160,6 +170,7 @@ export const TeacherSignupForm = () => {
             label="Last Name"
             variant="outlined"
             name="lastName"
+            inputProps={{ style: { textTransform: "capitalize" } }}
             fullWidth
             disabled={loading}
             {...register("lastName", { required: true })}
@@ -192,6 +203,7 @@ export const TeacherSignupForm = () => {
             error={!!errors.emailAddress}
           />
           <TextField
+            color="warning"
             margin="normal"
             id="password"
             label="Password"
@@ -216,6 +228,7 @@ export const TeacherSignupForm = () => {
             uppercase characters, with 1 special character required
           </Typography>
           <TextField
+            color="warning"
             margin="normal"
             id="confirmPassword"
             label="Confirm Password"
