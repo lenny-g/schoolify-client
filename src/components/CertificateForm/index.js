@@ -21,6 +21,11 @@ import { forms, GREEN } from "../../styles";
 import { certificateOptions } from "../../data/certificateTypes";
 import { CertificateCard } from "../CertificateCard";
 
+import { Loading } from "../Loading";
+import { PageError } from "../PageError";
+
+import { PageTitle } from "../../components/PageTitle";
+
 export const CertificateForm = () => {
   const { user } = useAuth();
 
@@ -78,14 +83,24 @@ export const CertificateForm = () => {
     navigate(`/children/view/${formData.student}`, { replace: true });
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!loading && error) {
+    return <PageError />;
+  }
+
   return (
     <Stack component="form" onSubmit={handleSubmit(onSubmit)}>
+      <PageTitle>Certificate Form</PageTitle>
       <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
         <FormControl sx={{ mt: 2 }} fullWidth>
-          <InputLabel color="secondary" id="certificate">
+          <InputLabel color="warning" id="certificate">
             Certificate
           </InputLabel>
           <Select
+            color="warning"
             defaultValue={"wellDone"}
             labelId="certificate"
             id="certificate"
@@ -110,6 +125,7 @@ export const CertificateForm = () => {
             name="student"
             render={({ field: { onChange, value } }) => (
               <Select
+                color="warning"
                 labelId="student"
                 id="student"
                 label="Select Student"
@@ -133,6 +149,7 @@ export const CertificateForm = () => {
         </FormControl>
 
         <TextField
+          color="warning"
           margin="normal"
           id="message"
           label="Message"

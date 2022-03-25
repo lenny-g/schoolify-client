@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Link as RouterLink } from "react-router-dom";
 import { PARENT_SIGN_UP } from "../../graphql/mutations";
-import { item, colors, GREEN, forms } from "../../styles";
+import { item, GREEN, forms } from "../../styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -145,7 +145,6 @@ export const ParentSignupForm = () => {
           <Box sx={{ mt: "2rem" }}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <Typography
-                color="success.dark"
                 variant="subtitle1"
                 component="div"
                 sx={{ padding: "0px 8px" }}
@@ -153,7 +152,7 @@ export const ParentSignupForm = () => {
                 Enter login details
               </Typography>
               <TextField
-                color="success"
+                color="warning"
                 margin="normal"
                 id="emailAddress"
                 label="Email Address"
@@ -222,7 +221,6 @@ export const ParentSignupForm = () => {
         <Grid item xs={12} md={6}>
           <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
             <Typography
-              color="warning.dark"
               variant="subtitle1"
               component="div"
               sx={{ padding: "0px 8px" }}

@@ -16,7 +16,7 @@ import Link from "@mui/material/Link";
 import LoadingButton from "@mui/lab/LoadingButton";
 import ErrorIcon from "@mui/icons-material/Error";
 
-import { item, colors, forms, GREEN } from "../../styles";
+import { item, forms, GREEN } from "../../styles";
 import { PageTitle } from "../PageTitle";
 import { PageError } from "../PageError";
 
@@ -203,6 +203,7 @@ export const TeacherSignupForm = () => {
             error={!!errors.emailAddress}
           />
           <TextField
+            color="warning"
             margin="normal"
             id="password"
             label="Password"
@@ -227,6 +228,7 @@ export const TeacherSignupForm = () => {
             uppercase characters, with 1 special character required
           </Typography>
           <TextField
+            color="warning"
             margin="normal"
             id="confirmPassword"
             label="Confirm Password"

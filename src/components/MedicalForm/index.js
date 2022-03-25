@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -13,10 +13,8 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { Loading } from "../Loading";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
 
-import { forms, colors, GREEN } from "../../styles";
+import { forms, GREEN } from "../../styles";
 
 import { ADD_MEDICAL_INFO_TO_STUDENT } from "../../graphql/mutations";
 import { GET_PARENTS_CHILDREN } from "../../graphql/query";
@@ -96,7 +94,7 @@ export const MedicalForm = () => {
     return <Loading />;
   }
 
-  if (error) {
+  if (!loading && error) {
     return <PageError />;
   }
   return (

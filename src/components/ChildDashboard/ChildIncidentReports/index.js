@@ -3,22 +3,57 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
+
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AppProvider";
 
 export const ChildIncidentReports = ({ childData }) => {
+  const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const isParent = () => {
+    if (user.role === "parent") {
+      return true;
+    }
+  };
+
   return (
     <Stack sx={{ width: "100%" }}>
-      <Typography
-        className="headingFont"
-        variant="subtitle1"
-        gutterBottom
-        align="center"
-      >
+      <Typography className="headingFont" variant="subtitle1" align="center">
         Incident Reports:
       </Typography>
+      <Typography variant="caption" gutterBottom align="center">
+        Click to view Incident
+      </Typography>
       {childData?.incidentReports?.length === 0 && (
-        <Alert severity="info">
-          {childData?.firstName} {childData?.lastName} has no incident reports.
-        </Alert>
+        <>
+          {isParent() === true ? (
+            <Alert variant="outlined" severity="info">
+              {childData?.firstName} {childData?.lastName} has no incident
+              reports yet.
+            </Alert>
+          ) : (
+            <>
+              <Alert variant="outlined" severity="info">
+                {childData?.firstName} {childData?.lastName} has no incident
+                reports yet, click on the 'Add Incident' button to submit one.
+              </Alert>
+              <Button
+                sx={{ mt: 2, width: "100%" }}
+                variant="contained"
+                color="warning"
+                size="small"
+                onClick={() => {
+                  navigate("/incident-report/new", { replace: true });
+                }}
+              >
+                Add Incident
+              </Button>
+            </>
+          )}
+        </>
       )}
       {childData?.incidentReports?.map((incidentReport, index) => {
         return (
@@ -26,17 +61,39 @@ export const ChildIncidentReports = ({ childData }) => {
             component={Link}
             key={index}
             sx={{
-              backgroundColor: "blue",
-              mb: "10px",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "10px",
+              backgroundColor: "#dd9047",
+              borderRadius: "10px",
+              mb: 2,
+              textDecoration: "none",
+              "&:hover": {
+                opacity: "0.5",
+                cursor: "pointer",
+              },
             }}
           >
-            <Stack sx={{ width: "100%" }}>
-              <Typography align="center">{incidentReport?.title}</Typography>
-              <Typography align="center">
-                {incidentReport?.description}
+            <Stack
+              onClick={() => {
+                if (user.role === "parent") {
+                  return navigate("/incident-report/view/parent", {
+                    replace: true,
+                  });
+                } else {
+                  return navigate("/incident-report/view/teacher", {
+                    replace: true,
+                  });
+                }
+              }}
+              sx={{ width: "100%", color: "black" }}
+            >
+              <Typography variant="subtitle1" align="center">
+                {incidentReport?.title}
               </Typography>
-              <Typography align="center">{incidentReport?.teacher}</Typography>
-              <Typography align="center">{incidentReport?.dateTime}</Typography>
+              <Typography variant="caption" align="center">
+                {incidentReport?.dateTime?.split(" ").slice(1, 5).join(" ")}
+              </Typography>
             </Stack>
           </Box>
         );

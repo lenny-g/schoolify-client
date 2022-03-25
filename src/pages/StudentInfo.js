@@ -1,7 +1,5 @@
-import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Alert from "@mui/material/Alert";
 
 import { VIEW_CHILD } from "../graphql/query";
 import { useParams } from "react-router-dom";
@@ -60,7 +58,9 @@ export const StudentInfo = () => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
+            <Box
+              sx={{ ...forms.container, backgroundColor: GREEN, display: "" }}
+            >
               <MedicalInfo childData={childData} />
             </Box>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
@@ -70,14 +70,20 @@ export const StudentInfo = () => {
               />
             </Box>
           </Grid>
-
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
               <AbsenceRequestSummary childData={childData} />
             </Box>
 
-            <Box sx={{ ...forms.container, backgroundColor: GREEN }}>
-              {/* <ChildIncidentReports childData={childData} /> */}
+            <Box
+              sx={{
+                ...forms.container,
+                backgroundColor: GREEN,
+                height: "330px",
+                overflow: "auto",
+              }}
+            >
+              <ChildIncidentReports childData={childData} />
             </Box>
           </Grid>
         </Grid>

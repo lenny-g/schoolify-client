@@ -4,10 +4,12 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_TEACHER_STUDENTS_ABSENCE_REQUESTS } from "../../graphql/query";
 import { AbsenceRequestCard } from "../AbsenceRequestCard/TeacherAbsenceRequestCard";
 import { TEACHER_ABSENCE_REQUEST_RESPONSE } from "../../graphql/mutations";
-import { MOBILE, DESKTOP } from "../../media";
+import { TABLET } from "../../media";
 import { useMediaQuery } from "react-responsive";
 import { PageTitle } from "../PageTitle";
 import { PageError } from "../PageError";
+import { Loading } from "../Loading";
+import { ConfirmModal } from "../ConfirmModal";
 
 import TextField from "@mui/material/TextField";
 import TableContainer from "@mui/material/TableContainer";
@@ -18,7 +20,6 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Loading } from "../Loading";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -27,6 +28,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { forms } from "../../styles";
+import { useAuth } from "../../context/AppProvider";
 
 const stylingRowColor = (status) => {
   if (status === "PENDING") return "#ead885";
@@ -41,9 +43,9 @@ const actionButtons = (status) => {
 };
 
 export const TeachersAbsenceRequestsTable = () => {
-  const isMobile = useMediaQuery(MOBILE);
-  const isDesktop = useMediaQuery(DESKTOP);
-  const yearGroupId = JSON.parse(localStorage.getItem("user")).yearGroup.id;
+  const isTablet = useMediaQuery(TABLET);
+
+  const { user } = useAuth();
 
   const [search, setSearch] = useState("");
 
@@ -51,7 +53,7 @@ export const TeachersAbsenceRequestsTable = () => {
     GET_TEACHER_STUDENTS_ABSENCE_REQUESTS,
     {
       variables: {
-        yearGroupId: yearGroupId,
+        yearGroupId: user.yearGroup.id,
       },
       pollInterval: 100,
     }
@@ -61,36 +63,38 @@ export const TeachersAbsenceRequestsTable = () => {
     TEACHER_ABSENCE_REQUEST_RESPONSE
   );
 
-  const onAccept = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are you sure you want to Approve")) {
-      await executeTeacherResponse({
-        variables: {
-          input: {
-            teacherResponse: "APPROVED",
-            studentId: studentId,
-            absenceRequestId: absenceRequestId,
-          },
-        },
-      });
+  const [open, setOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState();
+  const handleClose = () => setOpen(false);
 
-      refetch();
-    }
+  const onAccept = async (absenceRequestId, studentId) => {
+    await executeTeacherResponse({
+      variables: {
+        input: {
+          teacherResponse: "APPROVED",
+          studentId: studentId,
+          absenceRequestId: absenceRequestId,
+        },
+      },
+    });
+
+    refetch();
+    setOpen(false);
   };
 
   const onReject = async (absenceRequestId, studentId) => {
-    if (window.confirm("Are you sure you want to Reject")) {
-      await executeTeacherResponse({
-        variables: {
-          input: {
-            teacherResponse: "REJECTED",
-            studentId: studentId,
-            absenceRequestId: absenceRequestId,
-          },
+    await executeTeacherResponse({
+      variables: {
+        input: {
+          teacherResponse: "REJECTED",
+          studentId: studentId,
+          absenceRequestId: absenceRequestId,
         },
-      });
+      },
+    });
 
-      refetch();
-    }
+    refetch();
+    setOpen(false);
   };
 
   let absenceRequestData = [];
@@ -105,9 +109,11 @@ export const TeachersAbsenceRequestsTable = () => {
           absenceRequestId: eachRequest.id,
           type: eachRequest.type,
           description: eachRequest.description,
-          dateTime: `${
-            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0]
-          }  `,
+          dateTime:
+            parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0] ===
+            "Invalid Date"
+              ? eachRequest.dateTime
+              : parseISO(eachRequest.dateTime).toGMTString().split("GMT")[0],
           status: eachRequest.status,
         };
       });
@@ -133,7 +139,7 @@ export const TeachersAbsenceRequestsTable = () => {
   }
 
   return (
-    <Stack spacing={2} sx={{ alignItems: isMobile ? "center" : "normal" }}>
+    <Stack spacing={2} sx={{ alignItems: isTablet ? "center" : "normal" }}>
       <PageTitle>Student Absence Requests</PageTitle>
       <Typography variant="h5" sx={{ textAlign: "center" }}>
         Please accept or reject absence requests made.
@@ -170,7 +176,7 @@ export const TeachersAbsenceRequestsTable = () => {
         </Alert>
       )}
 
-      {isDesktop && (
+      {!isTablet && (
         <TableContainer component={Paper}>
           <Table>
             <TableHead style={{ backgroundColor: "#5BCCB6" }}>
@@ -216,14 +222,18 @@ export const TeachersAbsenceRequestsTable = () => {
                         <>
                           <Button
                             onClick={() => {
-                              onAccept(row.absenceRequestId, row.studentId);
+                              // onAccept(row.absenceRequestId, row.studentId);
+                              setSelectedRow({ row: row, onAccept: true });
+                              setOpen(true);
                             }}
                           >
                             <CheckIcon sx={{ color: "#06a206" }} />
                           </Button>
                           <Button
                             onClick={() => {
-                              onReject(row.absenceRequestId, row.studentId);
+                              setSelectedRow({ row: row, onAccept: false });
+                              setOpen(true);
+                              // onReject(row.absenceRequestId, row.studentId);
                             }}
                           >
                             <CloseIcon sx={{ color: "#c13030" }} />
@@ -238,7 +248,7 @@ export const TeachersAbsenceRequestsTable = () => {
           </Table>
         </TableContainer>
       )}
-      {isMobile && (
+      {isTablet && (
         <Box>
           {handleUserSearch().map((each, index) => {
             return (
@@ -254,6 +264,15 @@ export const TeachersAbsenceRequestsTable = () => {
           })}
         </Box>
       )}
+      <ConfirmModal
+        open={open}
+        handleClose={handleClose}
+        handleReject={onReject}
+        handleConfirm={onAccept}
+        selectedRow={selectedRow}
+        title="Approve or Reject absence request"
+        message="Are you sure you want to delete your absence request?"
+      />
     </Stack>
   );
 };

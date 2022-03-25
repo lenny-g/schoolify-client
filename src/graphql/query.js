@@ -134,6 +134,18 @@ export const VIEW_CHILD = gql`
         dateTime
         status
       }
+      incidentReports {
+        id
+        title
+        description
+        dateTime
+        comments {
+          name
+          message
+          dateTime
+          id
+        }
+      }
       certificates {
         id
         name

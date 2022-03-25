@@ -5,16 +5,56 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 
+import confetti from "canvas-confetti";
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { ChildCertificateCard } from "./ChildCertificateCard";
 import { useState } from "react";
 import { modal } from "../../../styles";
 import { MOBILE } from "../../../media";
+import { useAuth } from "../../../context/AppProvider";
 
 export const ChildCertificates = ({ childData, certificateImg }) => {
+  const count = 500;
+  const defaults = {
+    origin: { y: 0.7 },
+    zIndex: 10000,
+  };
+
+  const fire = (particleRatio, opts) => {
+    confetti(
+      Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio),
+      })
+    );
+  };
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
+    fire(0.25, {
+      spread: 26,
+      startVelocity: 55,
+    });
+    fire(0.2, {
+      spread: 60,
+    });
+    fire(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+    });
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,
+    });
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 45,
+    });
+
     setOpen(true);
   };
 
@@ -22,7 +62,17 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
+
+  const { user } = useAuth();
+
   const isMobile = useMediaQuery(MOBILE);
+
+  const isParent = () => {
+    if (user.role === "parent") {
+      return true;
+    }
+  };
 
   return (
     <Stack sx={{ width: "100%" }}>
@@ -34,11 +84,32 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
       >
         Certificates:
       </Typography>
-      {childData.length === 0 && (
-        <Alert severity="info">
-          {childData.firstName} {childData.lastName} has no absence requests
-          yet, click on the 'request absence' button to submit one.
-        </Alert>
+      {childData?.certificates?.length === 0 && (
+        <>
+          {isParent() === true ? (
+            <Alert variant="outlined" severity="info">
+              {childData.firstName} {childData.lastName} has no certificate yet.
+            </Alert>
+          ) : (
+            <>
+              <Alert variant="outlined" severity="info">
+                {childData.firstName} {childData.lastName} has no certificate
+                yet, click on the 'Create Certificate' button to submit one.
+              </Alert>
+              <Button
+                sx={{ mt: 2, width: "100%" }}
+                variant="contained"
+                color="warning"
+                size="small"
+                onClick={() => {
+                  navigate("/certificate/new", { replace: true });
+                }}
+              >
+                Create Certificate
+              </Button>
+            </>
+          )}
+        </>
       )}
       <Stack
         flexDirection="row"
@@ -61,7 +132,19 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
           }
         })}
       </Stack>
-      <Button onClick={handleOpen}>See all Certificates</Button>
+      {childData?.certificates?.length === 0 ? (
+        <></>
+      ) : (
+        <Button
+          sx={{ mt: 2, width: "100%" }}
+          variant="contained"
+          color="warning"
+          size="small"
+          onClick={handleOpen}
+        >
+          See all Certificates
+        </Button>
+      )}
       <Modal
         open={open}
         onClose={handleClose}
@@ -71,7 +154,8 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
         <Box
           sx={{
             ...modal.container,
-            width: isMobile ? "60%" : "80%",
+            width: "fit-content",
+            maxWidth: isMobile ? "60%" : "80%",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-evenly",
