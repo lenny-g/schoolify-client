@@ -3,14 +3,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import { useMediaQuery } from "react-responsive";
-import { TABLET } from "../../../../media";
+import { TABLET2 } from "../../../../media";
 
 export const ChildCertificateCard = ({
   backgroundImage,
   studentName,
   message,
 }) => {
-  const isTablet = useMediaQuery(TABLET);
+  const isTablet = useMediaQuery(TABLET2);
 
   const checkViewPort = () => {
     if (isTablet) {
@@ -45,7 +45,7 @@ export const ChildCertificateCard = ({
         sx={{
           width: "100%",
           height: "100%",
-          mt: "1.5rem",
+          mt: "2.5rem",
         }}
       >
         <Typography

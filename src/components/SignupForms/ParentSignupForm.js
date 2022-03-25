@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Link as RouterLink } from "react-router-dom";
 import { PARENT_SIGN_UP } from "../../graphql/mutations";
-import { item, colors, GREEN, forms } from "../../styles";
+import { item, GREEN, forms } from "../../styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";

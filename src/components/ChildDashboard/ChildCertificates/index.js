@@ -86,7 +86,11 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
       </Typography>
       {childData?.certificates?.length === 0 && (
         <>
-          {isParent() === false ? (
+          {isParent() === true ? (
+            <Alert variant="outlined" severity="info">
+              {childData.firstName} {childData.lastName} has no certificate yet.
+            </Alert>
+          ) : (
             <>
               <Alert variant="outlined" severity="info">
                 {childData.firstName} {childData.lastName} has no certificate
@@ -103,13 +107,6 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
               >
                 Create Certificate
               </Button>
-            </>
-          ) : (
-            <>
-              <Alert variant="outlined" severity="info">
-                {childData.firstName} {childData.lastName} has no certificate
-                yet.
-              </Alert>
             </>
           )}
         </>
@@ -157,7 +154,8 @@ export const ChildCertificates = ({ childData, certificateImg }) => {
         <Box
           sx={{
             ...modal.container,
-            width: isMobile ? "60%" : "80%",
+            width: "fit-content",
+            maxWidth: isMobile ? "60%" : "80%",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-evenly",

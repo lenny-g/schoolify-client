@@ -14,7 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { Loading } from "../Loading";
 
-import { forms, colors, GREEN } from "../../styles";
+import { forms, GREEN } from "../../styles";
 
 import { ADD_MEDICAL_INFO_TO_STUDENT } from "../../graphql/mutations";
 import { GET_PARENTS_CHILDREN } from "../../graphql/query";

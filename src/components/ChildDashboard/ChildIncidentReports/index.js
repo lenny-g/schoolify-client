@@ -6,8 +6,6 @@ import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 
 import { useNavigate } from "react-router-dom";
-import { GREEN } from "../../../styles";
-import { color } from "@mui/system";
 import { useAuth } from "../../../context/AppProvider";
 
 export const ChildIncidentReports = ({ childData }) => {
@@ -32,6 +30,11 @@ export const ChildIncidentReports = ({ childData }) => {
       {childData?.incidentReports?.length === 0 && (
         <>
           {isParent() === true ? (
+            <Alert variant="outlined" severity="info">
+              {childData?.firstName} {childData?.lastName} has no incident
+              reports yet.
+            </Alert>
+          ) : (
             <>
               <Alert variant="outlined" severity="info">
                 {childData?.firstName} {childData?.lastName} has no incident
@@ -49,11 +52,6 @@ export const ChildIncidentReports = ({ childData }) => {
                 Add Incident
               </Button>
             </>
-          ) : (
-            <Alert variant="outlined" severity="info">
-              {childData?.firstName} {childData?.lastName} has no incident
-              reports yet.
-            </Alert>
           )}
         </>
       )}
@@ -70,10 +68,14 @@ export const ChildIncidentReports = ({ childData }) => {
               borderRadius: "10px",
               mb: 2,
               textDecoration: "none",
+              "&:hover": {
+                opacity: "0.5",
+                cursor: "pointer",
+              },
             }}
           >
             <Stack
-              onClick={(user) => {
+              onClick={() => {
                 if (user.role === "parent") {
                   return navigate("/incident-report/view/parent", {
                     replace: true,

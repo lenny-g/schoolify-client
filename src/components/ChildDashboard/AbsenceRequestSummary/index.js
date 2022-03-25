@@ -4,9 +4,6 @@ import { useAuth } from "../../../context/AppProvider";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
@@ -91,7 +88,15 @@ export const AbsenceRequestSummary = ({ childData }) => {
         return (
           <Box
             onClick={() => {
-              navigate("/absenceRequest/view", { replace: true });
+              if (user.role === "parent") {
+                return navigate("/absenceRequest/view", {
+                  replace: true,
+                });
+              } else {
+                return navigate("/absence-requests", {
+                  replace: true,
+                });
+              }
             }}
             disabled={checkStatus(absenceRequest.status)}
             key={index}
@@ -102,7 +107,8 @@ export const AbsenceRequestSummary = ({ childData }) => {
               ),
               mb: "10px",
               "&:hover": {
-                border: "2px solid #979dac",
+                opacity: "0.5",
+                cursor: "pointer",
               },
             }}
           >
