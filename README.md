@@ -1,6 +1,7 @@
 ![Schoolify](./src/assets/img/homeImg.png)
 
-You can view the deployed application [here](https://crush-app-2022.herokuapp.com/).
+You can view the deployed application [here](https://schoolify2022.herokuapp.com/).
+You can also view the depoloyed backend [here](https://powerful-island-38742.herokuapp.com/).
 
 ## Table of Contents
 
