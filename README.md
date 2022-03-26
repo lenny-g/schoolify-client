@@ -168,6 +168,6 @@ This project is licensed under the terms of the MIT license.
 
 please contact me through the links below:
 
-[GitHub](https://github.com/fudge88) Profile
+[GitHub](https://github.com/lenny-g) Profile
 
-Email: f.akhlaq@outlook.com
+Email: leanne_gallag@live.co.uk
